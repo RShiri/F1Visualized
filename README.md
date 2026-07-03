@@ -1,29 +1,38 @@
-# F1Visualized — Latest Race Timelapse Pipeline
+# F1Visualized — Latest Race Pipeline
 
 An automated, end-to-end Python pipeline that scrapes Formula 1 timing data for
-the **most recently completed Grand Prix** and renders a broadcast-style MP4
-"position-by-lap" timelapse — in the visual language of the *F1Visualized*
-Austrian GP timelapse.
-
-<p align="center"><em>Dark canvas · inverted P1→P20 axis · team-coloured driver
-traces · tyre badges · pit tags · flashing VSC banner.</em></p>
+the **most recently completed Grand Prix** and renders broadcast-style MP4
+animations of the race.
 
 ---
 
 ## What it produces
 
-`latest_race_timelapse.mp4` — a 1280×720 H.264 video that animates the race
-lap-by-lap:
+Two 1280×720 H.264 videos, both driven from one scrape of the lap-by-lap
+position log:
+
+### 1. `latest_race_replay.mp4` — the position-battle race *(headline)*
+
+Every driver is a little **car**. All cars sit on the **same vertical line** (the
+current lap) and slide up and down between the position lanes (P1→P20) as the
+running order changes — you watch them overtake each other — while the field
+sweeps left→right toward the finish line as the laps tick by.
 
 | Element | Encoding |
 |---|---|
-| **Grid position** | y-axis, inverted (P1 top, P20 bottom) |
-| **Race progress** | x-axis = lap number; each driver's line grows left→right |
-| **Driver identity** | 3-letter abbreviation at the head of the line, in the team colour |
-| **Tyre compound** | colour + letter badge — Red `S`, Yellow `M`, White `H`, Green `I`, Blue `W` |
-| **Pit stop** | green `[IN PIT]` tag on the lap a driver pits |
+| **Running order** | y-axis lanes, P1 top → P20 bottom; cars swap lanes on every position change |
+| **Race progress** | the line of cars sweeps left→right across the lap axis to the FINISH |
+| **Driver identity** | team-coloured car sprite + 3-letter code |
+| **Tyre compound** | colour + letter chip — Red `S`, Yellow `M`, White `H`, Green `I`, Blue `W` |
+| **Pit stop** | green `P` chip + green car outline on the lap a driver pits |
 | **Virtual Safety Car** | flashing yellow `VIRTUAL SAFETY CAR` banner while a VSC is deployed |
-| **Retirement** | the trace ends and the abbreviation dims at the lap of retirement |
+| **Retirement** | the car freezes and dims at the lap of retirement |
+
+### 2. `latest_race_timelapse.mp4` — the position-by-lap timeline
+
+The same race as a classic bump chart: each driver's team-coloured trace grows
+left→right, crossing as positions change, with the abbreviation + tyre badge at
+the head of the line (VSC banner, `[IN PIT]` tags and dimmed retirements too).
 
 ---
 
@@ -34,10 +43,11 @@ scripted, tested offline, or wired into a future **live dashboard** without
 rewriting the core logic.
 
 ```
-config.py     Shared style tokens, palettes and file paths (single source of truth)
-scraper.py    Stage 1 — dynamic data extraction & tidy transformation  → data/
-animator.py   Stage 2 — matplotlib FuncAnimation video engine          → *.mp4
-tests/        Network-free unit tests for the pure data transforms
+config.py        Shared style tokens, palettes, the car sprite and file paths
+scraper.py       Stage 1 — dynamic data extraction & tidy transformation  → data/
+race_animator.py Stage 2 — position-battle race (cars) engine  → latest_race_replay.mp4
+animator.py      Stage 2 — position-by-lap timeline engine      → latest_race_timelapse.mp4
+tests/           Network-free unit tests for the pure data transforms
 .github/workflows/f1_latest_video.yml   Stage 3 — on-demand CI/CD
 ```
 
@@ -59,18 +69,23 @@ The heavy lifting lives in **pure functions** (`build_laps_dataframe`,
 `extract_vsc_laps`, `build_driver_meta`, …) that take plain DataFrames, so they
 are trivially unit-testable and reusable.
 
-### Stage 2 — `animator.py`
+### Stage 2 — `race_animator.py` and `animator.py`
 
-* Consumes the Stage 1 output and renders the MP4 with
-  `matplotlib.animation.FuncAnimation`.
-* Sub-lap interpolation gives smooth vertical motion as positions change.
-* Uses a system `ffmpeg` when available, transparently falling back to the
-  `imageio-ffmpeg` binary otherwise.
+Two `matplotlib.animation.FuncAnimation` engines, both fed by the Stage 1
+position log (no telemetry needed):
+
+* **`race_animator.py`** — the position-battle race. Draws every driver as a car
+  sprite (`config.car_marker()`), all on the current-lap line, and slides them
+  between position lanes as the order changes.
+* **`animator.py`** — the position-by-lap bump-chart timeline.
+
+Both use sub-lap interpolation for smooth motion, and a system `ffmpeg` when
+available, transparently falling back to the `imageio-ffmpeg` binary otherwise.
 
 ### Stage 3 — `.github/workflows/f1_latest_video.yml`
 
-On-demand (`workflow_dispatch`) CI that installs Python 3.11 + ffmpeg, runs both
-stages, and uploads the video as a workflow artifact.
+On-demand (`workflow_dispatch`) CI that installs Python 3.11 + ffmpeg, runs the
+scrape + both renders, and uploads the videos as a workflow artifact.
 
 ---
 
@@ -83,11 +98,12 @@ pip install -r requirements.txt
 python scraper.py                       # latest completed GP
 python scraper.py --year 2024 --round 11  # a specific historical race
 
-# Stage 2 — render the video
-python animator.py                      # -> latest_race_timelapse.mp4
+# Stage 2 — render the videos
+python race_animator.py                 # -> latest_race_replay.mp4  (cars)
+python animator.py                      # -> latest_race_timelapse.mp4  (timeline)
 
 # Tweak the look
-python animator.py --fps 30 --frames-per-lap 6 --width 1920 --height 1080
+python race_animator.py --fps 30 --frames-per-lap 8 --width 1920 --height 1080
 ```
 
 Run the offline tests with `pytest -q`.

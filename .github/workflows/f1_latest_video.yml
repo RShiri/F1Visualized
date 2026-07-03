@@ -78,16 +78,21 @@ jobs:
           echo "Running: python scraper.py $ARGS"
           python scraper.py $ARGS
 
-      # Stage 2 — render the timelapse MP4.
-      - name: Render timelapse video
-        run: python animator.py
+      # Stage 2 — render the videos (both read the same scraped position log).
+      - name: Render position-battle race video
+        run: python race_animator.py            # -> latest_race_replay.mp4
 
-      # Stage 3 — publish the video as a downloadable workflow artifact.
-      - name: Upload timelapse artifact
+      - name: Render position-by-lap timeline video
+        run: python animator.py                 # -> latest_race_timelapse.mp4
+
+      # Stage 3 — publish the videos as downloadable workflow artifacts.
+      - name: Upload race videos artifact
         uses: actions/upload-artifact@v4
         with:
-          name: latest_race_timelapse
-          path: latest_race_timelapse.mp4
+          name: latest_race_videos
+          path: |
+            latest_race_replay.mp4
+            latest_race_timelapse.mp4
           if-no-files-found: error
           retention-days: 30
 
@@ -98,7 +103,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -f latest_race_timelapse.mp4 data/race_data.csv data/race_meta.json
+          git add -f latest_race_replay.mp4 latest_race_timelapse.mp4 \
+            data/race_data.csv data/race_meta.json
           if git diff --cached --quiet; then
             echo "Nothing changed — skipping commit."
           else

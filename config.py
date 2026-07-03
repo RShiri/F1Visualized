@@ -20,8 +20,10 @@ DATA_DIR: Path = ROOT_DIR / "data"
 LAPS_CSV: Path = DATA_DIR / "race_data.csv"
 #: Race/driver metadata (event name, tyre/team colours, VSC laps, ...).
 META_JSON: Path = DATA_DIR / "race_meta.json"
-#: Final rendered animation. The name is fixed by the project spec.
+#: Position-by-lap timeline animation (Stage 2, animator.py).
 OUTPUT_VIDEO: Path = ROOT_DIR / "latest_race_timelapse.mp4"
+#: Position-battle race — a line of cars swapping order (race_animator.py).
+OUTPUT_REPLAY: Path = ROOT_DIR / "latest_race_replay.mp4"
 
 #: fastf1 caches every network request here so re-runs are fast and offline-able.
 CACHE_DIR: Path = ROOT_DIR / ".fastf1_cache"
@@ -56,6 +58,36 @@ COMPOUNDS = {
     "WET":          {"letter": "W", "color": "#0067AD", "text": "#FFFFFF"},
     "UNKNOWN":      {"letter": "?", "color": "#6E6E7A", "text": "#FFFFFF"},
 }
+
+
+# --------------------------------------------------------------------------- #
+# Position-battle race tokens (a line of cars swapping order)
+# --------------------------------------------------------------------------- #
+RACE = {
+    "lane": "#26262F",         # faint per-position lane guide
+    "lane_alt": "#202027",     # alternating lane band
+    "finish": "#EDEDF2",       # finish line
+}
+CAR_MARKER_SIZE = 30           # points; car sprite size
+
+
+def car_marker():
+    """A simple top-view F1 car silhouette Path (nose pointing +x).
+
+    Returned as a :class:`matplotlib.path.Path` usable as a plot/scatter marker,
+    so every car is a real little car that slides between positions.
+    """
+    from matplotlib.path import Path as _Path
+
+    verts = [
+        (-1.00, 0.17), (-0.90, 0.17), (-0.90, 0.44), (-0.78, 0.44), (-0.78, 0.17),
+        (-0.35, 0.23), (0.10, 0.21), (0.45, 0.35), (0.58, 0.35), (0.58, 0.13),
+        (0.86, 0.10), (1.00, 0.00), (0.86, -0.10), (0.58, -0.13), (0.58, -0.35),
+        (0.45, -0.35), (0.10, -0.21), (-0.35, -0.23), (-0.78, -0.17), (-0.78, -0.44),
+        (-0.90, -0.44), (-0.90, -0.17), (-1.00, -0.17), (-1.00, 0.17),
+    ]
+    codes = [_Path.MOVETO] + [_Path.LINETO] * (len(verts) - 2) + [_Path.CLOSEPOLY]
+    return _Path(verts, codes)
 
 
 def compound_style(compound: str) -> dict:
