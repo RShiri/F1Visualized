@@ -1,0 +1,70 @@
+name: Deploy F1 Dashboard
+
+# Builds the season data and publishes the web/ dashboard to GitHub Pages.
+# On-demand for now; a weekly cron can be enabled later without code changes.
+on:
+  workflow_dispatch:
+  # schedule:
+  #   - cron: "0 6 * * 2"   # Tuesdays, after race weekends
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Cache fastf1 downloads
+        uses: actions/cache@v4
+        with:
+          path: .fastf1_cache
+          key: fastf1-cache-${{ github.run_id }}
+          restore-keys: fastf1-cache-
+
+      # Refresh web/data/{2025,2026}.json with real results + standings.
+      # Non-fatal: if the data API is unavailable the committed sample data is
+      # published instead, so the site always deploys.
+      - name: Fetch season data
+        continue-on-error: true
+        run: |
+          python fetch_season.py --year 2025
+          python fetch_season.py --year 2026
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload dashboard artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: web
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

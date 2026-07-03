@@ -36,11 +36,50 @@ the head of the line (VSC banner, `[IN PIT]` tags and dimmed retirements too).
 
 ---
 
-## Architecture
+## Season dashboard — 2025 / 2026
+
+A static, responsive web dashboard for the **2025 and 2026 seasons**, deployable
+to GitHub Pages. A **season toggle** switches between years across four sections:
+
+* **Overview** — championship leaders, next-race countdown, last-race podium, top-5 tables.
+* **Standings** — full drivers' & constructors' championships with team-coloured points bars.
+* **Calendar** — every round with country flags, completed winners and a "Next Up" highlight.
+* **Results** — per-race classification, podium and fastest lap.
+
+```
+web/                     The dashboard (static HTML/CSS/JS — no framework)
+  index.html
+  assets/styles.css      Dark F1 theme, responsive
+  assets/app.js          Season toggle, tabs, rendering (fetch or embedded data)
+  data/2025.json         Season data (schedule + results + standings)
+  data/2026.json
+fetch_season.py          Fetches real data via fastf1's Ergast client -> web/data/*.json
+.github/workflows/deploy_dashboard.yml   Build data + deploy to GitHub Pages
+```
+
+Build the data and preview locally:
+
+```bash
+python fetch_season.py --year 2025      # -> web/data/2025.json  (real data)
+python fetch_season.py --year 2026      # -> web/data/2026.json
+cd web && python -m http.server         # open http://localhost:8000
+```
+
+To publish: enable **GitHub Pages → Source: GitHub Actions**, then run the
+**Deploy F1 Dashboard** workflow. It fetches fresh standings/results and deploys
+`web/`. The committed `web/data/*.json` is representative **sample** data so the
+site renders immediately; the workflow replaces it with real results.
+
+The dashboard consumes a small JSON contract, so the data producer
+(`build_season_dict`) is decoupled and unit-tested — the same seam that lets the
+video pipeline feed it later.
+
+---
+
+## Race animations
 
 The pipeline is deliberately split into small, importable pieces so it can be
-scripted, tested offline, or wired into a future **live dashboard** without
-rewriting the core logic.
+scripted, tested offline, or reused by the dashboard without rewriting core logic.
 
 ```
 config.py        Shared style tokens, palettes, the car sprite and file paths
