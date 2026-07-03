@@ -56,9 +56,11 @@ def _race_control_messages():
 def _results():
     return pd.DataFrame([
         {"Abbreviation": "VER", "DriverNumber": "1", "FullName": "Max Verstappen",
-         "TeamName": "Red Bull Racing", "TeamColor": "3671C6"},
+         "TeamName": "Red Bull Racing", "TeamColor": "3671C6",
+         "Position": 1.0, "Status": "Finished"},
         {"Abbreviation": "HAM", "DriverNumber": "44", "FullName": "Lewis Hamilton",
-         "TeamName": "Mercedes", "TeamColor": "27F4D2"},
+         "TeamName": "Mercedes", "TeamColor": "27F4D2",
+         "Position": 20.0, "Status": "Retired"},
     ])
 
 
@@ -101,6 +103,20 @@ def test_driver_meta_colors():
     assert meta["VER"]["color"] == "#3671C6"     # '#' prefix added
     assert meta["HAM"]["full_name"] == "Lewis Hamilton"
     assert set(meta) == {"VER", "HAM"}
+
+
+def test_driver_meta_finished_vs_retired():
+    meta = scraper.build_driver_meta(_results(), _laps())
+    assert meta["VER"]["finished"] is True and meta["VER"]["classified"] == 1
+    assert meta["HAM"]["finished"] is False and meta["HAM"]["classified"] == 20
+
+
+def test_is_finished_status_parsing():
+    assert scraper._is_finished("Finished")
+    assert scraper._is_finished("+1 Lap")        # lapped cars are classified
+    assert not scraper._is_finished("Retired")
+    assert not scraper._is_finished("Accident")
+    assert scraper._is_finished("")              # unknown -> safe default
 
 
 def test_driver_meta_fallback_color_when_results_missing():

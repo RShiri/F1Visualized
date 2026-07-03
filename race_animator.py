@@ -96,16 +96,27 @@ class PositionRace:
             valid = ~np.isnan(pos)
             if valid.sum() == 0:
                 continue
+            info = self.driver_meta.get(abbr, {})
+            last_pos = float(pos[valid][-1])
+            classified = info.get("classified")
+            # Retired drivers get parked at their official classification (which
+            # already ranks DNFs at the bottom); finishers settle where they end.
+            settle_pos = float(classified) if classified is not None else last_pos
             self.drivers.append(abbr)
             self.series[abbr] = {
                 "laps": laps[valid], "pos": pos[valid],
                 "first_lap": float(laps[valid][0]), "last_lap": float(laps[valid][-1]),
                 "compound": dict(zip(d["LapNumber"].astype(int), d["Compound"])),
                 "pits": set(int(x) for x in d.loc[d.get("is_pit_stop", False) == True, "LapNumber"]),
-                "color": self.driver_meta.get(abbr, {}).get("color") or "#CCCCCC",
+                "color": info.get("color") or "#CCCCCC",
+                "is_retired": not info.get("finished", True),
+                "settle_pos": settle_pos,
             }
         positions = pd.to_numeric(self.df["Position"], errors="coerce")
-        self.num_positions = int(np.nanmax(positions)) if positions.notna().any() else 20
+        classified_positions = [
+            s["settle_pos"] for s in self.series.values()
+        ] + ([np.nanmax(positions)] if positions.notna().any() else [20])
+        self.num_positions = int(max(classified_positions))
 
     def _compound_at(self, abbr, lap):
         comp = self.series[abbr]["compound"]
@@ -203,16 +214,22 @@ class PositionRace:
                     art.set_visible(False)
                 continue
 
-            retired = cl > s["last_lap"] and s["last_lap"] < self.total_laps
             if cl >= s["last_lap"]:                       # settled (finished/retired)
-                x, y = min(cl, s["last_lap"]), s["pos"][-1]
+                prog = min(1.0, cl - s["last_lap"])       # slide to final slot over ~1 lap
+                ease = prog * prog * (3 - 2 * prog)
+                x = cl                                    # stays on the current-lap line
+                y = s["pos"][-1] + (s["settle_pos"] - s["pos"][-1]) * ease
                 car.set_visible(True); car.set_data([x], [y])
-                car.set_alpha(0.4 if retired else 1.0)
                 car.set_markeredgecolor("white")
-                name.set_visible(True); name.xy = (x, y); name.set_alpha(0.4 if retired else 1.0)
-                if retired:
+                name.set_visible(True); name.xy = (x, y)
+                if s["is_retired"]:                       # drop to last, dim, behind field
+                    alpha = 1.0 - 0.55 * ease
+                    car.set_alpha(alpha); car.set_zorder(3)
+                    name.set_alpha(alpha); name.set_zorder(4)
                     badge.set_visible(False)
                 else:
+                    car.set_alpha(1.0); car.set_zorder(5)
+                    name.set_alpha(1.0)
                     self._set_badge(badge, x, y, self._compound_at(abbr, current_lap), False)
                 continue
 

@@ -271,12 +271,27 @@ def _normalise_color(value) -> Optional[str]:
     return value if value.startswith("#") else f"#{value}"
 
 
-def build_driver_meta(results: Optional[pd.DataFrame], laps: pd.DataFrame) -> dict:
-    """Map each driver abbreviation to name, team, number and colour.
+def _is_finished(status: str) -> bool:
+    """Classify a results ``Status`` string as finished vs. retired.
 
-    Prefers fastf1's official ``results`` (which carries the real ``TeamColor``)
-    and guarantees an entry — with a stable fallback colour — for every driver
-    that actually appears in the lap data.
+    ``Finished`` and lapped classifications (``+1 Lap``, ``+2 Laps``) count as
+    finished; anything else (``Retired``, ``Accident``, ``Engine``, ...) is a
+    DNF. Unknown/empty status defaults to finished (safe fallback).
+    """
+    s = (status or "").strip().lower()
+    if s == "":
+        return True
+    return ("finished" in s) or ("lap" in s)
+
+
+def build_driver_meta(results: Optional[pd.DataFrame], laps: pd.DataFrame) -> dict:
+    """Map each driver abbreviation to name, team, number, colour and result.
+
+    Prefers fastf1's official ``results`` (which carries the real ``TeamColor``
+    plus final classification and finish status) and guarantees an entry — with
+    a stable fallback colour — for every driver that appears in the lap data.
+    The ``classified`` position (DNFs already ranked at the bottom) and
+    ``finished`` flag let the animator drop retired drivers to last.
     """
     meta: dict[str, dict] = {}
 
@@ -285,11 +300,17 @@ def build_driver_meta(results: Optional[pd.DataFrame], laps: pd.DataFrame) -> di
             abbr = row.get("Abbreviation")
             if not isinstance(abbr, str) or not abbr:
                 continue
+            status = str(row.get("Status") or "")
+            classified = row.get("Position")
+            classified = int(classified) if pd.notna(classified) else None
             meta[abbr] = {
                 "full_name": str(row.get("FullName") or abbr),
                 "team": str(row.get("TeamName") or ""),
                 "number": str(row.get("DriverNumber") or "").split(".")[0],
                 "color": _normalise_color(row.get("TeamColor")),
+                "status": status,
+                "finished": _is_finished(status),
+                "classified": classified,
             }
 
     drivers_in_laps = (
@@ -297,7 +318,9 @@ def build_driver_meta(results: Optional[pd.DataFrame], laps: pd.DataFrame) -> di
     )
     for abbr in drivers_in_laps:
         meta.setdefault(
-            abbr, {"full_name": abbr, "team": "", "number": "", "color": None}
+            abbr,
+            {"full_name": abbr, "team": "", "number": "", "color": None,
+             "status": "", "finished": True, "classified": None},
         )
 
     # Deal out fallback colours to anyone still missing one, avoiding clashes.

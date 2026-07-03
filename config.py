@@ -72,21 +72,38 @@ CAR_MARKER_SIZE = 30           # points; car sprite size
 
 
 def car_marker():
-    """A simple top-view F1 car silhouette Path (nose pointing +x).
+    """A top-view open-wheel F1 car silhouette Path (nose pointing +x).
 
-    Returned as a :class:`matplotlib.path.Path` usable as a plot/scatter marker,
-    so every car is a real little car that slides between positions.
+    A compound Path: the chassis (nose + front/rear wings + body) plus four
+    outboard wheels drawn as separate blocks with a gap to the body, so it reads
+    unmistakably as an open-wheel car. Usable as a matplotlib plot/scatter marker
+    — every driver becomes a real little car that slides between positions.
     """
     from matplotlib.path import Path as _Path
 
-    verts = [
-        (-1.00, 0.17), (-0.90, 0.17), (-0.90, 0.44), (-0.78, 0.44), (-0.78, 0.17),
-        (-0.35, 0.23), (0.10, 0.21), (0.45, 0.35), (0.58, 0.35), (0.58, 0.13),
-        (0.86, 0.10), (1.00, 0.00), (0.86, -0.10), (0.58, -0.13), (0.58, -0.35),
-        (0.45, -0.35), (0.10, -0.21), (-0.35, -0.23), (-0.78, -0.17), (-0.78, -0.44),
-        (-0.90, -0.44), (-0.90, -0.17), (-1.00, -0.17), (-1.00, 0.17),
+    # Chassis: nose (+x) -> front wing -> body -> rear wing -> mirror back.
+    chassis = [
+        (1.00, 0.00), (0.80, 0.075), (0.70, 0.075), (0.70, 0.34), (0.61, 0.34),
+        (0.61, 0.075), (0.30, 0.10), (-0.20, 0.12), (-0.62, 0.13), (-0.82, 0.15),
+        (-0.82, 0.42), (-0.92, 0.42), (-0.92, -0.42), (-0.82, -0.42), (-0.82, -0.15),
+        (-0.62, -0.13), (-0.20, -0.12), (0.30, -0.10), (0.61, -0.075), (0.61, -0.34),
+        (0.70, -0.34), (0.70, -0.075), (0.80, -0.075), (1.00, 0.00),
     ]
-    codes = [_Path.MOVETO] + [_Path.LINETO] * (len(verts) - 2) + [_Path.CLOSEPOLY]
+
+    def _wheel(x0, x1, y0, y1):
+        return [(x0, y0), (x1, y0), (x1, y1), (x0, y1), (x0, y0)]
+
+    wheels = [
+        _wheel(0.28, 0.55, 0.22, 0.44),    # front-left
+        _wheel(0.28, 0.55, -0.44, -0.22),  # front-right
+        _wheel(-0.72, -0.45, 0.24, 0.47),  # rear-left
+        _wheel(-0.72, -0.45, -0.47, -0.24),  # rear-right
+    ]
+
+    verts, codes = [], []
+    for sub in [chassis, *wheels]:
+        verts.extend(sub)
+        codes += [_Path.MOVETO] + [_Path.LINETO] * (len(sub) - 2) + [_Path.CLOSEPOLY]
     return _Path(verts, codes)
 
 
