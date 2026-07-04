@@ -26,26 +26,32 @@ function teamColor(team) {
   return TEAM_COLORS[team.trim().toLowerCase()] || "#8a8a95";
 }
 
-/* ---- country -> flag emoji ---- */
-const FLAGS = {
-  "australia": "🇦🇺", "china": "🇨🇳", "japan": "🇯🇵", "bahrain": "🇧🇭",
-  "saudi arabia": "🇸🇦", "united states": "🇺🇸", "usa": "🇺🇸", "italy": "🇮🇹",
-  "monaco": "🇲🇨", "canada": "🇨🇦", "spain": "🇪🇸", "austria": "🇦🇹",
-  "great britain": "🇬🇧", "united kingdom": "🇬🇧", "uk": "🇬🇧", "hungary": "🇭🇺",
-  "belgium": "🇧🇪", "netherlands": "🇳🇱", "azerbaijan": "🇦🇿", "singapore": "🇸🇬",
-  "mexico": "🇲🇽", "brazil": "🇧🇷", "qatar": "🇶🇦", "united arab emirates": "🇦🇪",
-  "uae": "🇦🇪", "france": "🇫🇷", "portugal": "🇵🇹", "germany": "🇩🇪",
+/* ---- country flags (inline SVG) ---- */
+// Race country name -> ISO alpha-2 (for circuit flags).
+const COUNTRY_CODE = {
+  "abu dhabi": "ae", "united arab emirates": "ae", "australia": "au", "austria": "at",
+  "azerbaijan": "az", "bahrain": "bh", "belgium": "be", "brazil": "br", "canada": "ca",
+  "china": "cn", "france": "fr", "great britain": "gb", "united kingdom": "gb", "uk": "gb",
+  "hungary": "hu", "italy": "it", "japan": "jp", "mexico": "mx", "monaco": "mc",
+  "netherlands": "nl", "qatar": "qa", "saudi arabia": "sa", "singapore": "sg",
+  "spain": "es", "united states": "us", "usa": "us", "miami": "us", "las vegas": "us",
+  "germany": "de", "portugal": "pt", "russia": "ru", "turkey": "tr",
 };
-function flag(country) {
-  return FLAGS[(country || "").trim().toLowerCase()] || "🏁";
-}
 
-// ISO alpha-2 country code -> flag emoji (regional-indicator letters).
-function flagCode(cc) {
-  if (!cc || !/^[a-z]{2}$/i.test(cc)) return "";
-  return String.fromCodePoint(...[...cc.toUpperCase()].map((c) => 127397 + c.charCodeAt(0)));
+// Inline SVG flags — render everywhere (incl. Windows), work offline and in the
+// self-contained bundle. Source: file on Pages, or an inlined data URI in the bundle.
+function flagSrc(cc) {
+  return (window.FLAG_SVGS && window.FLAG_SVGS[cc]) || `assets/flags/${cc}.svg`;
 }
-const natFlag = (cc) => (cc ? `<span class="natflag">${flagCode(cc)}</span> ` : "");
+function flagImg(cc) {
+  if (!cc) return "";
+  cc = String(cc).toLowerCase();
+  return `<img class="flag" src="${flagSrc(cc)}" alt="" loading="lazy">`;
+}
+function flag(country) {
+  return flagImg(COUNTRY_CODE[(country || "").trim().toLowerCase()]);
+}
+const natFlag = (cc) => (cc ? flagImg(cc) + " " : "");
 
 const $ = (sel, el = document) => el.querySelector(sel);
 const el = (tag, cls, html) => {
@@ -201,7 +207,7 @@ function renderCalendar(d) {
 function renderResultsSelect(d) {
   const sel = $("#raceSelect");
   const completed = d.races.filter((r) => r.status === "completed");
-  sel.innerHTML = completed.map((r) => `<option value="${r.round}">${flag(r.country)} R${r.round} — ${esc(r.name)}</option>`).join("")
+  sel.innerHTML = completed.map((r) => `<option value="${r.round}">R${r.round} — ${esc(r.name)}</option>`).join("")
     || `<option value="">No completed races</option>`;
   sel.onchange = () => renderRaceDetail(d, +sel.value);
   const last = completed[completed.length - 1];

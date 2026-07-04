@@ -56,7 +56,11 @@ a { color: inherit; }
   font: inherit; font-weight: 700; font-size: 14px;
   padding: 7px 13px; border-radius: 999px; cursor: pointer; transition: .15s;
 }
-.natflag { font-size: 1.05em; line-height: 1; }
+.flag {
+  display: inline-block; width: 1.2em; height: .9em; border-radius: 2px;
+  object-fit: cover; vertical-align: -.14em; box-shadow: 0 0 0 1px rgba(0, 0, 0, .35);
+}
+.card-title .flag { width: 1.5em; height: 1.12em; vertical-align: -.22em; }
 .season-toggle button.active { background: var(--red); color: #fff; }
 .season-toggle button:not(.active):hover { color: var(--ink); }
 
