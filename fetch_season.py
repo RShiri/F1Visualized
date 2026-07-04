@@ -20,6 +20,7 @@ import argparse
 import json
 import logging
 import re
+import statistics
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -31,6 +32,12 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s  %(levelname)-7s %(m
 log = logging.getLogger("fetch_season")
 
 F1DB = "https://raw.githubusercontent.com/f1db/f1db/main/src/data"
+
+# f1db records only full pit-LANE time (drive-through + stationary), which is
+# dominated by each circuit's lane length. We estimate the stationary
+# tyre-change time by subtracting the race's fastest stop (≈ the shared
+# drive-through), flooring the quickest stop at this nominal best.
+PIT_STATIONARY_BASE = 2.0
 
 # f1db constructorId -> display name (aligned with the front-end colour map).
 # Era-correct display names (f1db uses distinct constructorIds across eras).
@@ -180,14 +187,15 @@ def _fetch_race_results(year: int, rnd: int, candidates: list[str]):
 def _race_stat_maps(year: int, rnd: int, slug: str):
     """Pull the extra per-race f1db files that feed season statistics.
 
-    Returns ``(pit_stops, pit_times, qpos, dotd_code)`` keyed by driver code:
-    stop counts, parsed stop times (s), qualifying position, and the
-    Driver-of-the-Day winner. Any missing file degrades to empty/None.
+    Returns ``(pit_stops, pit_est, qpos, dotd_code)`` keyed by driver code:
+    stop counts, per-stop *estimated stationary* times (s), qualifying
+    position, and the Driver-of-the-Day winner. Any missing file degrades to
+    empty/None.
     """
     base = f"seasons/{year}/races/{rnd:02d}-{slug}"
 
     pit_stops: dict[str, int] = {}
-    pit_times: dict[str, list[float]] = {}
+    raw_times: dict[str, list[float]] = {}
     pit = _get_yaml(f"{base}/pit-stops.yml")
     has_pit = isinstance(pit, list)
     if has_pit:
@@ -196,7 +204,13 @@ def _race_stat_maps(year: int, rnd: int, slug: str):
             pit_stops[code] = pit_stops.get(code, 0) + 1
             sec = _parse_seconds(p.get("time"))
             if sec is not None:
-                pit_times.setdefault(code, []).append(sec)
+                raw_times.setdefault(code, []).append(sec)
+    # Strip the circuit's drive-through so what remains ≈ the stationary time.
+    pit_est: dict[str, list[float]] = {}
+    all_times = [t for ts in raw_times.values() for t in ts]
+    if all_times:
+        lane = min(all_times) - PIT_STATIONARY_BASE
+        pit_est = {code: [round(t - lane, 3) for t in ts] for code, ts in raw_times.items()}
 
     qpos: dict[str, int] = {}
     qual = _get_yaml(f"{base}/qualifying-results.yml")
@@ -215,7 +229,7 @@ def _race_stat_maps(year: int, rnd: int, slug: str):
                 dotd = resolve_driver(row.get("driverId", ""))["code"]
                 break
 
-    return pit_stops if has_pit else None, pit_times, qpos, dotd
+    return pit_stops if has_pit else None, pit_est, qpos, dotd
 
 
 def build_race(year: int, ev: dict, now: datetime, wins: dict) -> dict:
@@ -233,14 +247,13 @@ def build_race(year: int, ev: dict, now: datetime, wins: dict) -> dict:
     if not results:
         return race  # completed but not yet in f1db
 
-    pit_stops, pit_times, qpos, dotd = _race_stat_maps(year, ev["round"], slug)
+    pit_stops, pit_est, qpos, dotd = _race_stat_maps(year, ev["round"], slug)
 
     rows = []
     for r in results:
         drv = resolve_driver(r.get("driverId", ""))
         pos = r.get("position")
         code = drv["code"]
-        times = pit_times.get(code) or []
         rows.append({
             "pos": int(pos) if isinstance(pos, int) else None,
             "code": code, "name": drv["name"], "nat": drv["nat"],
@@ -251,8 +264,7 @@ def build_race(year: int, ev: dict, now: datetime, wins: dict) -> dict:
             "status": "Finished" if not r.get("reasonRetired") else str(r.get("reasonRetired")),
             "qpos": qpos.get(code),
             "stops": (pit_stops.get(code, 0) if pit_stops is not None else None),
-            "pit_avg": round(sum(times) / len(times), 3) if times else None,
-            "pit_best": round(min(times), 3) if times else None,
+            "pit_est": pit_est.get(code) or None,
         })
     rows.sort(key=lambda e: (e["pos"] is None, e["pos"] or 0))
 
@@ -302,7 +314,7 @@ def build_driver_stats(races: list, team_by_code: dict,
                 "starts": 0, "wins": 0, "podiums": 0, "poles": 0, "points": 0.0,
                 "pts_fin": 0, "dnf": 0, "laps": 0, "dotd": 0,
                 "grid": [], "fin": [], "gain": 0,
-                "stops": [], "pit_sum": 0.0, "pit_n": 0, "pit_best": None,
+                "stops": [], "pit_est": [],
                 "led": 0, "led_any": False,
             }
         return acc[code]
@@ -335,13 +347,9 @@ def build_driver_stats(races: list, team_by_code: dict,
             stops = row.get("stops")
             if isinstance(stops, int):
                 a["stops"].append(stops)
-            pit_avg = row.get("pit_avg")
-            if pit_avg is not None and isinstance(stops, int) and stops > 0:
-                a["pit_sum"] += pit_avg * stops
-                a["pit_n"] += stops
-            pit_best = row.get("pit_best")
-            if pit_best is not None:
-                a["pit_best"] = pit_best if a["pit_best"] is None else min(a["pit_best"], pit_best)
+            est = row.get("pit_est")
+            if est:
+                a["pit_est"].extend(est)
             led = row.get("led")
             if led is not None:
                 a["led"] += led
@@ -365,8 +373,7 @@ def build_driver_stats(races: list, team_by_code: dict,
             "avg_grid": mean(a["grid"]), "avg_finish": mean(a["fin"]),
             "gained": a["gain"],
             "avg_stops": mean(a["stops"]),
-            "pit_avg": round(a["pit_sum"] / a["pit_n"], 2) if a["pit_n"] else None,
-            "pit_best": a["pit_best"],
+            "stop_s": round(statistics.median(a["pit_est"]), 2) if a["pit_est"] else None,
             "dotd": a["dotd"], "laps": a["laps"],
             "laps_led": a["led"] if a["led_any"] else None,
         })

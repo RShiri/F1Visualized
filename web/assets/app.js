@@ -240,7 +240,7 @@ const STAT_COLS = [
   { key: "avg_grid",   label: "Avg Grid",   desc: false, fmt: fmt1, t: "Mean start position — lower is better" },
   { key: "gained",     label: "Places +/−", desc: true,  fmt: fmtSigned, cls: gainClass, t: "Net positions gained, grid → flag (front-runners trend negative)" },
   { key: "avg_stops",  label: "Avg Stops",  desc: false, fmt: fmt1, t: "Average pit stops per race" },
-  { key: "pit_avg",    label: "Pit Avg",    desc: false, fmt: fmt2, t: "Average pit-lane time, seconds — lower is better" },
+  { key: "stop_s",     label: "Stop (s)",   desc: false, fmt: fmt2, t: "Est. stationary tyre-change time — median, with pit-lane transit removed (public data records only full pit-lane time) — lower is better" },
   { key: "pts_fin",    label: "Pts Fin",    desc: true,  t: "Points finishes (top 10)" },
   { key: "dnf",        label: "DNF",        desc: false, t: "Did not finish" },
   { key: "dotd",       label: "DOTD",       desc: true,  t: "Driver of the Day awards" },
@@ -265,7 +265,9 @@ function renderStats(d) {
   note.innerHTML =
     `Every completed round, aggregated. Wins · podiums · poles are Grand&nbsp;Prix figures; ` +
     `<b>Points</b> is the championship total. <b>Places&nbsp;+/−</b> is net positions gained from grid to flag ` +
-    `(front-runners naturally trend negative). Click any column to sort.` +
+    `(front-runners naturally trend negative). <b>Stop&nbsp;(s)</b> estimates the stationary tyre-change time — ` +
+    `the circuit's pit-lane transit is removed from the public data, which records only full pit-lane time. ` +
+    `Click any column to sort.` +
     (hasLed ? "" : ` <span class="muted">Laps-led needs lap-by-lap timing — not in the public dataset — so it shows only after a timing-enabled fetch.</span>`);
   drawStats(box, stats, cols);
 }

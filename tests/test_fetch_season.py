@@ -63,6 +63,20 @@ def test_build_race_completed_parses_f1db_results():
          "points": 15, "gridPosition": 2, "laps": 57, "reasonRetired": None},
     ]
     fs._yaml_cache["seasons/2025/races/01-australia/fast-laps.yml"] = None
+    # extra per-race files that feed the stats (kept offline via the cache)
+    fs._yaml_cache["seasons/2025/races/01-australia/pit-stops.yml"] = [
+        {"driverId": "max-verstappen", "stop": 1, "lap": 20, "time": "12.5"},  # fastest
+        {"driverId": "lando-norris", "stop": 1, "lap": 18, "time": "13.0"},
+        {"driverId": "lando-norris", "stop": 2, "lap": 40, "time": "13.5"},
+    ]
+    fs._yaml_cache["seasons/2025/races/01-australia/qualifying-results.yml"] = [
+        {"driverId": "lando-norris", "position": 1},
+        {"driverId": "charles-leclerc", "position": 2},
+        {"driverId": "max-verstappen", "position": 3},
+    ]
+    fs._yaml_cache["seasons/2025/races/01-australia/driver-of-the-day-results.yml"] = [
+        {"driverId": "max-verstappen", "position": 1, "percentage": 30.0},
+    ]
     ev = {"round": 1, "name": "Australian Grand Prix", "country": "Australia",
           "locality": "Melbourne", "circuit": "Melbourne", "date": "2025-03-16"}
     wins = {"drivers": {}, "teams": {}}
@@ -73,6 +87,13 @@ def test_build_race_completed_parses_f1db_results():
     assert [p["code"] for p in race["podium"]] == ["NOR", "VER", "LEC"]
     assert race["results"][1]["team"] == "Red Bull Racing"
     assert wins["drivers"]["NOR"] == 1 and wins["teams"]["McLaren"] == 1
+
+    # enrichment: Driver of the Day, poles (qualifying P1), and stationary
+    # estimates = stop time minus the race's fastest stop (12.5) + base (2.0).
+    assert race["dotd"] == "VER"
+    nor_row, ver_row = race["results"][0], race["results"][1]
+    assert nor_row["qpos"] == 1 and nor_row["stops"] == 2 and nor_row["pit_est"] == [2.5, 3.0]
+    assert ver_row["qpos"] == 3 and ver_row["stops"] == 1 and ver_row["pit_est"] == [2.0]
 
 
 def test_assemble_season_schema():
@@ -99,20 +120,20 @@ def test_assemble_season_schema():
 
 def test_build_driver_stats_aggregates_across_races():
     def row(code, name, pos, grid, pts, status="Finished", qpos=None,
-            stops=None, pit_avg=None, pit_best=None, laps=57):
+            stops=None, pit_est=None, laps=57):
         return {"code": code, "name": name, "nat": "", "pos": pos, "grid": grid,
                 "points": pts, "status": status, "qpos": qpos, "stops": stops,
-                "pit_avg": pit_avg, "pit_best": pit_best, "laps": laps}
+                "pit_est": pit_est, "laps": laps}
 
     races = [
         {"status": "completed", "dotd": "VER", "results": [
-            row("NOR", "Lando Norris", 1, 1, 25, qpos=1, stops=2, pit_avg=23.0, pit_best=22.0),
-            row("VER", "Max Verstappen", 2, 4, 18, qpos=3, stops=2, pit_avg=25.0, pit_best=24.0),
+            row("NOR", "Lando Norris", 1, 1, 25, qpos=1, stops=2, pit_est=[2.4, 2.6]),
+            row("VER", "Max Verstappen", 2, 4, 18, qpos=3, stops=2, pit_est=[2.8, 3.0]),
         ]},
         {"status": "completed", "dotd": None, "results": [
-            row("NOR", "Lando Norris", 3, 5, 15, qpos=2, stops=1, pit_avg=21.0, pit_best=21.0),
+            row("NOR", "Lando Norris", 3, 5, 15, qpos=2, stops=1, pit_est=[2.2]),
             row("VER", "Max Verstappen", None, 2, 0, status="Accident", qpos=1,
-                stops=1, pit_avg=27.0, pit_best=27.0, laps=10),
+                stops=1, pit_est=[3.4], laps=10),
         ]},
         {"status": "upcoming", "results": []},   # ignored
     ]
@@ -125,8 +146,7 @@ def test_build_driver_stats_aggregates_across_races():
     assert nor["avg_finish"] == 2.0 and nor["avg_grid"] == 3.0
     assert nor["gained"] == 2                       # (1-1) + (5-3)
     assert nor["avg_stops"] == 1.5                  # (2 + 1) / 2
-    assert nor["pit_avg"] == 22.33                  # (23*2 + 21*1) / 3 stops
-    assert nor["pit_best"] == 21.0
+    assert nor["stop_s"] == 2.4                      # median of [2.4, 2.6, 2.2]
     assert nor["team"] == "McLaren" and nor["laps_led"] is None
 
     ver = by["VER"]

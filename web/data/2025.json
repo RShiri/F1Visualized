@@ -1,6 +1,6 @@
 {
  "season": 2025,
- "updated": "2026-07-04T22:06:59.898241+00:00",
+ "updated": "2026-07-04T22:27:00.518382+00:00",
  "source": "f1db + fastf1",
  "races": [
   {
@@ -54,8 +54,13 @@
      "status": "Finished",
      "qpos": 1,
      "stops": 5,
-     "pit_avg": 15.11,
-     "pit_best": 12.804
+     "pit_est": [
+      2.537,
+      2.106,
+      2.0,
+      7.66,
+      7.227
+     ]
     },
     {
      "pos": 2,
@@ -69,8 +74,13 @@
      "status": "Finished",
      "qpos": 3,
      "stops": 5,
-     "pit_avg": 15.503,
-     "pit_best": 12.938
+     "pit_est": [
+      2.612,
+      2.936,
+      2.134,
+      7.896,
+      7.917
+     ]
     },
     {
      "pos": 3,
@@ -84,8 +94,13 @@
      "status": "Finished",
      "qpos": 4,
      "stops": 5,
-     "pit_avg": 15.995,
-     "pit_best": 13.672
+     "pit_est": [
+      2.868,
+      3.3,
+      2.892,
+      8.321,
+      8.574
+     ]
     },
     {
      "pos": 4,
@@ -99,8 +114,13 @@
      "status": "Finished",
      "qpos": 16,
      "stops": 5,
-     "pit_avg": 17.173,
-     "pit_best": 13.975
+     "pit_est": [
+      3.854,
+      5.57,
+      3.171,
+      8.108,
+      11.142
+     ]
     },
     {
      "pos": 5,
@@ -114,8 +134,13 @@
      "status": "Finished",
      "qpos": 6,
      "stops": 5,
-     "pit_avg": 16.765,
-     "pit_best": 14.285
+     "pit_est": [
+      4.216,
+      6.189,
+      3.481,
+      7.769,
+      8.148
+     ]
     },
     {
      "pos": 6,
@@ -129,8 +154,13 @@
      "status": "Finished",
      "qpos": 13,
      "stops": 5,
-     "pit_avg": 16.735,
-     "pit_best": 14.451
+     "pit_est": [
+      4.701,
+      5.21,
+      3.647,
+      7.998,
+      8.097
+     ]
     },
     {
      "pos": 7,
@@ -144,8 +174,13 @@
      "status": "Finished",
      "qpos": 17,
      "stops": 5,
-     "pit_avg": 17.326,
-     "pit_best": 14.198
+     "pit_est": [
+      4.326,
+      5.167,
+      3.394,
+      10.319,
+      9.405
+     ]
     },
     {
      "pos": 8,
@@ -159,8 +194,13 @@
      "status": "Finished",
      "qpos": 7,
      "stops": 5,
-     "pit_avg": 17.123,
-     "pit_best": 14.129
+     "pit_est": [
+      3.378,
+      3.817,
+      3.325,
+      7.35,
+      13.724
+     ]
     },
     {
      "pos": 9,
@@ -174,8 +214,13 @@
      "status": "Finished",
      "qpos": 2,
      "stops": 5,
-     "pit_avg": 15.86,
-     "pit_best": 12.816
+     "pit_est": [
+      2.274,
+      3.034,
+      2.012,
+      8.915,
+      9.046
+     ]
     },
     {
      "pos": 10,
@@ -189,8 +234,13 @@
      "status": "Finished",
      "qpos": 8,
      "stops": 5,
-     "pit_avg": 17.062,
-     "pit_best": 14.789
+     "pit_est": [
+      4.198,
+      5.387,
+      3.985,
+      7.722,
+      9.998
+     ]
     },
     {
      "pos": 11,
@@ -204,8 +254,13 @@
      "status": "Finished",
      "qpos": 9,
      "stops": 5,
-     "pit_avg": 16.926,
-     "pit_best": 14.71
+     "pit_est": [
+      4.3,
+      4.94,
+      3.906,
+      8.785,
+      8.678
+     ]
     },
     {
      "pos": 12,
@@ -219,8 +274,13 @@
      "status": "Finished",
      "qpos": 5,
      "stops": 5,
-     "pit_avg": 16.419,
-     "pit_best": 13.605
+     "pit_est": [
+      4.153,
+      4.419,
+      2.801,
+      8.193,
+      8.508
+     ]
     },
     {
      "pos": 13,
@@ -234,8 +294,13 @@
      "status": "Finished",
      "qpos": 19,
      "stops": 5,
-     "pit_avg": 17.831,
-     "pit_best": 14.395
+     "pit_est": [
+      3.591,
+      5.673,
+      8.845,
+      7.974,
+      9.054
+     ]
     },
     {
      "pos": 14,
@@ -249,8 +314,13 @@
      "status": "Finished",
      "qpos": null,
      "stops": 5,
-     "pit_avg": 19.051,
-     "pit_best": 14.605
+     "pit_est": [
+      3.801,
+      5.543,
+      11.69,
+      11.637,
+      8.566
+     ]
     },
     {
      "pos": null,
@@ -264,8 +334,12 @@
      "status": "Accident",
      "qpos": 18,
      "stops": 4,
-     "pit_avg": 17.511,
-     "pit_best": 14.79
+     "pit_est": [
+      3.986,
+      5.505,
+      8.076,
+      9.263
+     ]
     },
     {
      "pos": null,
@@ -279,8 +353,13 @@
      "status": "Accident",
      "qpos": 15,
      "stops": 5,
-     "pit_avg": 19.058,
-     "pit_best": 14.206
+     "pit_est": [
+      3.628,
+      5.559,
+      3.402,
+      13.269,
+      15.41
+     ]
     },
     {
      "pos": null,
@@ -294,8 +373,11 @@
      "status": "Accident",
      "qpos": 12,
      "stops": 3,
-     "pit_avg": 15.603,
-     "pit_best": 15.034
+     "pit_est": [
+      4.731,
+      5.437,
+      4.23
+     ]
     },
     {
      "pos": null,
@@ -309,8 +391,7 @@
      "status": "Accident",
      "qpos": 10,
      "stops": 0,
-     "pit_avg": null,
-     "pit_best": null
+     "pit_est": null
     },
     {
      "pos": null,
@@ -324,8 +405,7 @@
      "status": "Accident",
      "qpos": 14,
      "stops": 0,
-     "pit_avg": null,
-     "pit_best": null
+     "pit_est": null
     },
     {
      "pos": null,
@@ -339,8 +419,7 @@
      "status": "Accident on formation lap",
      "qpos": 11,
      "stops": 0,
-     "pit_avg": null,
-     "pit_best": null
+     "pit_est": null
     }
    ],
    "dotd": "NOR"
@@ -396,8 +475,9 @@
      "status": "Finished",
      "qpos": 1,
      "stops": 1,
-     "pit_avg": 23.938,
-     "pit_best": 23.938
+     "pit_est": [
+      3.787
+     ]
     },
     {
      "pos": 2,
@@ -411,8 +491,9 @@
      "status": "Finished",
      "qpos": 3,
      "stops": 1,
-     "pit_avg": 22.213,
-     "pit_best": 22.213
+     "pit_est": [
+      2.062
+     ]
     },
     {
      "pos": 3,
@@ -426,8 +507,9 @@
      "status": "Finished",
      "qpos": 2,
      "stops": 1,
-     "pit_avg": 22.324,
-     "pit_best": 22.324
+     "pit_est": [
+      2.173
+     ]
     },
     {
      "pos": 4,
@@ -441,8 +523,9 @@
      "status": "Finished",
      "qpos": 4,
      "stops": 1,
-     "pit_avg": 22.454,
-     "pit_best": 22.454
+     "pit_est": [
+      2.303
+     ]
     },
     {
      "pos": 5,
@@ -456,8 +539,9 @@
      "status": "Finished",
      "qpos": 11,
      "stops": 1,
-     "pit_avg": 23.114,
-     "pit_best": 23.114
+     "pit_est": [
+      2.963
+     ]
     },
     {
      "pos": 6,
@@ -471,8 +555,9 @@
      "status": "Finished",
      "qpos": 8,
      "stops": 1,
-     "pit_avg": 22.675,
-     "pit_best": 22.675
+     "pit_est": [
+      2.524
+     ]
     },
     {
      "pos": 7,
@@ -486,8 +571,9 @@
      "status": "Finished",
      "qpos": 10,
      "stops": 1,
-     "pit_avg": 23.362,
-     "pit_best": 23.362
+     "pit_est": [
+      3.211
+     ]
     },
     {
      "pos": 8,
@@ -501,8 +587,9 @@
      "status": "Finished",
      "qpos": 17,
      "stops": 1,
-     "pit_avg": 22.808,
-     "pit_best": 22.808
+     "pit_est": [
+      2.657
+     ]
     },
     {
      "pos": 9,
@@ -516,8 +603,9 @@
      "status": "Finished",
      "qpos": 14,
      "stops": 1,
-     "pit_avg": 22.995,
-     "pit_best": 22.995
+     "pit_est": [
+      2.844
+     ]
     },
     {
      "pos": 10,
@@ -531,8 +619,9 @@
      "status": "Finished",
      "qpos": 15,
      "stops": 1,
-     "pit_avg": 22.721,
-     "pit_best": 22.721
+     "pit_est": [
+      2.57
+     ]
     },
     {
      "pos": 11,
@@ -546,8 +635,10 @@
      "status": "Finished",
      "qpos": 7,
      "stops": 2,
-     "pit_avg": 22.565,
-     "pit_best": 22.234
+     "pit_est": [
+      2.745,
+      2.083
+     ]
     },
     {
      "pos": 12,
@@ -561,8 +652,10 @@
      "status": "Finished",
      "qpos": 20,
      "stops": 2,
-     "pit_avg": 22.446,
-     "pit_best": 22.355
+     "pit_est": [
+      2.385,
+      2.204
+     ]
     },
     {
      "pos": 13,
@@ -576,8 +669,9 @@
      "status": "Finished",
      "qpos": 18,
      "stops": 1,
-     "pit_avg": 22.793,
-     "pit_best": 22.793
+     "pit_est": [
+      2.642
+     ]
     },
     {
      "pos": 14,
@@ -591,8 +685,10 @@
      "status": "Finished",
      "qpos": 19,
      "stops": 2,
-     "pit_avg": 23.087,
-     "pit_best": 22.79
+     "pit_est": [
+      3.234,
+      2.639
+     ]
     },
     {
      "pos": 15,
@@ -606,8 +702,9 @@
      "status": "Finished",
      "qpos": 12,
      "stops": 1,
-     "pit_avg": 22.959,
-     "pit_best": 22.959
+     "pit_est": [
+      2.808
+     ]
     },
     {
      "pos": 16,
@@ -621,8 +718,11 @@
      "status": "Finished",
      "qpos": 9,
      "stops": 3,
-     "pit_avg": 27.735,
-     "pit_best": 22.519
+     "pit_est": [
+      2.368,
+      2.432,
+      17.951
+     ]
     },
     {
      "pos": null,
@@ -636,8 +736,7 @@
      "status": "Brakes",
      "qpos": 13,
      "stops": 0,
-     "pit_avg": null,
-     "pit_best": null
+     "pit_est": null
     },
     {
      "pos": null,
@@ -651,8 +750,9 @@
      "status": "Car underweight",
      "qpos": 6,
      "stops": 1,
-     "pit_avg": 22.151,
-     "pit_best": 22.151
+     "pit_est": [
+      2.0
+     ]
     },
     {
      "pos": null,
@@ -666,8 +766,10 @@
      "status": "Illegal skid block wear",
      "qpos": 5,
      "stops": 2,
-     "pit_avg": 22.376,
-     "pit_best": 22.364
+     "pit_est": [
+      2.237,
+      2.213
+     ]
     },
     {
      "pos": null,
@@ -681,8 +783,9 @@
      "status": "Car underweight",
      "qpos": 16,
      "stops": 1,
-     "pit_avg": 23.138,
-     "pit_best": 23.138
+     "pit_est": [
+      2.987
+     ]
     }
    ],
    "dotd": "ANT"
@@ -738,8 +841,9 @@
      "status": "Finished",
      "qpos": 1,
      "stops": 1,
-     "pit_avg": 24.397,
-     "pit_best": 24.397
+     "pit_est": [
+      3.46
+     ]
     },
     {
      "pos": 2,
@@ -753,8 +857,9 @@
      "status": "Finished",
      "qpos": 2,
      "stops": 1,
-     "pit_avg": 23.222,
-     "pit_best": 23.222
+     "pit_est": [
+      2.285
+     ]
     },
     {
      "pos": 3,
@@ -768,8 +873,9 @@
      "status": "Finished",
      "qpos": 3,
      "stops": 1,
-     "pit_avg": 23.037,
-     "pit_best": 23.037
+     "pit_est": [
+      2.1
+     ]
     },
     {
      "pos": 4,
@@ -783,8 +889,9 @@
      "status": "Finished",
      "qpos": 4,
      "stops": 1,
-     "pit_avg": 23.346,
-     "pit_best": 23.346
+     "pit_est": [
+      2.409
+     ]
     },
     {
      "pos": 5,
@@ -798,8 +905,9 @@
      "status": "Finished",
      "qpos": 5,
      "stops": 1,
-     "pit_avg": 23.184,
-     "pit_best": 23.184
+     "pit_est": [
+      2.247
+     ]
     },
     {
      "pos": 6,
@@ -813,8 +921,9 @@
      "status": "Finished",
      "qpos": 6,
      "stops": 1,
-     "pit_avg": 24.38,
-     "pit_best": 24.38
+     "pit_est": [
+      3.443
+     ]
     },
     {
      "pos": 7,
@@ -828,8 +937,9 @@
      "status": "Finished",
      "qpos": 8,
      "stops": 1,
-     "pit_avg": 22.937,
-     "pit_best": 22.937
+     "pit_est": [
+      2.0
+     ]
     },
     {
      "pos": 8,
@@ -843,8 +953,9 @@
      "status": "Finished",
      "qpos": 7,
      "stops": 1,
-     "pit_avg": 23.333,
-     "pit_best": 23.333
+     "pit_est": [
+      2.396
+     ]
     },
     {
      "pos": 9,
@@ -858,8 +969,9 @@
      "status": "Finished",
      "qpos": 9,
      "stops": 1,
-     "pit_avg": 23.093,
-     "pit_best": 23.093
+     "pit_est": [
+      2.156
+     ]
     },
     {
      "pos": 10,
@@ -873,8 +985,9 @@
      "status": "Finished",
      "qpos": 10,
      "stops": 1,
-     "pit_avg": 24.834,
-     "pit_best": 24.834
+     "pit_est": [
+      3.897
+     ]
     },
     {
      "pos": 11,
@@ -888,8 +1001,9 @@
      "status": "Finished",
      "qpos": 13,
      "stops": 1,
-     "pit_avg": 25.708,
-     "pit_best": 25.708
+     "pit_est": [
+      4.771
+     ]
     },
     {
      "pos": 12,
@@ -903,8 +1017,9 @@
      "status": "Finished",
      "qpos": 15,
      "stops": 1,
-     "pit_avg": 24.181,
-     "pit_best": 24.181
+     "pit_est": [
+      3.244
+     ]
     },
     {
      "pos": 13,
@@ -918,8 +1033,9 @@
      "status": "Finished",
      "qpos": 11,
      "stops": 1,
-     "pit_avg": 26.041,
-     "pit_best": 26.041
+     "pit_est": [
+      5.104
+     ]
     },
     {
      "pos": 14,
@@ -933,8 +1049,9 @@
      "status": "Finished",
      "qpos": 12,
      "stops": 1,
-     "pit_avg": 23.337,
-     "pit_best": 23.337
+     "pit_est": [
+      2.4
+     ]
     },
     {
      "pos": 15,
@@ -948,8 +1065,9 @@
      "status": "Finished",
      "qpos": 19,
      "stops": 1,
-     "pit_avg": 23.382,
-     "pit_best": 23.382
+     "pit_est": [
+      2.445
+     ]
     },
     {
      "pos": 16,
@@ -963,8 +1081,9 @@
      "status": "Finished",
      "qpos": 16,
      "stops": 1,
-     "pit_avg": 23.515,
-     "pit_best": 23.515
+     "pit_est": [
+      2.578
+     ]
     },
     {
      "pos": 17,
@@ -978,8 +1097,9 @@
      "status": "Finished",
      "qpos": 14,
      "stops": 1,
-     "pit_avg": 23.662,
-     "pit_best": 23.662
+     "pit_est": [
+      2.725
+     ]
     },
     {
      "pos": 18,
@@ -993,8 +1113,9 @@
      "status": "Finished",
      "qpos": 18,
      "stops": 1,
-     "pit_avg": 24.464,
-     "pit_best": 24.464
+     "pit_est": [
+      3.527
+     ]
     },
     {
      "pos": 19,
@@ -1008,8 +1129,9 @@
      "status": "Finished",
      "qpos": 17,
      "stops": 1,
-     "pit_avg": 23.419,
-     "pit_best": 23.419
+     "pit_est": [
+      2.482
+     ]
     },
     {
      "pos": 20,
@@ -1023,8 +1145,10 @@
      "status": "Finished",
      "qpos": 20,
      "stops": 2,
-     "pit_avg": 23.666,
-     "pit_best": 23.608
+     "pit_est": [
+      2.787,
+      2.671
+     ]
     }
    ],
    "dotd": "TSU"
@@ -1080,8 +1204,10 @@
      "status": "Finished",
      "qpos": 1,
      "stops": 2,
-     "pit_avg": 24.699,
-     "pit_best": 24.498
+     "pit_est": [
+      2.463,
+      2.865
+     ]
     },
     {
      "pos": 2,
@@ -1095,8 +1221,10 @@
      "status": "Finished",
      "qpos": 2,
      "stops": 2,
-     "pit_avg": 24.072,
-     "pit_best": 24.044
+     "pit_est": [
+      2.009,
+      2.065
+     ]
     },
     {
      "pos": 3,
@@ -1110,8 +1238,10 @@
      "status": "Finished",
      "qpos": 6,
      "stops": 2,
-     "pit_avg": 26.928,
-     "pit_best": 24.035
+     "pit_est": [
+      7.787,
+      2.0
+     ]
     },
     {
      "pos": 4,
@@ -1125,8 +1255,10 @@
      "status": "Finished",
      "qpos": 3,
      "stops": 2,
-     "pit_avg": 24.521,
-     "pit_best": 24.241
+     "pit_est": [
+      2.767,
+      2.206
+     ]
     },
     {
      "pos": 5,
@@ -1140,8 +1272,10 @@
      "status": "Finished",
      "qpos": 9,
      "stops": 2,
-     "pit_avg": 24.345,
-     "pit_best": 24.34
+     "pit_est": [
+      2.305,
+      2.315
+     ]
     },
     {
      "pos": 6,
@@ -1155,8 +1289,10 @@
      "status": "Finished",
      "qpos": 7,
      "stops": 2,
-     "pit_avg": 27.293,
-     "pit_best": 26.518
+     "pit_est": [
+      4.483,
+      6.032
+     ]
     },
     {
      "pos": 7,
@@ -1170,8 +1306,10 @@
      "status": "Finished",
      "qpos": 5,
      "stops": 2,
-     "pit_avg": 24.995,
-     "pit_best": 24.958
+     "pit_est": [
+      2.998,
+      2.923
+     ]
     },
     {
      "pos": 8,
@@ -1185,8 +1323,10 @@
      "status": "Finished",
      "qpos": 14,
      "stops": 2,
-     "pit_avg": 24.854,
-     "pit_best": 24.832
+     "pit_est": [
+      2.841,
+      2.797
+     ]
     },
     {
      "pos": 9,
@@ -1200,8 +1340,10 @@
      "status": "Finished",
      "qpos": 10,
      "stops": 2,
-     "pit_avg": 25.632,
-     "pit_best": 24.771
+     "pit_est": [
+      4.458,
+      2.736
+     ]
     },
     {
      "pos": 10,
@@ -1215,8 +1357,10 @@
      "status": "Finished",
      "qpos": 20,
      "stops": 2,
-     "pit_avg": 24.729,
-     "pit_best": 24.562
+     "pit_est": [
+      2.527,
+      2.86
+     ]
     },
     {
      "pos": 11,
@@ -1230,8 +1374,11 @@
      "status": "Finished",
      "qpos": 4,
      "stops": 3,
-     "pit_avg": 24.669,
-     "pit_best": 24.506
+     "pit_est": [
+      2.772,
+      2.471,
+      2.658
+     ]
     },
     {
      "pos": 12,
@@ -1245,8 +1392,10 @@
      "status": "Finished",
      "qpos": 15,
      "stops": 2,
-     "pit_avg": 25.692,
-     "pit_best": 25.394
+     "pit_est": [
+      3.359,
+      3.955
+     ]
     },
     {
      "pos": 13,
@@ -1260,8 +1409,10 @@
      "status": "Finished",
      "qpos": 12,
      "stops": 2,
-     "pit_avg": 24.953,
-     "pit_best": 24.64
+     "pit_est": [
+      3.23,
+      2.605
+     ]
     },
     {
      "pos": 14,
@@ -1275,8 +1426,10 @@
      "status": "Finished",
      "qpos": 11,
      "stops": 2,
-     "pit_avg": 24.942,
-     "pit_best": 24.791
+     "pit_est": [
+      2.756,
+      3.058
+     ]
     },
     {
      "pos": 15,
@@ -1290,8 +1443,10 @@
      "status": "Finished",
      "qpos": 13,
      "stops": 2,
-     "pit_avg": 24.836,
-     "pit_best": 24.826
+     "pit_est": [
+      2.791,
+      2.811
+     ]
     },
     {
      "pos": 16,
@@ -1305,8 +1460,10 @@
      "status": "Finished",
      "qpos": 17,
      "stops": 2,
-     "pit_avg": 24.716,
-     "pit_best": 24.191
+     "pit_est": [
+      3.207,
+      2.156
+     ]
     },
     {
      "pos": 17,
@@ -1320,8 +1477,10 @@
      "status": "Finished",
      "qpos": 19,
      "stops": 2,
-     "pit_avg": 24.602,
-     "pit_best": 24.592
+     "pit_est": [
+      2.576,
+      2.557
+     ]
     },
     {
      "pos": 18,
@@ -1335,8 +1494,10 @@
      "status": "Finished",
      "qpos": 18,
      "stops": 2,
-     "pit_avg": 24.77,
-     "pit_best": 24.143
+     "pit_est": [
+      2.108,
+      3.361
+     ]
     },
     {
      "pos": null,
@@ -1350,8 +1511,11 @@
      "status": "Collision damage",
      "qpos": 8,
      "stops": 3,
-     "pit_avg": 28.677,
-     "pit_best": 24.315
+     "pit_est": [
+      2.565,
+      2.28,
+      15.081
+     ]
     },
     {
      "pos": null,
@@ -1365,8 +1529,10 @@
      "status": "Illegal skid block wear",
      "qpos": 16,
      "stops": 2,
-     "pit_avg": 24.26,
-     "pit_best": 24.229
+     "pit_est": [
+      2.194,
+      2.256
+     ]
     }
    ],
    "dotd": "HAM"
@@ -1422,8 +1588,9 @@
      "status": "Finished",
      "qpos": 2,
      "stops": 1,
-     "pit_avg": 21.388,
-     "pit_best": 21.388
+     "pit_est": [
+      3.257
+     ]
     },
     {
      "pos": 2,
@@ -1437,8 +1604,9 @@
      "status": "Finished",
      "qpos": 1,
      "stops": 1,
-     "pit_avg": 26.03,
-     "pit_best": 26.03
+     "pit_est": [
+      7.899
+     ]
     },
     {
      "pos": 3,
@@ -1452,8 +1620,9 @@
      "status": "Finished",
      "qpos": 4,
      "stops": 1,
-     "pit_avg": 20.131,
-     "pit_best": 20.131
+     "pit_est": [
+      2.0
+     ]
     },
     {
      "pos": 4,
@@ -1467,8 +1636,9 @@
      "status": "Finished",
      "qpos": 10,
      "stops": 1,
-     "pit_avg": 20.427,
-     "pit_best": 20.427
+     "pit_est": [
+      2.296
+     ]
     },
     {
      "pos": 5,
@@ -1482,8 +1652,9 @@
      "status": "Finished",
      "qpos": 3,
      "stops": 1,
-     "pit_avg": 20.329,
-     "pit_best": 20.329
+     "pit_est": [
+      2.198
+     ]
     },
     {
      "pos": 6,
@@ -1497,8 +1668,9 @@
      "status": "Finished",
      "qpos": 5,
      "stops": 1,
-     "pit_avg": 20.399,
-     "pit_best": 20.399
+     "pit_est": [
+      2.268
+     ]
     },
     {
      "pos": 7,
@@ -1512,8 +1684,9 @@
      "status": "Finished",
      "qpos": 7,
      "stops": 1,
-     "pit_avg": 20.144,
-     "pit_best": 20.144
+     "pit_est": [
+      2.013
+     ]
     },
     {
      "pos": 8,
@@ -1527,8 +1700,9 @@
      "status": "Finished",
      "qpos": 6,
      "stops": 1,
-     "pit_avg": 24.148,
-     "pit_best": 24.148
+     "pit_est": [
+      6.017
+     ]
     },
     {
      "pos": 9,
@@ -1542,8 +1716,9 @@
      "status": "Finished",
      "qpos": 11,
      "stops": 1,
-     "pit_avg": 22.135,
-     "pit_best": 22.135
+     "pit_est": [
+      4.004
+     ]
     },
     {
      "pos": 10,
@@ -1557,8 +1732,9 @@
      "status": "Finished",
      "qpos": 14,
      "stops": 1,
-     "pit_avg": 20.827,
-     "pit_best": 20.827
+     "pit_est": [
+      2.696
+     ]
     },
     {
      "pos": 11,
@@ -1572,8 +1748,9 @@
      "status": "Finished",
      "qpos": 13,
      "stops": 1,
-     "pit_avg": 21.891,
-     "pit_best": 21.891
+     "pit_est": [
+      3.76
+     ]
     },
     {
      "pos": 12,
@@ -1587,8 +1764,9 @@
      "status": "Finished",
      "qpos": 12,
      "stops": 1,
-     "pit_avg": 20.534,
-     "pit_best": 20.534
+     "pit_est": [
+      2.403
+     ]
     },
     {
      "pos": 13,
@@ -1602,8 +1780,9 @@
      "status": "Finished",
      "qpos": 15,
      "stops": 1,
-     "pit_avg": 22.095,
-     "pit_best": 22.095
+     "pit_est": [
+      3.964
+     ]
     },
     {
      "pos": 14,
@@ -1617,8 +1796,9 @@
      "status": "Finished",
      "qpos": 19,
      "stops": 1,
-     "pit_avg": 21.512,
-     "pit_best": 21.512
+     "pit_est": [
+      3.381
+     ]
     },
     {
      "pos": 15,
@@ -1632,8 +1812,9 @@
      "status": "Finished",
      "qpos": 18,
      "stops": 1,
-     "pit_avg": 20.441,
-     "pit_best": 20.441
+     "pit_est": [
+      2.31
+     ]
     },
     {
      "pos": 16,
@@ -1647,8 +1828,9 @@
      "status": "Finished",
      "qpos": 16,
      "stops": 1,
-     "pit_avg": 20.487,
-     "pit_best": 20.487
+     "pit_est": [
+      2.356
+     ]
     },
     {
      "pos": 17,
@@ -1662,8 +1844,10 @@
      "status": "Finished",
      "qpos": 17,
      "stops": 2,
-     "pit_avg": 21.046,
-     "pit_best": 20.571
+     "pit_est": [
+      2.44,
+      3.39
+     ]
     },
     {
      "pos": 18,
@@ -1677,8 +1861,9 @@
      "status": "Finished",
      "qpos": 20,
      "stops": 1,
-     "pit_avg": 21.854,
-     "pit_best": 21.854
+     "pit_est": [
+      3.723
+     ]
     },
     {
      "pos": null,
@@ -1692,8 +1877,7 @@
      "status": "Collision damage",
      "qpos": 8,
      "stops": 0,
-     "pit_avg": null,
-     "pit_best": null
+     "pit_est": null
     },
     {
      "pos": null,
@@ -1707,8 +1891,7 @@
      "status": "Collision",
      "qpos": 9,
      "stops": 0,
-     "pit_avg": null,
-     "pit_best": null
+     "pit_est": null
     }
    ],
    "dotd": "VER"
@@ -1764,8 +1947,9 @@
      "status": "Finished",
      "qpos": 4,
      "stops": 1,
-     "pit_avg": 22.106,
-     "pit_best": 22.106
+     "pit_est": [
+      2.2
+     ]
     },
     {
      "pos": 2,
@@ -1779,8 +1963,9 @@
      "status": "Finished",
      "qpos": 2,
      "stops": 1,
-     "pit_avg": 22.044,
-     "pit_best": 22.044
+     "pit_est": [
+      2.138
+     ]
     },
     {
      "pos": 3,
@@ -1794,8 +1979,9 @@
      "status": "Finished",
      "qpos": 5,
      "stops": 1,
-     "pit_avg": 24.257,
-     "pit_best": 24.257
+     "pit_est": [
+      4.351
+     ]
     },
     {
      "pos": 4,
@@ -1809,8 +1995,9 @@
      "status": "Finished",
      "qpos": 1,
      "stops": 1,
-     "pit_avg": 22.501,
-     "pit_best": 22.501
+     "pit_est": [
+      2.595
+     ]
     },
     {
      "pos": 5,
@@ -1824,8 +2011,9 @@
      "status": "Finished",
      "qpos": 7,
      "stops": 1,
-     "pit_avg": 21.906,
-     "pit_best": 21.906
+     "pit_est": [
+      2.0
+     ]
     },
     {
      "pos": 6,
@@ -1839,8 +2027,9 @@
      "status": "Finished",
      "qpos": 3,
      "stops": 1,
-     "pit_avg": 24.383,
-     "pit_best": 24.383
+     "pit_est": [
+      4.477
+     ]
     },
     {
      "pos": 7,
@@ -1854,8 +2043,9 @@
      "status": "Finished",
      "qpos": 8,
      "stops": 1,
-     "pit_avg": 22.183,
-     "pit_best": 22.183
+     "pit_est": [
+      2.277
+     ]
     },
     {
      "pos": 8,
@@ -1869,8 +2059,9 @@
      "status": "Finished",
      "qpos": 12,
      "stops": 1,
-     "pit_avg": 23.104,
-     "pit_best": 23.104
+     "pit_est": [
+      3.198
+     ]
     },
     {
      "pos": 9,
@@ -1884,8 +2075,9 @@
      "status": "Finished",
      "qpos": 6,
      "stops": 1,
-     "pit_avg": 22.415,
-     "pit_best": 22.415
+     "pit_est": [
+      2.509
+     ]
     },
     {
      "pos": 10,
@@ -1899,8 +2091,9 @@
      "status": "Finished",
      "qpos": 10,
      "stops": 1,
-     "pit_avg": 22.56,
-     "pit_best": 22.56
+     "pit_est": [
+      2.654
+     ]
     },
     {
      "pos": 11,
@@ -1914,8 +2107,9 @@
      "status": "Finished",
      "qpos": 11,
      "stops": 1,
-     "pit_avg": 22.115,
-     "pit_best": 22.115
+     "pit_est": [
+      2.209
+     ]
     },
     {
      "pos": 12,
@@ -1929,8 +2123,9 @@
      "status": "Finished",
      "qpos": 9,
      "stops": 1,
-     "pit_avg": 23.162,
-     "pit_best": 23.162
+     "pit_est": [
+      3.256
+     ]
     },
     {
      "pos": 13,
@@ -1944,8 +2139,9 @@
      "status": "Finished",
      "qpos": 18,
      "stops": 1,
-     "pit_avg": 22.06,
-     "pit_best": 22.06
+     "pit_est": [
+      2.154
+     ]
     },
     {
      "pos": 14,
@@ -1959,8 +2155,9 @@
      "status": "Finished",
      "qpos": 16,
      "stops": 1,
-     "pit_avg": 22.108,
-     "pit_best": 22.108
+     "pit_est": [
+      2.202
+     ]
     },
     {
      "pos": 15,
@@ -1974,8 +2171,9 @@
      "status": "Finished",
      "qpos": 17,
      "stops": 1,
-     "pit_avg": 23.602,
-     "pit_best": 23.602
+     "pit_est": [
+      3.696
+     ]
     },
     {
      "pos": 16,
@@ -1989,8 +2187,9 @@
      "status": "Finished",
      "qpos": 19,
      "stops": 1,
-     "pit_avg": 22.317,
-     "pit_best": 22.317
+     "pit_est": [
+      2.411
+     ]
     },
     {
      "pos": null,
@@ -2004,8 +2203,9 @@
      "status": "Collision damage",
      "qpos": 15,
      "stops": 1,
-     "pit_avg": 22.439,
-     "pit_best": 22.439
+     "pit_est": [
+      2.533
+     ]
     },
     {
      "pos": null,
@@ -2019,8 +2219,9 @@
      "status": "Engine",
      "qpos": 13,
      "stops": 1,
-     "pit_avg": 22.188,
-     "pit_best": 22.188
+     "pit_est": [
+      2.282
+     ]
     },
     {
      "pos": null,
@@ -2034,8 +2235,7 @@
      "status": "Fuel system",
      "qpos": 20,
      "stops": 0,
-     "pit_avg": null,
-     "pit_best": null
+     "pit_est": null
     },
     {
      "pos": null,
@@ -2049,8 +2249,7 @@
      "status": "Collision",
      "qpos": 14,
      "stops": 0,
-     "pit_avg": null,
-     "pit_best": null
+     "pit_est": null
     }
    ],
    "dotd": "PIA"
@@ -2106,8 +2305,10 @@
      "status": "Finished",
      "qpos": 2,
      "stops": 2,
-     "pit_avg": 29.824,
-     "pit_best": 29.657
+     "pit_est": [
+      2.478,
+      2.144
+     ]
     },
     {
      "pos": 2,
@@ -2121,8 +2322,10 @@
      "status": "Finished",
      "qpos": 4,
      "stops": 2,
-     "pit_avg": 30.594,
-     "pit_best": 29.513
+     "pit_est": [
+      2.0,
+      4.162
+     ]
     },
     {
      "pos": 3,
@@ -2136,8 +2339,10 @@
      "status": "Finished",
      "qpos": 1,
      "stops": 2,
-     "pit_avg": 30.791,
-     "pit_best": 30.609
+     "pit_est": [
+      3.46,
+      3.096
+     ]
     },
     {
      "pos": 4,
@@ -2151,8 +2356,10 @@
      "status": "Finished",
      "qpos": 12,
      "stops": 2,
-     "pit_avg": 29.95,
-     "pit_best": 29.949
+     "pit_est": [
+      2.436,
+      2.437
+     ]
     },
     {
      "pos": 5,
@@ -2166,8 +2373,10 @@
      "status": "Finished",
      "qpos": 7,
      "stops": 2,
-     "pit_avg": 30.129,
-     "pit_best": 29.786
+     "pit_est": [
+      2.958,
+      2.273
+     ]
     },
     {
      "pos": 6,
@@ -2181,8 +2390,10 @@
      "status": "Finished",
      "qpos": 11,
      "stops": 2,
-     "pit_avg": 30.766,
-     "pit_best": 29.634
+     "pit_est": [
+      2.121,
+      4.385
+     ]
     },
     {
      "pos": 7,
@@ -2196,8 +2407,10 @@
      "status": "Finished",
      "qpos": 3,
      "stops": 2,
-     "pit_avg": 30.269,
-     "pit_best": 29.784
+     "pit_est": [
+      2.271,
+      3.241
+     ]
     },
     {
      "pos": 8,
@@ -2211,8 +2424,10 @@
      "status": "Finished",
      "qpos": 6,
      "stops": 2,
-     "pit_avg": 30.358,
-     "pit_best": 30.08
+     "pit_est": [
+      2.567,
+      3.122
+     ]
     },
     {
      "pos": 9,
@@ -2226,8 +2441,10 @@
      "status": "Finished",
      "qpos": 9,
      "stops": 2,
-     "pit_avg": 30.11,
-     "pit_best": 30.096
+     "pit_est": [
+      2.61,
+      2.583
+     ]
     },
     {
      "pos": 10,
@@ -2241,8 +2458,9 @@
      "status": "Finished",
      "qpos": null,
      "stops": 1,
-     "pit_avg": 29.807,
-     "pit_best": 29.807
+     "pit_est": [
+      2.294
+     ]
     },
     {
      "pos": 11,
@@ -2256,8 +2474,10 @@
      "status": "Finished",
      "qpos": 5,
      "stops": 2,
-     "pit_avg": 30.524,
-     "pit_best": 30.163
+     "pit_est": [
+      2.65,
+      3.373
+     ]
     },
     {
      "pos": 12,
@@ -2271,8 +2491,9 @@
      "status": "Finished",
      "qpos": 17,
      "stops": 1,
-     "pit_avg": 30.184,
-     "pit_best": 30.184
+     "pit_est": [
+      2.671
+     ]
     },
     {
      "pos": 13,
@@ -2286,8 +2507,10 @@
      "status": "Finished",
      "qpos": 10,
      "stops": 2,
-     "pit_avg": 31.745,
-     "pit_best": 31.488
+     "pit_est": [
+      3.975,
+      4.49
+     ]
     },
     {
      "pos": 14,
@@ -2301,8 +2524,10 @@
      "status": "Finished",
      "qpos": 16,
      "stops": 2,
-     "pit_avg": 29.993,
-     "pit_best": 29.695
+     "pit_est": [
+      2.182,
+      2.778
+     ]
     },
     {
      "pos": 15,
@@ -2316,8 +2541,10 @@
      "status": "Finished",
      "qpos": 8,
      "stops": 2,
-     "pit_avg": 32.857,
-     "pit_best": 31.218
+     "pit_est": [
+      3.705,
+      6.983
+     ]
     },
     {
      "pos": 16,
@@ -2331,8 +2558,10 @@
      "status": "Finished",
      "qpos": 15,
      "stops": 2,
-     "pit_avg": 30.712,
-     "pit_best": 30.317
+     "pit_est": [
+      2.804,
+      3.594
+     ]
     },
     {
      "pos": 17,
@@ -2346,8 +2575,10 @@
      "status": "Finished",
      "qpos": 19,
      "stops": 2,
-     "pit_avg": 44.085,
-     "pit_best": 31.414
+     "pit_est": [
+      3.901,
+      29.244
+     ]
     },
     {
      "pos": 18,
@@ -2361,8 +2592,11 @@
      "status": "Finished",
      "qpos": 14,
      "stops": 3,
-     "pit_avg": 30.476,
-     "pit_best": 29.917
+     "pit_est": [
+      3.393,
+      3.092,
+      2.404
+     ]
     },
     {
      "pos": null,
@@ -2376,8 +2610,9 @@
      "status": "Throttle",
      "qpos": 13,
      "stops": 1,
-     "pit_avg": 30.051,
-     "pit_best": 30.051
+     "pit_est": [
+      2.538
+     ]
     },
     {
      "pos": null,
@@ -2391,8 +2626,9 @@
      "status": "Engine",
      "qpos": 18,
      "stops": 1,
-     "pit_avg": 30.506,
-     "pit_best": 30.506
+     "pit_est": [
+      2.993
+     ]
     }
    ],
    "dotd": "VER"
@@ -2448,8 +2684,10 @@
      "status": "Finished",
      "qpos": 1,
      "stops": 2,
-     "pit_avg": 24.125,
-     "pit_best": 23.704
+     "pit_est": [
+      2.98,
+      2.139
+     ]
     },
     {
      "pos": 2,
@@ -2463,8 +2701,10 @@
      "status": "Finished",
      "qpos": 2,
      "stops": 2,
-     "pit_avg": 23.627,
-     "pit_best": 23.576
+     "pit_est": [
+      2.011,
+      2.113
+     ]
     },
     {
      "pos": 3,
@@ -2478,8 +2718,10 @@
      "status": "Finished",
      "qpos": 3,
      "stops": 2,
-     "pit_avg": 24.832,
-     "pit_best": 23.908
+     "pit_est": [
+      4.191,
+      2.343
+     ]
     },
     {
      "pos": 4,
@@ -2493,8 +2735,10 @@
      "status": "Finished",
      "qpos": 5,
      "stops": 2,
-     "pit_avg": 24.032,
-     "pit_best": 23.95
+     "pit_est": [
+      2.549,
+      2.385
+     ]
     },
     {
      "pos": 5,
@@ -2508,8 +2752,10 @@
      "status": "Finished",
      "qpos": 4,
      "stops": 2,
-     "pit_avg": 23.91,
-     "pit_best": 23.565
+     "pit_est": [
+      2.0,
+      2.691
+     ]
     },
     {
      "pos": 6,
@@ -2523,8 +2769,10 @@
      "status": "Finished",
      "qpos": 6,
      "stops": 2,
-     "pit_avg": 24.171,
-     "pit_best": 24.031
+     "pit_est": [
+      2.746,
+      2.466
+     ]
     },
     {
      "pos": 7,
@@ -2538,8 +2786,10 @@
      "status": "Finished",
      "qpos": 8,
      "stops": 2,
-     "pit_avg": 25.174,
-     "pit_best": 24.773
+     "pit_est": [
+      4.01,
+      3.208
+     ]
     },
     {
      "pos": 8,
@@ -2553,8 +2803,10 @@
      "status": "Finished",
      "qpos": 9,
      "stops": 2,
-     "pit_avg": 24.263,
-     "pit_best": 24.206
+     "pit_est": [
+      2.641,
+      2.755
+     ]
     },
     {
      "pos": 9,
@@ -2568,8 +2820,10 @@
      "status": "Finished",
      "qpos": 10,
      "stops": 2,
-     "pit_avg": 24.059,
-     "pit_best": 23.927
+     "pit_est": [
+      2.362,
+      2.625
+     ]
     },
     {
      "pos": 10,
@@ -2583,8 +2837,10 @@
      "status": "Finished",
      "qpos": 11,
      "stops": 2,
-     "pit_avg": 24.273,
-     "pit_best": 24.049
+     "pit_est": [
+      2.933,
+      2.484
+     ]
     },
     {
      "pos": 11,
@@ -2598,8 +2854,10 @@
      "status": "Finished",
      "qpos": 14,
      "stops": 2,
-     "pit_avg": 24.544,
-     "pit_best": 24.025
+     "pit_est": [
+      3.498,
+      2.46
+     ]
     },
     {
      "pos": 12,
@@ -2613,8 +2871,10 @@
      "status": "Finished",
      "qpos": 17,
      "stops": 2,
-     "pit_avg": 37.386,
-     "pit_best": 24.58
+     "pit_est": [
+      28.626,
+      3.015
+     ]
     },
     {
      "pos": 13,
@@ -2628,8 +2888,10 @@
      "status": "Finished",
      "qpos": 20,
      "stops": 2,
-     "pit_avg": 24.426,
-     "pit_best": 24.355
+     "pit_est": [
+      2.79,
+      2.932
+     ]
     },
     {
      "pos": 14,
@@ -2643,8 +2905,11 @@
      "status": "Finished",
      "qpos": 16,
      "stops": 3,
-     "pit_avg": 28.657,
-     "pit_best": 24.246
+     "pit_est": [
+      15.678,
+      2.918,
+      2.681
+     ]
     },
     {
      "pos": 15,
@@ -2658,8 +2923,10 @@
      "status": "Finished",
      "qpos": 19,
      "stops": 2,
-     "pit_avg": 24.947,
-     "pit_best": 23.978
+     "pit_est": [
+      2.413,
+      4.351
+     ]
     },
     {
      "pos": 16,
@@ -2673,8 +2940,10 @@
      "status": "Finished",
      "qpos": 13,
      "stops": 2,
-     "pit_avg": 24.231,
-     "pit_best": 24.065
+     "pit_est": [
+      2.5,
+      2.832
+     ]
     },
     {
      "pos": 17,
@@ -2688,8 +2957,10 @@
      "status": "Finished",
      "qpos": 12,
      "stops": 2,
-     "pit_avg": 24.305,
-     "pit_best": 24.086
+     "pit_est": [
+      2.96,
+      2.521
+     ]
     },
     {
      "pos": 18,
@@ -2703,8 +2974,10 @@
      "status": "Finished",
      "qpos": 15,
      "stops": 2,
-     "pit_avg": 24.647,
-     "pit_best": 24.457
+     "pit_est": [
+      2.892,
+      3.272
+     ]
     },
     {
      "pos": null,
@@ -2718,8 +2991,9 @@
      "status": "Engine",
      "qpos": 7,
      "stops": 1,
-     "pit_avg": 25.375,
-     "pit_best": 25.375
+     "pit_est": [
+      3.81
+     ]
     },
     {
      "pos": null,
@@ -2733,8 +3007,9 @@
      "status": "Collision damage",
      "qpos": 18,
      "stops": 1,
-     "pit_avg": 24.376,
-     "pit_best": 24.376
+     "pit_est": [
+      2.811
+     ]
     }
    ],
    "dotd": "LEC"
@@ -2790,8 +3065,11 @@
      "status": "Finished",
      "qpos": 1,
      "stops": 3,
-     "pit_avg": 22.148,
-     "pit_best": 21.838
+     "pit_est": [
+      2.119,
+      2.099,
+      3.009
+     ]
     },
     {
      "pos": 2,
@@ -2805,8 +3083,11 @@
      "status": "Finished",
      "qpos": 2,
      "stops": 3,
-     "pit_avg": 22.626,
-     "pit_best": 21.863
+     "pit_est": [
+      2.715,
+      2.124,
+      3.823
+     ]
     },
     {
      "pos": 3,
@@ -2820,8 +3101,11 @@
      "status": "Finished",
      "qpos": 7,
      "stops": 3,
-     "pit_avg": 22.046,
-     "pit_best": 21.863
+     "pit_est": [
+      2.124,
+      2.154,
+      2.644
+     ]
     },
     {
      "pos": 4,
@@ -2835,8 +3119,11 @@
      "status": "Finished",
      "qpos": 4,
      "stops": 3,
-     "pit_avg": 22.219,
-     "pit_best": 21.739
+     "pit_est": [
+      2.0,
+      2.013,
+      3.428
+     ]
     },
     {
      "pos": 5,
@@ -2850,8 +3137,11 @@
      "status": "Finished",
      "qpos": 16,
      "stops": 3,
-     "pit_avg": 21.995,
-     "pit_best": 21.849
+     "pit_est": [
+      2.494,
+      2.11,
+      2.165
+     ]
     },
     {
      "pos": 6,
@@ -2865,8 +3155,11 @@
      "status": "Finished",
      "qpos": 5,
      "stops": 3,
-     "pit_avg": 23.068,
-     "pit_best": 21.957
+     "pit_est": [
+      2.218,
+      4.677,
+      3.091
+     ]
     },
     {
      "pos": 7,
@@ -2880,8 +3173,11 @@
      "status": "Finished",
      "qpos": 9,
      "stops": 3,
-     "pit_avg": 21.876,
-     "pit_best": 21.769
+     "pit_est": [
+      2.03,
+      2.28,
+      2.102
+     ]
     },
     {
      "pos": 8,
@@ -2895,8 +3191,11 @@
      "status": "Finished",
      "qpos": 8,
      "stops": 3,
-     "pit_avg": 22.349,
-     "pit_best": 22.006
+     "pit_est": [
+      2.485,
+      2.267,
+      3.079
+     ]
     },
     {
      "pos": 9,
@@ -2910,8 +3209,11 @@
      "status": "Finished",
      "qpos": 10,
      "stops": 3,
-     "pit_avg": 22.413,
-     "pit_best": 22.216
+     "pit_est": [
+      3.043,
+      2.503,
+      2.477
+     ]
     },
     {
      "pos": 10,
@@ -2925,8 +3227,12 @@
      "status": "Finished",
      "qpos": 3,
      "stops": 4,
-     "pit_avg": 21.95,
-     "pit_best": 21.802
+     "pit_est": [
+      2.13,
+      2.194,
+      2.063,
+      2.458
+     ]
     },
     {
      "pos": 11,
@@ -2940,8 +3246,10 @@
      "status": "Finished",
      "qpos": 13,
      "stops": 2,
-     "pit_avg": 22.083,
-     "pit_best": 22.039
+     "pit_est": [
+      2.3,
+      2.388
+     ]
     },
     {
      "pos": 12,
@@ -2955,8 +3263,10 @@
      "status": "Finished",
      "qpos": 12,
      "stops": 2,
-     "pit_avg": 22.497,
-     "pit_best": 22.041
+     "pit_est": [
+      2.302,
+      3.214
+     ]
     },
     {
      "pos": 13,
@@ -2970,8 +3280,12 @@
      "status": "Finished",
      "qpos": 20,
      "stops": 4,
-     "pit_avg": 22.007,
-     "pit_best": 21.822
+     "pit_est": [
+      2.129,
+      2.317,
+      2.083,
+      2.544
+     ]
     },
     {
      "pos": 14,
@@ -2985,8 +3299,11 @@
      "status": "Finished",
      "qpos": 18,
      "stops": 3,
-     "pit_avg": 24.959,
-     "pit_best": 21.984
+     "pit_est": [
+      10.808,
+      2.607,
+      2.245
+     ]
     },
     {
      "pos": 15,
@@ -3000,8 +3317,11 @@
      "status": "Finished",
      "qpos": 19,
      "stops": 3,
-     "pit_avg": 22.161,
-     "pit_best": 21.874
+     "pit_est": [
+      2.752,
+      2.38,
+      2.135
+     ]
     },
     {
      "pos": 16,
@@ -3015,8 +3335,10 @@
      "status": "Finished",
      "qpos": 17,
      "stops": 2,
-     "pit_avg": 22.511,
-     "pit_best": 22.468
+     "pit_est": [
+      2.815,
+      2.729
+     ]
     },
     {
      "pos": 17,
@@ -3030,8 +3352,11 @@
      "status": "Finished",
      "qpos": 15,
      "stops": 3,
-     "pit_avg": 22.348,
-     "pit_best": 22.009
+     "pit_est": [
+      2.27,
+      2.531,
+      3.026
+     ]
     },
     {
      "pos": null,
@@ -3045,8 +3370,10 @@
      "status": "Oil pressure",
      "qpos": 6,
      "stops": 2,
-     "pit_avg": 22.846,
-     "pit_best": 22.234
+     "pit_est": [
+      2.495,
+      3.718
+     ]
     },
     {
      "pos": null,
@@ -3060,8 +3387,10 @@
      "status": "Collision damage",
      "qpos": 11,
      "stops": 2,
-     "pit_avg": 34.248,
-     "pit_best": 30.823
+     "pit_est": [
+      11.084,
+      17.935
+     ]
     },
     {
      "pos": null,
@@ -3075,8 +3404,7 @@
      "status": "Injury",
      "qpos": 14,
      "stops": 0,
-     "pit_avg": null,
-     "pit_best": null
+     "pit_est": null
     }
    ],
    "dotd": "VER"
@@ -3132,8 +3460,10 @@
      "status": "Finished",
      "qpos": 1,
      "stops": 2,
-     "pit_avg": 23.747,
-     "pit_best": 23.231
+     "pit_est": [
+      2.11,
+      3.141
+     ]
     },
     {
      "pos": 2,
@@ -3147,8 +3477,10 @@
      "status": "Finished",
      "qpos": 2,
      "stops": 2,
-     "pit_avg": 23.362,
-     "pit_best": 23.121
+     "pit_est": [
+      2.483,
+      2.0
+     ]
     },
     {
      "pos": 3,
@@ -3162,8 +3494,10 @@
      "status": "Finished",
      "qpos": 4,
      "stops": 2,
-     "pit_avg": 23.368,
-     "pit_best": 23.32
+     "pit_est": [
+      2.199,
+      2.295
+     ]
     },
     {
      "pos": 4,
@@ -3177,8 +3511,11 @@
      "status": "Finished",
      "qpos": 3,
      "stops": 3,
-     "pit_avg": 24.268,
-     "pit_best": 23.174
+     "pit_est": [
+      2.124,
+      2.053,
+      5.264
+     ]
     },
     {
      "pos": 5,
@@ -3192,8 +3529,10 @@
      "status": "Finished",
      "qpos": 8,
      "stops": 2,
-     "pit_avg": 23.61,
-     "pit_best": 23.36
+     "pit_est": [
+      2.239,
+      2.738
+     ]
     },
     {
      "pos": 6,
@@ -3207,8 +3546,10 @@
      "status": "Finished",
      "qpos": 5,
      "stops": 2,
-     "pit_avg": 23.471,
-     "pit_best": 23.338
+     "pit_est": [
+      2.483,
+      2.217
+     ]
     },
     {
      "pos": 7,
@@ -3222,8 +3563,10 @@
      "status": "Finished",
      "qpos": 6,
      "stops": 2,
-     "pit_avg": 23.715,
-     "pit_best": 23.409
+     "pit_est": [
+      2.9,
+      2.288
+     ]
     },
     {
      "pos": 8,
@@ -3237,8 +3580,9 @@
      "status": "Finished",
      "qpos": 13,
      "stops": 1,
-     "pit_avg": 23.476,
-     "pit_best": 23.476
+     "pit_est": [
+      2.355
+     ]
     },
     {
      "pos": 9,
@@ -3252,8 +3596,9 @@
      "status": "Finished",
      "qpos": 15,
      "stops": 1,
-     "pit_avg": 24.452,
-     "pit_best": 24.452
+     "pit_est": [
+      3.331
+     ]
     },
     {
      "pos": 10,
@@ -3267,8 +3612,9 @@
      "status": "Finished",
      "qpos": 17,
      "stops": 1,
-     "pit_avg": 23.269,
-     "pit_best": 23.269
+     "pit_est": [
+      2.148
+     ]
     },
     {
      "pos": 11,
@@ -3282,8 +3628,10 @@
      "status": "Finished",
      "qpos": 14,
      "stops": 2,
-     "pit_avg": 25.773,
-     "pit_best": 23.562
+     "pit_est": [
+      2.441,
+      6.864
+     ]
     },
     {
      "pos": 12,
@@ -3297,8 +3645,9 @@
      "status": "Finished",
      "qpos": 11,
      "stops": 1,
-     "pit_avg": 25.178,
-     "pit_best": 25.178
+     "pit_est": [
+      4.057
+     ]
     },
     {
      "pos": 13,
@@ -3312,8 +3661,9 @@
      "status": "Finished",
      "qpos": 12,
      "stops": 1,
-     "pit_avg": 24.735,
-     "pit_best": 24.735
+     "pit_est": [
+      3.614
+     ]
     },
     {
      "pos": 14,
@@ -3327,8 +3677,9 @@
      "status": "Finished",
      "qpos": 16,
      "stops": 1,
-     "pit_avg": 23.715,
-     "pit_best": 23.715
+     "pit_est": [
+      2.594
+     ]
     },
     {
      "pos": 15,
@@ -3342,8 +3693,9 @@
      "status": "Finished",
      "qpos": 20,
      "stops": 1,
-     "pit_avg": 23.987,
-     "pit_best": 23.987
+     "pit_est": [
+      2.866
+     ]
     },
     {
      "pos": 16,
@@ -3357,8 +3709,10 @@
      "status": "Finished",
      "qpos": 9,
      "stops": 2,
-     "pit_avg": 23.912,
-     "pit_best": 23.693
+     "pit_est": [
+      3.009,
+      2.572
+     ]
     },
     {
      "pos": 17,
@@ -3372,8 +3726,11 @@
      "status": "Finished",
      "qpos": 18,
      "stops": 3,
-     "pit_avg": 27.419,
-     "pit_best": 23.742
+     "pit_est": [
+      2.621,
+      13.621,
+      2.651
+     ]
     },
     {
      "pos": 18,
@@ -3387,8 +3744,10 @@
      "status": "Collision",
      "qpos": 7,
      "stops": 2,
-     "pit_avg": 23.347,
-     "pit_best": 23.223
+     "pit_est": [
+      2.102,
+      2.35
+     ]
     },
     {
      "pos": null,
@@ -3402,8 +3761,9 @@
      "status": "Overheating",
      "qpos": 19,
      "stops": 1,
-     "pit_avg": 23.28,
-     "pit_best": 23.28
+     "pit_est": [
+      2.159
+     ]
     },
     {
      "pos": null,
@@ -3417,8 +3777,9 @@
      "status": "Engine",
      "qpos": 10,
      "stops": 1,
-     "pit_avg": 23.898,
-     "pit_best": 23.898
+     "pit_est": [
+      2.777
+     ]
     }
    ],
    "dotd": "ANT"
@@ -3474,8 +3835,10 @@
      "status": "Finished",
      "qpos": 1,
      "stops": 2,
-     "pit_avg": 21.779,
-     "pit_best": 21.427
+     "pit_est": [
+      3.098,
+      2.394
+     ]
     },
     {
      "pos": 2,
@@ -3489,8 +3852,10 @@
      "status": "Finished",
      "qpos": 3,
      "stops": 2,
-     "pit_avg": 21.816,
-     "pit_best": 21.033
+     "pit_est": [
+      3.566,
+      2.0
+     ]
     },
     {
      "pos": 3,
@@ -3504,8 +3869,10 @@
      "status": "Finished",
      "qpos": 2,
      "stops": 2,
-     "pit_avg": 21.422,
-     "pit_best": 21.308
+     "pit_est": [
+      2.275,
+      2.503
+     ]
     },
     {
      "pos": 4,
@@ -3519,8 +3886,10 @@
      "status": "Finished",
      "qpos": 4,
      "stops": 2,
-     "pit_avg": 21.223,
-     "pit_best": 21.158
+     "pit_est": [
+      2.254,
+      2.125
+     ]
     },
     {
      "pos": 5,
@@ -3534,8 +3903,10 @@
      "status": "Finished",
      "qpos": 5,
      "stops": 2,
-     "pit_avg": 21.599,
-     "pit_best": 21.344
+     "pit_est": [
+      2.311,
+      2.821
+     ]
     },
     {
      "pos": 6,
@@ -3549,8 +3920,9 @@
      "status": "Finished",
      "qpos": 6,
      "stops": 1,
-     "pit_avg": 21.434,
-     "pit_best": 21.434
+     "pit_est": [
+      2.401
+     ]
     },
     {
      "pos": 7,
@@ -3564,8 +3936,9 @@
      "status": "Finished",
      "qpos": 11,
      "stops": 1,
-     "pit_avg": 21.865,
-     "pit_best": 21.865
+     "pit_est": [
+      2.832
+     ]
     },
     {
      "pos": 8,
@@ -3579,8 +3952,10 @@
      "status": "Finished",
      "qpos": 8,
      "stops": 2,
-     "pit_avg": 21.481,
-     "pit_best": 21.286
+     "pit_est": [
+      2.643,
+      2.253
+     ]
     },
     {
      "pos": 9,
@@ -3594,8 +3969,10 @@
      "status": "Finished",
      "qpos": 20,
      "stops": 2,
-     "pit_avg": 21.141,
-     "pit_best": 21.045
+     "pit_est": [
+      2.203,
+      2.012
+     ]
     },
     {
      "pos": 10,
@@ -3609,8 +3986,10 @@
      "status": "Finished",
      "qpos": 17,
      "stops": 2,
-     "pit_avg": 22.736,
-     "pit_best": 22.284
+     "pit_est": [
+      4.155,
+      3.251
+     ]
     },
     {
      "pos": 11,
@@ -3624,8 +4003,10 @@
      "status": "Finished",
      "qpos": 15,
      "stops": 2,
-     "pit_avg": 21.84,
-     "pit_best": 21.771
+     "pit_est": [
+      2.877,
+      2.738
+     ]
     },
     {
      "pos": 12,
@@ -3639,8 +4020,10 @@
      "status": "Finished",
      "qpos": 13,
      "stops": 2,
-     "pit_avg": 21.489,
-     "pit_best": 21.297
+     "pit_est": [
+      2.264,
+      2.647
+     ]
     },
     {
      "pos": 13,
@@ -3654,8 +4037,10 @@
      "status": "Finished",
      "qpos": 10,
      "stops": 2,
-     "pit_avg": 22.032,
-     "pit_best": 21.959
+     "pit_est": [
+      2.926,
+      3.072
+     ]
     },
     {
      "pos": 14,
@@ -3669,8 +4054,10 @@
      "status": "Finished",
      "qpos": 16,
      "stops": 2,
-     "pit_avg": 22.335,
-     "pit_best": 21.763
+     "pit_est": [
+      3.874,
+      2.73
+     ]
     },
     {
      "pos": 15,
@@ -3684,8 +4071,10 @@
      "status": "Finished",
      "qpos": 14,
      "stops": 2,
-     "pit_avg": 22.062,
-     "pit_best": 21.087
+     "pit_est": [
+      4.005,
+      2.054
+     ]
     },
     {
      "pos": 16,
@@ -3699,8 +4088,11 @@
      "status": "Finished",
      "qpos": 18,
      "stops": 3,
-     "pit_avg": 28.045,
-     "pit_best": 21.492
+     "pit_est": [
+      2.459,
+      10.967,
+      13.61
+     ]
     },
     {
      "pos": null,
@@ -3714,8 +4106,9 @@
      "status": "Engine",
      "qpos": 12,
      "stops": 1,
-     "pit_avg": 21.21,
-     "pit_best": 21.21
+     "pit_est": [
+      2.177
+     ]
     },
     {
      "pos": null,
@@ -3729,8 +4122,7 @@
      "status": "Collision",
      "qpos": 7,
      "stops": 0,
-     "pit_avg": null,
-     "pit_best": null
+     "pit_est": null
     },
     {
      "pos": null,
@@ -3744,8 +4136,7 @@
      "status": "Collision",
      "qpos": 9,
      "stops": 0,
-     "pit_avg": null,
-     "pit_best": null
+     "pit_est": null
     },
     {
      "pos": null,
@@ -3759,8 +4150,7 @@
      "status": "Brakes",
      "qpos": 19,
      "stops": 0,
-     "pit_avg": null,
-     "pit_best": null
+     "pit_est": null
     }
    ],
    "dotd": "BOR"
@@ -3816,8 +4206,10 @@
      "status": "Finished",
      "qpos": 3,
      "stops": 2,
-     "pit_avg": 29.422,
-     "pit_best": 28.214
+     "pit_est": [
+      4.448,
+      2.032
+     ]
     },
     {
      "pos": 2,
@@ -3831,8 +4223,10 @@
      "status": "Finished",
      "qpos": 2,
      "stops": 2,
-     "pit_avg": 34.886,
-     "pit_best": 29.491
+     "pit_est": [
+      3.309,
+      14.098
+     ]
     },
     {
      "pos": 3,
@@ -3846,8 +4240,10 @@
      "status": "Finished",
      "qpos": 19,
      "stops": 2,
-     "pit_avg": 29.844,
-     "pit_best": 29.736
+     "pit_est": [
+      3.554,
+      3.77
+     ]
     },
     {
      "pos": 4,
@@ -3861,8 +4257,10 @@
      "status": "Finished",
      "qpos": 5,
      "stops": 2,
-     "pit_avg": 29.022,
-     "pit_best": 28.917
+     "pit_est": [
+      2.735,
+      2.945
+     ]
     },
     {
      "pos": 5,
@@ -3876,8 +4274,10 @@
      "status": "Finished",
      "qpos": 1,
      "stops": 2,
-     "pit_avg": 28.935,
-     "pit_best": 28.182
+     "pit_est": [
+      2.0,
+      3.507
+     ]
     },
     {
      "pos": 6,
@@ -3891,8 +4291,10 @@
      "status": "Finished",
      "qpos": 10,
      "stops": 2,
-     "pit_avg": 28.691,
-     "pit_best": 28.469
+     "pit_est": [
+      2.73,
+      2.287
+     ]
     },
     {
      "pos": 7,
@@ -3906,8 +4308,11 @@
      "status": "Finished",
      "qpos": 18,
      "stops": 3,
-     "pit_avg": 28.844,
-     "pit_best": 28.553
+     "pit_est": [
+      2.943,
+      2.671,
+      2.371
+     ]
     },
     {
      "pos": 8,
@@ -3921,8 +4326,10 @@
      "status": "Finished",
      "qpos": 14,
      "stops": 2,
-     "pit_avg": 29.272,
-     "pit_best": 29.251
+     "pit_est": [
+      3.069,
+      3.11
+     ]
     },
     {
      "pos": 9,
@@ -3936,8 +4343,10 @@
      "status": "Finished",
      "qpos": 9,
      "stops": 2,
-     "pit_avg": 28.62,
-     "pit_best": 28.534
+     "pit_est": [
+      2.525,
+      2.352
+     ]
     },
     {
      "pos": 10,
@@ -3951,8 +4360,10 @@
      "status": "Finished",
      "qpos": 4,
      "stops": 2,
-     "pit_avg": 28.426,
-     "pit_best": 28.205
+     "pit_est": [
+      2.465,
+      2.023
+     ]
     },
     {
      "pos": 11,
@@ -3966,8 +4377,10 @@
      "status": "Finished",
      "qpos": 8,
      "stops": 2,
-     "pit_avg": 29.145,
-     "pit_best": 29.09
+     "pit_est": [
+      3.019,
+      2.908
+     ]
     },
     {
      "pos": 12,
@@ -3981,8 +4394,10 @@
      "status": "Finished",
      "qpos": 11,
      "stops": 2,
-     "pit_avg": 29.105,
-     "pit_best": 28.655
+     "pit_est": [
+      3.372,
+      2.473
+     ]
     },
     {
      "pos": 13,
@@ -3996,8 +4411,10 @@
      "status": "Finished",
      "qpos": 15,
      "stops": 2,
-     "pit_avg": 29.104,
-     "pit_best": 28.646
+     "pit_est": [
+      3.38,
+      2.464
+     ]
     },
     {
      "pos": 14,
@@ -4011,8 +4428,10 @@
      "status": "Finished",
      "qpos": 6,
      "stops": 2,
-     "pit_avg": 28.965,
-     "pit_best": 28.84
+     "pit_est": [
+      2.907,
+      2.658
+     ]
     },
     {
      "pos": 15,
@@ -4026,8 +4445,9 @@
      "status": "Finished",
      "qpos": 12,
      "stops": 1,
-     "pit_avg": 28.544,
-     "pit_best": 28.544
+     "pit_est": [
+      2.362
+     ]
     },
     {
      "pos": null,
@@ -4041,8 +4461,11 @@
      "status": "Collision damage",
      "qpos": 7,
      "stops": 3,
-     "pit_avg": 29.052,
-     "pit_best": 28.707
+     "pit_est": [
+      2.539,
+      2.525,
+      3.546
+     ]
     },
     {
      "pos": null,
@@ -4056,8 +4479,9 @@
      "status": "Accident",
      "qpos": 13,
      "stops": 1,
-     "pit_avg": 28.523,
-     "pit_best": 28.523
+     "pit_est": [
+      2.341
+     ]
     },
     {
      "pos": null,
@@ -4071,8 +4495,7 @@
      "status": "Accident",
      "qpos": 17,
      "stops": 0,
-     "pit_avg": null,
-     "pit_best": null
+     "pit_est": null
     },
     {
      "pos": null,
@@ -4086,8 +4509,7 @@
      "status": "Collision",
      "qpos": 16,
      "stops": 0,
-     "pit_avg": null,
-     "pit_best": null
+     "pit_est": null
     },
     {
      "pos": null,
@@ -4101,8 +4523,7 @@
      "status": "Transmission",
      "qpos": 20,
      "stops": 0,
-     "pit_avg": null,
-     "pit_best": null
+     "pit_est": null
     }
    ],
    "dotd": "HUL"
@@ -4158,8 +4579,9 @@
      "status": "Finished",
      "qpos": 2,
      "stops": 1,
-     "pit_avg": 23.844,
-     "pit_best": 23.844
+     "pit_est": [
+      2.785
+     ]
     },
     {
      "pos": 2,
@@ -4173,8 +4595,9 @@
      "status": "Finished",
      "qpos": 1,
      "stops": 1,
-     "pit_avg": 24.376,
-     "pit_best": 24.376
+     "pit_est": [
+      3.317
+     ]
     },
     {
      "pos": 3,
@@ -4188,8 +4611,9 @@
      "status": "Finished",
      "qpos": 3,
      "stops": 1,
-     "pit_avg": 23.806,
-     "pit_best": 23.806
+     "pit_est": [
+      2.747
+     ]
     },
     {
      "pos": 4,
@@ -4203,8 +4627,9 @@
      "status": "Finished",
      "qpos": 4,
      "stops": 1,
-     "pit_avg": 25.913,
-     "pit_best": 25.913
+     "pit_est": [
+      4.854
+     ]
     },
     {
      "pos": 5,
@@ -4218,8 +4643,9 @@
      "status": "Finished",
      "qpos": 6,
      "stops": 1,
-     "pit_avg": 23.635,
-     "pit_best": 23.635
+     "pit_est": [
+      2.576
+     ]
     },
     {
      "pos": 6,
@@ -4233,8 +4659,9 @@
      "status": "Finished",
      "qpos": 5,
      "stops": 1,
-     "pit_avg": 24.029,
-     "pit_best": 24.029
+     "pit_est": [
+      2.97
+     ]
     },
     {
      "pos": 7,
@@ -4248,8 +4675,9 @@
      "status": "Finished",
      "qpos": 16,
      "stops": 1,
-     "pit_avg": 23.284,
-     "pit_best": 23.284
+     "pit_est": [
+      2.225
+     ]
     },
     {
      "pos": 8,
@@ -4263,8 +4691,9 @@
      "status": "Finished",
      "qpos": 9,
      "stops": 1,
-     "pit_avg": 23.269,
-     "pit_best": 23.269
+     "pit_est": [
+      2.21
+     ]
     },
     {
      "pos": 9,
@@ -4278,8 +4707,9 @@
      "status": "Finished",
      "qpos": 10,
      "stops": 1,
-     "pit_avg": 23.274,
-     "pit_best": 23.274
+     "pit_est": [
+      2.215
+     ]
     },
     {
      "pos": 10,
@@ -4293,8 +4723,9 @@
      "status": "Finished",
      "qpos": 13,
      "stops": 1,
-     "pit_avg": 26.825,
-     "pit_best": 26.825
+     "pit_est": [
+      5.766
+     ]
     },
     {
      "pos": 11,
@@ -4308,8 +4739,9 @@
      "status": "Finished",
      "qpos": 12,
      "stops": 1,
-     "pit_avg": 24.13,
-     "pit_best": 24.13
+     "pit_est": [
+      3.071
+     ]
     },
     {
      "pos": 12,
@@ -4323,8 +4755,10 @@
      "status": "Finished",
      "qpos": 14,
      "stops": 2,
-     "pit_avg": 23.745,
-     "pit_best": 23.599
+     "pit_est": [
+      2.54,
+      2.831
+     ]
     },
     {
      "pos": 13,
@@ -4338,8 +4772,9 @@
      "status": "Finished",
      "qpos": 7,
      "stops": 1,
-     "pit_avg": 23.33,
-     "pit_best": 23.33
+     "pit_est": [
+      2.271
+     ]
     },
     {
      "pos": 14,
@@ -4353,8 +4788,9 @@
      "status": "Finished",
      "qpos": 20,
      "stops": 1,
-     "pit_avg": 23.787,
-     "pit_best": 23.787
+     "pit_est": [
+      2.728
+     ]
     },
     {
      "pos": 15,
@@ -4368,8 +4804,9 @@
      "status": "Finished",
      "qpos": 11,
      "stops": 1,
-     "pit_avg": 23.802,
-     "pit_best": 23.802
+     "pit_est": [
+      2.743
+     ]
     },
     {
      "pos": 16,
@@ -4383,8 +4820,10 @@
      "status": "Finished",
      "qpos": 18,
      "stops": 2,
-     "pit_avg": 23.334,
-     "pit_best": 23.059
+     "pit_est": [
+      2.55,
+      2.0
+     ]
     },
     {
      "pos": 17,
@@ -4398,8 +4837,10 @@
      "status": "Finished",
      "qpos": 19,
      "stops": 2,
-     "pit_avg": 23.548,
-     "pit_best": 23.404
+     "pit_est": [
+      2.345,
+      2.633
+     ]
     },
     {
      "pos": 18,
@@ -4413,8 +4854,10 @@
      "status": "Finished",
      "qpos": 15,
      "stops": 2,
-     "pit_avg": 25.649,
-     "pit_best": 23.77
+     "pit_est": [
+      6.469,
+      2.711
+     ]
     },
     {
      "pos": 19,
@@ -4428,8 +4871,10 @@
      "status": "Finished",
      "qpos": 17,
      "stops": 2,
-     "pit_avg": 23.557,
-     "pit_best": 23.449
+     "pit_est": [
+      2.606,
+      2.39
+     ]
     },
     {
      "pos": 20,
@@ -4443,8 +4888,10 @@
      "status": "Finished",
      "qpos": 8,
      "stops": 2,
-     "pit_avg": 23.478,
-     "pit_best": 23.376
+     "pit_est": [
+      2.521,
+      2.317
+     ]
     }
    ],
    "dotd": "HAM"
@@ -4500,8 +4947,9 @@
      "status": "Finished",
      "qpos": 3,
      "stops": 1,
-     "pit_avg": 20.94,
-     "pit_best": 20.94
+     "pit_est": [
+      2.0
+     ]
     },
     {
      "pos": 2,
@@ -4515,8 +4963,10 @@
      "status": "Finished",
      "qpos": 2,
      "stops": 2,
-     "pit_avg": 21.043,
-     "pit_best": 20.94
+     "pit_est": [
+      2.205,
+      2.0
+     ]
     },
     {
      "pos": 3,
@@ -4530,8 +4980,10 @@
      "status": "Finished",
      "qpos": 4,
      "stops": 2,
-     "pit_avg": 21.576,
-     "pit_best": 21.45
+     "pit_est": [
+      2.763,
+      2.51
+     ]
     },
     {
      "pos": 4,
@@ -4545,8 +4997,10 @@
      "status": "Finished",
      "qpos": 1,
      "stops": 2,
-     "pit_avg": 21.133,
-     "pit_best": 21.13
+     "pit_est": [
+      2.19,
+      2.196
+     ]
     },
     {
      "pos": 5,
@@ -4560,8 +5014,9 @@
      "status": "Finished",
      "qpos": 5,
      "stops": 1,
-     "pit_avg": 22.204,
-     "pit_best": 22.204
+     "pit_est": [
+      3.264
+     ]
     },
     {
      "pos": 6,
@@ -4575,8 +5030,9 @@
      "status": "Finished",
      "qpos": 7,
      "stops": 1,
-     "pit_avg": 21.773,
-     "pit_best": 21.773
+     "pit_est": [
+      2.833
+     ]
     },
     {
      "pos": 7,
@@ -4590,8 +5046,9 @@
      "status": "Finished",
      "qpos": 6,
      "stops": 1,
-     "pit_avg": 21.464,
-     "pit_best": 21.464
+     "pit_est": [
+      2.524
+     ]
     },
     {
      "pos": 8,
@@ -4605,8 +5062,9 @@
      "status": "Finished",
      "qpos": 9,
      "stops": 1,
-     "pit_avg": 22.136,
-     "pit_best": 22.136
+     "pit_est": [
+      3.196
+     ]
     },
     {
      "pos": 9,
@@ -4620,8 +5078,10 @@
      "status": "Finished",
      "qpos": 8,
      "stops": 2,
-     "pit_avg": 21.346,
-     "pit_best": 21.258
+     "pit_est": [
+      2.493,
+      2.318
+     ]
     },
     {
      "pos": 10,
@@ -4635,8 +5095,9 @@
      "status": "Finished",
      "qpos": 15,
      "stops": 1,
-     "pit_avg": 22.328,
-     "pit_best": 22.328
+     "pit_est": [
+      3.388
+     ]
     },
     {
      "pos": 11,
@@ -4650,8 +5111,9 @@
      "status": "Finished",
      "qpos": 10,
      "stops": 1,
-     "pit_avg": 21.096,
-     "pit_best": 21.096
+     "pit_est": [
+      2.156
+     ]
     },
     {
      "pos": 12,
@@ -4665,8 +5127,9 @@
      "status": "Finished",
      "qpos": 12,
      "stops": 1,
-     "pit_avg": 21.15,
-     "pit_best": 21.15
+     "pit_est": [
+      2.21
+     ]
     },
     {
      "pos": 13,
@@ -4680,8 +5143,10 @@
      "status": "Finished",
      "qpos": 19,
      "stops": 2,
-     "pit_avg": 25.186,
-     "pit_best": 21.594
+     "pit_est": [
+      2.654,
+      9.837
+     ]
     },
     {
      "pos": 14,
@@ -4695,8 +5160,10 @@
      "status": "Finished",
      "qpos": 13,
      "stops": 2,
-     "pit_avg": 21.547,
-     "pit_best": 21.423
+     "pit_est": [
+      2.73,
+      2.483
+     ]
     },
     {
      "pos": 15,
@@ -4710,8 +5177,10 @@
      "status": "Finished",
      "qpos": 20,
      "stops": 2,
-     "pit_avg": 22.035,
-     "pit_best": 21.345
+     "pit_est": [
+      2.405,
+      3.786
+     ]
     },
     {
      "pos": 16,
@@ -4725,8 +5194,9 @@
      "status": "Finished",
      "qpos": 18,
      "stops": 1,
-     "pit_avg": 22.444,
-     "pit_best": 22.444
+     "pit_est": [
+      3.504
+     ]
     },
     {
      "pos": 17,
@@ -4740,8 +5210,10 @@
      "status": "Finished",
      "qpos": 16,
      "stops": 2,
-     "pit_avg": 21.418,
-     "pit_best": 21.295
+     "pit_est": [
+      2.355,
+      2.601
+     ]
     },
     {
      "pos": 18,
@@ -4755,8 +5227,10 @@
      "status": "Finished",
      "qpos": 14,
      "stops": 2,
-     "pit_avg": 28.264,
-     "pit_best": 26.28
+     "pit_est": [
+      11.308,
+      7.34
+     ]
     },
     {
      "pos": 19,
@@ -4770,8 +5244,9 @@
      "status": "Finished",
      "qpos": 17,
      "stops": 1,
-     "pit_avg": 21.699,
-     "pit_best": 21.699
+     "pit_est": [
+      2.759
+     ]
     },
     {
      "pos": null,
@@ -4785,8 +5260,9 @@
      "status": "Undertray",
      "qpos": 11,
      "stops": 1,
-     "pit_avg": 21.754,
-     "pit_best": 21.754
+     "pit_est": [
+      2.814
+     ]
     }
    ],
    "dotd": "BOR"
@@ -4842,8 +5318,10 @@
      "status": "Finished",
      "qpos": 1,
      "stops": 2,
-     "pit_avg": 17.982,
-     "pit_best": 17.375
+     "pit_est": [
+      2.333,
+      3.547
+     ]
     },
     {
      "pos": 2,
@@ -4857,8 +5335,10 @@
      "status": "Finished",
      "qpos": 3,
      "stops": 2,
-     "pit_avg": 18.5,
-     "pit_best": 18.261
+     "pit_est": [
+      3.698,
+      3.219
+     ]
     },
     {
      "pos": 3,
@@ -4872,8 +5352,10 @@
      "status": "Finished",
      "qpos": 4,
      "stops": 2,
-     "pit_avg": 17.974,
-     "pit_best": 17.414
+     "pit_est": [
+      2.372,
+      3.493
+     ]
     },
     {
      "pos": 4,
@@ -4887,8 +5369,10 @@
      "status": "Finished",
      "qpos": 5,
      "stops": 2,
-     "pit_avg": 18.088,
-     "pit_best": 17.344
+     "pit_est": [
+      3.79,
+      2.302
+     ]
     },
     {
      "pos": 5,
@@ -4902,8 +5386,10 @@
      "status": "Finished",
      "qpos": 15,
      "stops": 2,
-     "pit_avg": 18.766,
-     "pit_best": 17.84
+     "pit_est": [
+      4.65,
+      2.798
+     ]
     },
     {
      "pos": 6,
@@ -4917,8 +5403,9 @@
      "status": "Finished",
      "qpos": 19,
      "stops": 1,
-     "pit_avg": 18.622,
-     "pit_best": 18.622
+     "pit_est": [
+      3.58
+     ]
     },
     {
      "pos": 7,
@@ -4932,8 +5419,10 @@
      "status": "Finished",
      "qpos": null,
      "stops": 2,
-     "pit_avg": 17.579,
-     "pit_best": 17.561
+     "pit_est": [
+      2.519,
+      2.556
+     ]
     },
     {
      "pos": 8,
@@ -4947,8 +5436,10 @@
      "status": "Finished",
      "qpos": 10,
      "stops": 2,
-     "pit_avg": 17.683,
-     "pit_best": 17.417
+     "pit_est": [
+      2.375,
+      2.907
+     ]
     },
     {
      "pos": 9,
@@ -4962,8 +5453,10 @@
      "status": "Finished",
      "qpos": 12,
      "stops": 2,
-     "pit_avg": 18.247,
-     "pit_best": 18.147
+     "pit_est": [
+      3.306,
+      3.105
+     ]
     },
     {
      "pos": 10,
@@ -4977,8 +5470,9 @@
      "status": "Finished",
      "qpos": 18,
      "stops": 1,
-     "pit_avg": 18.27,
-     "pit_best": 18.27
+     "pit_est": [
+      3.228
+     ]
     },
     {
      "pos": 11,
@@ -4992,8 +5486,11 @@
      "status": "Finished",
      "qpos": 16,
      "stops": 3,
-     "pit_avg": 17.883,
-     "pit_best": 17.586
+     "pit_est": [
+      2.944,
+      2.544,
+      3.035
+     ]
     },
     {
      "pos": 12,
@@ -5007,8 +5504,11 @@
      "status": "Finished",
      "qpos": 8,
      "stops": 3,
-     "pit_avg": 19.437,
-     "pit_best": 17.549
+     "pit_est": [
+      2.507,
+      7.167,
+      3.51
+     ]
     },
     {
      "pos": 13,
@@ -5022,8 +5522,12 @@
      "status": "Finished",
      "qpos": 9,
      "stops": 4,
-     "pit_avg": 23.874,
-     "pit_best": 17.67
+     "pit_est": [
+      2.628,
+      14.401,
+      15.298,
+      3.001
+     ]
     },
     {
      "pos": 14,
@@ -5037,8 +5541,10 @@
      "status": "Finished",
      "qpos": 17,
      "stops": 2,
-     "pit_avg": 17.773,
-     "pit_best": 17.602
+     "pit_est": [
+      2.56,
+      2.902
+     ]
     },
     {
      "pos": 15,
@@ -5052,8 +5558,10 @@
      "status": "Finished",
      "qpos": 13,
      "stops": 2,
-     "pit_avg": 17.7,
-     "pit_best": 17.491
+     "pit_est": [
+      2.866,
+      2.449
+     ]
     },
     {
      "pos": 16,
@@ -5067,8 +5575,11 @@
      "status": "Finished",
      "qpos": 11,
      "stops": 3,
-     "pit_avg": 18.734,
-     "pit_best": 17.365
+     "pit_est": [
+      2.434,
+      2.323,
+      6.318
+     ]
     },
     {
      "pos": 17,
@@ -5082,8 +5593,9 @@
      "status": "Finished",
      "qpos": 14,
      "stops": 1,
-     "pit_avg": 19.223,
-     "pit_best": 19.223
+     "pit_est": [
+      4.181
+     ]
     },
     {
      "pos": 18,
@@ -5097,8 +5609,10 @@
      "status": "Chassis",
      "qpos": 2,
      "stops": 2,
-     "pit_avg": 21.325,
-     "pit_best": 20.042
+     "pit_est": [
+      5.0,
+      7.566
+     ]
     },
     {
      "pos": null,
@@ -5112,8 +5626,10 @@
      "status": "Collision",
      "qpos": 6,
      "stops": 2,
-     "pit_avg": 17.062,
-     "pit_best": 17.042
+     "pit_est": [
+      2.039,
+      2.0
+     ]
     },
     {
      "pos": null,
@@ -5127,8 +5643,7 @@
      "status": "Accident",
      "qpos": 7,
      "stops": 0,
-     "pit_avg": null,
-     "pit_best": null
+     "pit_est": null
     }
    ],
    "dotd": "HAD"
@@ -5184,8 +5699,9 @@
      "status": "Finished",
      "qpos": 1,
      "stops": 1,
-     "pit_avg": 24.545,
-     "pit_best": 24.545
+     "pit_est": [
+      2.943
+     ]
     },
     {
      "pos": 2,
@@ -5199,8 +5715,9 @@
      "status": "Finished",
      "qpos": 2,
      "stops": 1,
-     "pit_avg": 27.498,
-     "pit_best": 27.498
+     "pit_est": [
+      5.896
+     ]
     },
     {
      "pos": 3,
@@ -5214,8 +5731,9 @@
      "status": "Finished",
      "qpos": 3,
      "stops": 1,
-     "pit_avg": 23.602,
-     "pit_best": 23.602
+     "pit_est": [
+      2.0
+     ]
     },
     {
      "pos": 4,
@@ -5229,8 +5747,9 @@
      "status": "Finished",
      "qpos": 4,
      "stops": 1,
-     "pit_avg": 24.235,
-     "pit_best": 24.235
+     "pit_est": [
+      2.633
+     ]
     },
     {
      "pos": 5,
@@ -5244,8 +5763,9 @@
      "status": "Finished",
      "qpos": 6,
      "stops": 1,
-     "pit_avg": 25.021,
-     "pit_best": 25.021
+     "pit_est": [
+      3.419
+     ]
     },
     {
      "pos": 6,
@@ -5259,8 +5779,9 @@
      "status": "Finished",
      "qpos": 5,
      "stops": 1,
-     "pit_avg": 23.971,
-     "pit_best": 23.971
+     "pit_est": [
+      2.369
+     ]
     },
     {
      "pos": 7,
@@ -5274,8 +5795,9 @@
      "status": "Finished",
      "qpos": 14,
      "stops": 1,
-     "pit_avg": 24.717,
-     "pit_best": 24.717
+     "pit_est": [
+      3.115
+     ]
     },
     {
      "pos": 8,
@@ -5289,8 +5811,9 @@
      "status": "Finished",
      "qpos": 8,
      "stops": 1,
-     "pit_avg": 26.143,
-     "pit_best": 26.143
+     "pit_est": [
+      4.541
+     ]
     },
     {
      "pos": 9,
@@ -5304,8 +5827,9 @@
      "status": "Finished",
      "qpos": 7,
      "stops": 1,
-     "pit_avg": 24.916,
-     "pit_best": 24.916
+     "pit_est": [
+      3.314
+     ]
     },
     {
      "pos": 10,
@@ -5319,8 +5843,9 @@
      "status": "Finished",
      "qpos": 16,
      "stops": 1,
-     "pit_avg": 24.326,
-     "pit_best": 24.326
+     "pit_est": [
+      2.724
+     ]
     },
     {
      "pos": 11,
@@ -5334,8 +5859,9 @@
      "status": "Finished",
      "qpos": 13,
      "stops": 1,
-     "pit_avg": 24.605,
-     "pit_best": 24.605
+     "pit_est": [
+      3.003
+     ]
     },
     {
      "pos": 12,
@@ -5349,8 +5875,9 @@
      "status": "Finished",
      "qpos": 11,
      "stops": 1,
-     "pit_avg": 25.372,
-     "pit_best": 25.372
+     "pit_est": [
+      3.77
+     ]
     },
     {
      "pos": 13,
@@ -5364,8 +5891,9 @@
      "status": "Finished",
      "qpos": 10,
      "stops": 1,
-     "pit_avg": 24.372,
-     "pit_best": 24.372
+     "pit_est": [
+      2.77
+     ]
     },
     {
      "pos": 14,
@@ -5379,8 +5907,9 @@
      "status": "Finished",
      "qpos": 20,
      "stops": 1,
-     "pit_avg": 24.156,
-     "pit_best": 24.156
+     "pit_est": [
+      2.554
+     ]
     },
     {
      "pos": 15,
@@ -5394,8 +5923,9 @@
      "status": "Finished",
      "qpos": 15,
      "stops": 1,
-     "pit_avg": 30.754,
-     "pit_best": 30.754
+     "pit_est": [
+      9.152
+     ]
     },
     {
      "pos": 16,
@@ -5409,8 +5939,9 @@
      "status": "Finished",
      "qpos": 19,
      "stops": 1,
-     "pit_avg": 25.012,
-     "pit_best": 25.012
+     "pit_est": [
+      3.41
+     ]
     },
     {
      "pos": 17,
@@ -5424,8 +5955,9 @@
      "status": "Finished",
      "qpos": 18,
      "stops": 1,
-     "pit_avg": 24.971,
-     "pit_best": 24.971
+     "pit_est": [
+      3.369
+     ]
     },
     {
      "pos": 18,
@@ -5439,8 +5971,9 @@
      "status": "Finished",
      "qpos": 17,
      "stops": 1,
-     "pit_avg": 38.418,
-     "pit_best": 38.418
+     "pit_est": [
+      16.816
+     ]
     },
     {
      "pos": null,
@@ -5454,8 +5987,9 @@
      "status": "Suspension",
      "qpos": 9,
      "stops": 1,
-     "pit_avg": 25.16,
-     "pit_best": 25.16
+     "pit_est": [
+      3.558
+     ]
     },
     {
      "pos": null,
@@ -5469,8 +6003,7 @@
      "status": "Hydraulics",
      "qpos": 12,
      "stops": 0,
-     "pit_avg": null,
-     "pit_best": null
+     "pit_est": null
     }
    ],
    "dotd": "VER"
@@ -5526,8 +6059,9 @@
      "status": "Finished",
      "qpos": 1,
      "stops": 1,
-     "pit_avg": 20.221,
-     "pit_best": 20.221
+     "pit_est": [
+      2.412
+     ]
     },
     {
      "pos": 2,
@@ -5541,8 +6075,9 @@
      "status": "Finished",
      "qpos": 5,
      "stops": 1,
-     "pit_avg": 19.809,
-     "pit_best": 19.809
+     "pit_est": [
+      2.0
+     ]
     },
     {
      "pos": 3,
@@ -5556,8 +6091,9 @@
      "status": "Finished",
      "qpos": 2,
      "stops": 1,
-     "pit_avg": 20.508,
-     "pit_best": 20.508
+     "pit_est": [
+      2.699
+     ]
     },
     {
      "pos": 4,
@@ -5571,8 +6107,9 @@
      "status": "Finished",
      "qpos": 4,
      "stops": 1,
-     "pit_avg": 20.669,
-     "pit_best": 20.669
+     "pit_est": [
+      2.86
+     ]
     },
     {
      "pos": 5,
@@ -5586,8 +6123,9 @@
      "status": "Finished",
      "qpos": 3,
      "stops": 1,
-     "pit_avg": 20.283,
-     "pit_best": 20.283
+     "pit_est": [
+      2.474
+     ]
     },
     {
      "pos": 6,
@@ -5601,8 +6139,9 @@
      "status": "Finished",
      "qpos": 6,
      "stops": 1,
-     "pit_avg": 20.323,
-     "pit_best": 20.323
+     "pit_est": [
+      2.514
+     ]
     },
     {
      "pos": 7,
@@ -5616,8 +6155,9 @@
      "status": "Finished",
      "qpos": 7,
      "stops": 1,
-     "pit_avg": 21.975,
-     "pit_best": 21.975
+     "pit_est": [
+      4.166
+     ]
     },
     {
      "pos": 8,
@@ -5631,8 +6171,9 @@
      "status": "Finished",
      "qpos": 12,
      "stops": 1,
-     "pit_avg": 20.062,
-     "pit_best": 20.062
+     "pit_est": [
+      2.253
+     ]
     },
     {
      "pos": 9,
@@ -5646,8 +6187,9 @@
      "status": "Finished",
      "qpos": 10,
      "stops": 1,
-     "pit_avg": 20.542,
-     "pit_best": 20.542
+     "pit_est": [
+      2.733
+     ]
     },
     {
      "pos": 10,
@@ -5661,8 +6203,9 @@
      "status": "Finished",
      "qpos": 8,
      "stops": 1,
-     "pit_avg": 20.294,
-     "pit_best": 20.294
+     "pit_est": [
+      2.485
+     ]
     },
     {
      "pos": 11,
@@ -5676,8 +6219,9 @@
      "status": "Finished",
      "qpos": 13,
      "stops": 1,
-     "pit_avg": 20.845,
-     "pit_best": 20.845
+     "pit_est": [
+      3.036
+     ]
     },
     {
      "pos": 12,
@@ -5691,8 +6235,9 @@
      "status": "Finished",
      "qpos": 15,
      "stops": 1,
-     "pit_avg": 21.194,
-     "pit_best": 21.194
+     "pit_est": [
+      3.385
+     ]
     },
     {
      "pos": 13,
@@ -5706,8 +6251,10 @@
      "status": "Finished",
      "qpos": 19,
      "stops": 2,
-     "pit_avg": 20.623,
-     "pit_best": 20.489
+     "pit_est": [
+      2.949,
+      2.68
+     ]
     },
     {
      "pos": 14,
@@ -5721,8 +6268,10 @@
      "status": "Finished",
      "qpos": null,
      "stops": 2,
-     "pit_avg": 20.725,
-     "pit_best": 20.691
+     "pit_est": [
+      2.882,
+      2.95
+     ]
     },
     {
      "pos": 15,
@@ -5736,8 +6285,9 @@
      "status": "Finished",
      "qpos": 11,
      "stops": 1,
-     "pit_avg": 25.768,
-     "pit_best": 25.768
+     "pit_est": [
+      7.959
+     ]
     },
     {
      "pos": 16,
@@ -5751,8 +6301,9 @@
      "status": "Finished",
      "qpos": 17,
      "stops": 1,
-     "pit_avg": 19.97,
-     "pit_best": 19.97
+     "pit_est": [
+      2.161
+     ]
     },
     {
      "pos": 17,
@@ -5766,8 +6317,9 @@
      "status": "Finished",
      "qpos": 14,
      "stops": 1,
-     "pit_avg": 21.82,
-     "pit_best": 21.82
+     "pit_est": [
+      4.011
+     ]
     },
     {
      "pos": 18,
@@ -5781,8 +6333,9 @@
      "status": "Finished",
      "qpos": 18,
      "stops": 1,
-     "pit_avg": 21.5,
-     "pit_best": 21.5
+     "pit_est": [
+      3.691
+     ]
     },
     {
      "pos": 19,
@@ -5796,8 +6349,9 @@
      "status": "Finished",
      "qpos": 16,
      "stops": 1,
-     "pit_avg": 21.088,
-     "pit_best": 21.088
+     "pit_est": [
+      3.279
+     ]
     },
     {
      "pos": null,
@@ -5811,8 +6365,7 @@
      "status": "Accident",
      "qpos": 9,
      "stops": 0,
-     "pit_avg": null,
-     "pit_best": null
+     "pit_est": null
     }
    ],
    "dotd": "SAI"
@@ -5868,8 +6421,9 @@
      "status": "Finished",
      "qpos": 1,
      "stops": 1,
-     "pit_avg": 23.966,
-     "pit_best": 23.966
+     "pit_est": [
+      2.652
+     ]
     },
     {
      "pos": 2,
@@ -5883,8 +6437,9 @@
      "status": "Finished",
      "qpos": 2,
      "stops": 1,
-     "pit_avg": 24.008,
-     "pit_best": 24.008
+     "pit_est": [
+      2.694
+     ]
     },
     {
      "pos": 3,
@@ -5898,8 +6453,9 @@
      "status": "Finished",
      "qpos": 5,
      "stops": 1,
-     "pit_avg": 23.314,
-     "pit_best": 23.314
+     "pit_est": [
+      2.0
+     ]
     },
     {
      "pos": 4,
@@ -5913,8 +6469,9 @@
      "status": "Finished",
      "qpos": 3,
      "stops": 1,
-     "pit_avg": 26.637,
-     "pit_best": 26.637
+     "pit_est": [
+      5.323
+     ]
     },
     {
      "pos": 5,
@@ -5928,8 +6485,9 @@
      "status": "Finished",
      "qpos": 4,
      "stops": 1,
-     "pit_avg": 23.806,
-     "pit_best": 23.806
+     "pit_est": [
+      2.492
+     ]
     },
     {
      "pos": 6,
@@ -5943,8 +6501,9 @@
      "status": "Finished",
      "qpos": 7,
      "stops": 1,
-     "pit_avg": 23.63,
-     "pit_best": 23.63
+     "pit_est": [
+      2.316
+     ]
     },
     {
      "pos": 7,
@@ -5958,8 +6517,9 @@
      "status": "Finished",
      "qpos": 10,
      "stops": 1,
-     "pit_avg": 30.749,
-     "pit_best": 30.749
+     "pit_est": [
+      9.435
+     ]
     },
     {
      "pos": 8,
@@ -5973,8 +6533,10 @@
      "status": "Finished",
      "qpos": 6,
      "stops": 2,
-     "pit_avg": 24.069,
-     "pit_best": 23.344
+     "pit_est": [
+      3.48,
+      2.03
+     ]
     },
     {
      "pos": 9,
@@ -5988,8 +6550,9 @@
      "status": "Finished",
      "qpos": 9,
      "stops": 1,
-     "pit_avg": 23.979,
-     "pit_best": 23.979
+     "pit_est": [
+      2.665
+     ]
     },
     {
      "pos": 10,
@@ -6003,8 +6566,9 @@
      "status": "Finished",
      "qpos": null,
      "stops": 1,
-     "pit_avg": 24.075,
-     "pit_best": 24.075
+     "pit_est": [
+      2.761
+     ]
     },
     {
      "pos": 11,
@@ -6018,8 +6582,9 @@
      "status": "Finished",
      "qpos": 8,
      "stops": 1,
-     "pit_avg": 23.827,
-     "pit_best": 23.827
+     "pit_est": [
+      2.513
+     ]
     },
     {
      "pos": 12,
@@ -6033,8 +6598,9 @@
      "status": "Finished",
      "qpos": 13,
      "stops": 1,
-     "pit_avg": 24.61,
-     "pit_best": 24.61
+     "pit_est": [
+      3.296
+     ]
     },
     {
      "pos": 13,
@@ -6048,8 +6614,9 @@
      "status": "Finished",
      "qpos": 15,
      "stops": 1,
-     "pit_avg": 24.012,
-     "pit_best": 24.012
+     "pit_est": [
+      2.698
+     ]
     },
     {
      "pos": 14,
@@ -6063,8 +6630,9 @@
      "status": "Finished",
      "qpos": null,
      "stops": 1,
-     "pit_avg": 25.732,
-     "pit_best": 25.732
+     "pit_est": [
+      4.418
+     ]
     },
     {
      "pos": 15,
@@ -6078,8 +6646,9 @@
      "status": "Finished",
      "qpos": 12,
      "stops": 1,
-     "pit_avg": 24.027,
-     "pit_best": 24.027
+     "pit_est": [
+      2.713
+     ]
     },
     {
      "pos": 16,
@@ -6093,8 +6662,9 @@
      "status": "Finished",
      "qpos": 16,
      "stops": 1,
-     "pit_avg": 24.04,
-     "pit_best": 24.04
+     "pit_est": [
+      2.726
+     ]
     },
     {
      "pos": 17,
@@ -6108,8 +6678,9 @@
      "status": "Finished",
      "qpos": 14,
      "stops": 1,
-     "pit_avg": 32.856,
-     "pit_best": 32.856
+     "pit_est": [
+      11.542
+     ]
     },
     {
      "pos": 18,
@@ -6123,8 +6694,9 @@
      "status": "Finished",
      "qpos": 17,
      "stops": 1,
-     "pit_avg": 25.078,
-     "pit_best": 25.078
+     "pit_est": [
+      3.764
+     ]
     },
     {
      "pos": 19,
@@ -6138,8 +6710,10 @@
      "status": "Finished",
      "qpos": 18,
      "stops": 2,
-     "pit_avg": 25.386,
-     "pit_best": 25.188
+     "pit_est": [
+      4.269,
+      3.874
+     ]
     },
     {
      "pos": 20,
@@ -6153,8 +6727,10 @@
      "status": "Finished",
      "qpos": 11,
      "stops": 2,
-     "pit_avg": 28.044,
-     "pit_best": 24.193
+     "pit_est": [
+      2.879,
+      10.58
+     ]
     }
    ],
    "dotd": "ALO"
@@ -6210,8 +6786,9 @@
      "status": "Finished",
      "qpos": 1,
      "stops": 1,
-     "pit_avg": 23.987,
-     "pit_best": 23.987
+     "pit_est": [
+      2.535
+     ]
     },
     {
      "pos": 2,
@@ -6225,8 +6802,9 @@
      "status": "Finished",
      "qpos": 2,
      "stops": 1,
-     "pit_avg": 24.58,
-     "pit_best": 24.58
+     "pit_est": [
+      3.128
+     ]
     },
     {
      "pos": 3,
@@ -6240,8 +6818,9 @@
      "status": "Finished",
      "qpos": 3,
      "stops": 1,
-     "pit_avg": 23.718,
-     "pit_best": 23.718
+     "pit_est": [
+      2.266
+     ]
     },
     {
      "pos": 4,
@@ -6255,8 +6834,9 @@
      "status": "Finished",
      "qpos": 5,
      "stops": 1,
-     "pit_avg": 23.937,
-     "pit_best": 23.937
+     "pit_est": [
+      2.485
+     ]
     },
     {
      "pos": 5,
@@ -6270,8 +6850,9 @@
      "status": "Finished",
      "qpos": 6,
      "stops": 1,
-     "pit_avg": 23.452,
-     "pit_best": 23.452
+     "pit_est": [
+      2.0
+     ]
     },
     {
      "pos": 6,
@@ -6285,8 +6866,9 @@
      "status": "Finished",
      "qpos": 4,
      "stops": 1,
-     "pit_avg": 23.555,
-     "pit_best": 23.555
+     "pit_est": [
+      2.103
+     ]
     },
     {
      "pos": 7,
@@ -6300,8 +6882,9 @@
      "status": "Finished",
      "qpos": 13,
      "stops": 1,
-     "pit_avg": 24.539,
-     "pit_best": 24.539
+     "pit_est": [
+      3.087
+     ]
     },
     {
      "pos": 8,
@@ -6315,8 +6898,9 @@
      "status": "Finished",
      "qpos": 11,
      "stops": 1,
-     "pit_avg": 23.753,
-     "pit_best": 23.753
+     "pit_est": [
+      2.301
+     ]
     },
     {
      "pos": 9,
@@ -6330,8 +6914,9 @@
      "status": "Finished",
      "qpos": 8,
      "stops": 1,
-     "pit_avg": 24.11,
-     "pit_best": 24.11
+     "pit_est": [
+      2.658
+     ]
     },
     {
      "pos": 10,
@@ -6345,8 +6930,9 @@
      "status": "Finished",
      "qpos": 10,
      "stops": 1,
-     "pit_avg": 24.054,
-     "pit_best": 24.054
+     "pit_est": [
+      2.602
+     ]
     },
     {
      "pos": 11,
@@ -6360,8 +6946,9 @@
      "status": "Finished",
      "qpos": 12,
      "stops": 1,
-     "pit_avg": 23.681,
-     "pit_best": 23.681
+     "pit_est": [
+      2.229
+     ]
     },
     {
      "pos": 12,
@@ -6375,8 +6962,9 @@
      "status": "Finished",
      "qpos": 18,
      "stops": 1,
-     "pit_avg": 24.192,
-     "pit_best": 24.192
+     "pit_est": [
+      2.74
+     ]
     },
     {
      "pos": 13,
@@ -6390,8 +6978,9 @@
      "status": "Finished",
      "qpos": 7,
      "stops": 1,
-     "pit_avg": 23.949,
-     "pit_best": 23.949
+     "pit_est": [
+      2.497
+     ]
     },
     {
      "pos": 14,
@@ -6405,8 +6994,10 @@
      "status": "Finished",
      "qpos": 19,
      "stops": 2,
-     "pit_avg": 24.172,
-     "pit_best": 23.763
+     "pit_est": [
+      2.311,
+      3.13
+     ]
     },
     {
      "pos": 15,
@@ -6420,8 +7011,9 @@
      "status": "Finished",
      "qpos": 17,
      "stops": 1,
-     "pit_avg": 25.06,
-     "pit_best": 25.06
+     "pit_est": [
+      3.608
+     ]
     },
     {
      "pos": 16,
@@ -6435,8 +7027,9 @@
      "status": "Finished",
      "qpos": null,
      "stops": 1,
-     "pit_avg": 23.831,
-     "pit_best": 23.831
+     "pit_est": [
+      2.379
+     ]
     },
     {
      "pos": 17,
@@ -6450,8 +7043,9 @@
      "status": "Finished",
      "qpos": 15,
      "stops": 1,
-     "pit_avg": 24.045,
-     "pit_best": 24.045
+     "pit_est": [
+      2.593
+     ]
     },
     {
      "pos": 18,
@@ -6465,8 +7059,10 @@
      "status": "Finished",
      "qpos": 16,
      "stops": 2,
-     "pit_avg": 24.787,
-     "pit_best": 24.007
+     "pit_est": [
+      4.115,
+      2.555
+     ]
     },
     {
      "pos": 19,
@@ -6480,8 +7076,9 @@
      "status": "Finished",
      "qpos": 14,
      "stops": 1,
-     "pit_avg": 26.631,
-     "pit_best": 26.631
+     "pit_est": [
+      5.179
+     ]
     },
     {
      "pos": null,
@@ -6495,8 +7092,7 @@
      "status": "Collision damage",
      "qpos": 9,
      "stops": 0,
-     "pit_avg": null,
-     "pit_best": null
+     "pit_est": null
     }
    ],
    "dotd": "LEC"
@@ -6552,8 +7148,9 @@
      "status": "Finished",
      "qpos": 1,
      "stops": 1,
-     "pit_avg": 22.567,
-     "pit_best": 22.567
+     "pit_est": [
+      2.527
+     ]
     },
     {
      "pos": 2,
@@ -6567,8 +7164,9 @@
      "status": "Finished",
      "qpos": 2,
      "stops": 1,
-     "pit_avg": 22.215,
-     "pit_best": 22.215
+     "pit_est": [
+      2.175
+     ]
     },
     {
      "pos": 3,
@@ -6582,8 +7180,9 @@
      "status": "Finished",
      "qpos": 5,
      "stops": 1,
-     "pit_avg": 22.762,
-     "pit_best": 22.762
+     "pit_est": [
+      2.722
+     ]
     },
     {
      "pos": 4,
@@ -6597,8 +7196,10 @@
      "status": "Finished",
      "qpos": 10,
      "stops": 2,
-     "pit_avg": 22.41,
-     "pit_best": 22.174
+     "pit_est": [
+      2.607,
+      2.134
+     ]
     },
     {
      "pos": 5,
@@ -6612,8 +7213,10 @@
      "status": "Finished",
      "qpos": 8,
      "stops": 2,
-     "pit_avg": 22.685,
-     "pit_best": 22.159
+     "pit_est": [
+      3.171,
+      2.119
+     ]
     },
     {
      "pos": 6,
@@ -6627,8 +7230,10 @@
      "status": "Finished",
      "qpos": 6,
      "stops": 2,
-     "pit_avg": 23.499,
-     "pit_best": 22.476
+     "pit_est": [
+      2.436,
+      4.483
+     ]
     },
     {
      "pos": 7,
@@ -6642,8 +7247,10 @@
      "status": "Finished",
      "qpos": 4,
      "stops": 2,
-     "pit_avg": 22.409,
-     "pit_best": 22.347
+     "pit_est": [
+      2.307,
+      2.43
+     ]
     },
     {
      "pos": 8,
@@ -6657,8 +7264,10 @@
      "status": "Finished",
      "qpos": 3,
      "stops": 2,
-     "pit_avg": 28.325,
-     "pit_best": 23.342
+     "pit_est": [
+      13.268,
+      3.302
+     ]
     },
     {
      "pos": 9,
@@ -6672,8 +7281,9 @@
      "status": "Finished",
      "qpos": 12,
      "stops": 1,
-     "pit_avg": 23.203,
-     "pit_best": 23.203
+     "pit_est": [
+      3.163
+     ]
     },
     {
      "pos": 10,
@@ -6687,8 +7297,9 @@
      "status": "Finished",
      "qpos": 16,
      "stops": 1,
-     "pit_avg": 22.41,
-     "pit_best": 22.41
+     "pit_est": [
+      2.37
+     ]
     },
     {
      "pos": 11,
@@ -6702,8 +7313,9 @@
      "status": "Finished",
      "qpos": 11,
      "stops": 1,
-     "pit_avg": 31.63,
-     "pit_best": 31.63
+     "pit_est": [
+      11.59
+     ]
     },
     {
      "pos": 12,
@@ -6717,8 +7329,9 @@
      "status": "Finished",
      "qpos": 17,
      "stops": 1,
-     "pit_avg": 22.04,
-     "pit_best": 22.04
+     "pit_est": [
+      2.0
+     ]
     },
     {
      "pos": 13,
@@ -6732,8 +7345,9 @@
      "status": "Finished",
      "qpos": 9,
      "stops": 1,
-     "pit_avg": 22.196,
-     "pit_best": 22.196
+     "pit_est": [
+      2.156
+     ]
     },
     {
      "pos": 14,
@@ -6747,8 +7361,10 @@
      "status": "Finished",
      "qpos": 19,
      "stops": 2,
-     "pit_avg": 22.892,
-     "pit_best": 22.071
+     "pit_est": [
+      2.031,
+      3.673
+     ]
     },
     {
      "pos": 15,
@@ -6762,8 +7378,9 @@
      "status": "Finished",
      "qpos": 18,
      "stops": 1,
-     "pit_avg": 22.834,
-     "pit_best": 22.834
+     "pit_est": [
+      2.794
+     ]
     },
     {
      "pos": 16,
@@ -6777,8 +7394,9 @@
      "status": "Finished",
      "qpos": 20,
      "stops": 1,
-     "pit_avg": 22.789,
-     "pit_best": 22.789
+     "pit_est": [
+      2.749
+     ]
     },
     {
      "pos": 17,
@@ -6792,8 +7410,10 @@
      "status": "Accident",
      "qpos": 7,
      "stops": 2,
-     "pit_avg": 26.524,
-     "pit_best": 22.502
+     "pit_est": [
+      2.462,
+      10.506
+     ]
     },
     {
      "pos": null,
@@ -6807,8 +7427,9 @@
      "status": "Brakes",
      "qpos": 14,
      "stops": 1,
-     "pit_avg": 26.816,
-     "pit_best": 26.816
+     "pit_est": [
+      6.776
+     ]
     },
     {
      "pos": null,
@@ -6822,8 +7443,7 @@
      "status": "Handling",
      "qpos": 13,
      "stops": 0,
-     "pit_avg": null,
-     "pit_best": null
+     "pit_est": null
     },
     {
      "pos": null,
@@ -6837,8 +7457,9 @@
      "status": "Collision damage",
      "qpos": 15,
      "stops": 1,
-     "pit_avg": 34.212,
-     "pit_best": 34.212
+     "pit_est": [
+      14.172
+     ]
     }
    ],
    "dotd": "BEA"
@@ -6894,8 +7515,10 @@
      "status": "Finished",
      "qpos": 1,
      "stops": 2,
-     "pit_avg": 23.364,
-     "pit_best": 23.238
+     "pit_est": [
+      2.591,
+      2.339
+     ]
     },
     {
      "pos": 2,
@@ -6909,8 +7532,10 @@
      "status": "Finished",
      "qpos": 2,
      "stops": 2,
-     "pit_avg": 23.379,
-     "pit_best": 23.356
+     "pit_est": [
+      2.457,
+      2.502
+     ]
     },
     {
      "pos": 3,
@@ -6924,8 +7549,11 @@
      "status": "Finished",
      "qpos": 16,
      "stops": 3,
-     "pit_avg": 23.189,
-     "pit_best": 23.058
+     "pit_est": [
+      2.298,
+      2.159,
+      2.412
+     ]
     },
     {
      "pos": 4,
@@ -6939,8 +7567,10 @@
      "status": "Finished",
      "qpos": 6,
      "stops": 2,
-     "pit_avg": 23.243,
-     "pit_best": 23.128
+     "pit_est": [
+      2.459,
+      2.229
+     ]
     },
     {
      "pos": 5,
@@ -6954,8 +7584,10 @@
      "status": "Finished",
      "qpos": 4,
      "stops": 2,
-     "pit_avg": 28.878,
-     "pit_best": 23.113
+     "pit_est": [
+      13.745,
+      2.214
+     ]
     },
     {
      "pos": 6,
@@ -6969,8 +7601,10 @@
      "status": "Finished",
      "qpos": 8,
      "stops": 2,
-     "pit_avg": 24.201,
-     "pit_best": 23.748
+     "pit_est": [
+      2.849,
+      3.755
+     ]
     },
     {
      "pos": 7,
@@ -6984,8 +7618,9 @@
      "status": "Finished",
      "qpos": 7,
      "stops": 1,
-     "pit_avg": 22.899,
-     "pit_best": 22.899
+     "pit_est": [
+      2.0
+     ]
     },
     {
      "pos": 8,
@@ -6999,8 +7634,10 @@
      "status": "Finished",
      "qpos": 5,
      "stops": 2,
-     "pit_avg": 23.584,
-     "pit_best": 23.46
+     "pit_est": [
+      2.809,
+      2.561
+     ]
     },
     {
      "pos": 9,
@@ -7014,8 +7651,9 @@
      "status": "Finished",
      "qpos": 10,
      "stops": 1,
-     "pit_avg": 23.086,
-     "pit_best": 23.086
+     "pit_est": [
+      2.187
+     ]
     },
     {
      "pos": 10,
@@ -7029,8 +7667,10 @@
      "status": "Finished",
      "qpos": 9,
      "stops": 2,
-     "pit_avg": 23.66,
-     "pit_best": 23.648
+     "pit_est": [
+      2.774,
+      2.749
+     ]
     },
     {
      "pos": 11,
@@ -7044,8 +7684,10 @@
      "status": "Finished",
      "qpos": 12,
      "stops": 2,
-     "pit_avg": 23.087,
-     "pit_best": 23.061
+     "pit_est": [
+      2.162,
+      2.213
+     ]
     },
     {
      "pos": 12,
@@ -7059,8 +7701,10 @@
      "status": "Finished",
      "qpos": 17,
      "stops": 2,
-     "pit_avg": 24.191,
-     "pit_best": 24.177
+     "pit_est": [
+      3.305,
+      3.278
+     ]
     },
     {
      "pos": 13,
@@ -7074,8 +7718,10 @@
      "status": "Finished",
      "qpos": 15,
      "stops": 2,
-     "pit_avg": 24.649,
-     "pit_best": 23.234
+     "pit_est": [
+      5.165,
+      2.335
+     ]
     },
     {
      "pos": 14,
@@ -7089,8 +7735,10 @@
      "status": "Finished",
      "qpos": 11,
      "stops": 2,
-     "pit_avg": 23.752,
-     "pit_best": 23.563
+     "pit_est": [
+      3.043,
+      2.664
+     ]
     },
     {
      "pos": 15,
@@ -7104,8 +7752,10 @@
      "status": "Finished",
      "qpos": 18,
      "stops": 2,
-     "pit_avg": 24.917,
-     "pit_best": 23.71
+     "pit_est": [
+      2.811,
+      5.225
+     ]
     },
     {
      "pos": 16,
@@ -7119,8 +7769,10 @@
      "status": "Finished",
      "qpos": 14,
      "stops": 2,
-     "pit_avg": 23.364,
-     "pit_best": 22.968
+     "pit_est": [
+      2.861,
+      2.069
+     ]
     },
     {
      "pos": 17,
@@ -7134,8 +7786,11 @@
      "status": "Finished",
      "qpos": 19,
      "stops": 3,
-     "pit_avg": 30.333,
-     "pit_best": 22.974
+     "pit_est": [
+      2.075,
+      13.286,
+      12.942
+     ]
     },
     {
      "pos": null,
@@ -7149,8 +7804,11 @@
      "status": "Collision damage",
      "qpos": 13,
      "stops": 3,
-     "pit_avg": 31.418,
-     "pit_best": 23.426
+     "pit_est": [
+      19.177,
+      2.527,
+      9.853
+     ]
     },
     {
      "pos": null,
@@ -7164,8 +7822,7 @@
      "status": "Collision",
      "qpos": 3,
      "stops": 0,
-     "pit_avg": null,
-     "pit_best": null
+     "pit_est": null
     },
     {
      "pos": null,
@@ -7179,8 +7836,7 @@
      "status": "Accident",
      "qpos": null,
      "stops": 0,
-     "pit_avg": null,
-     "pit_best": null
+     "pit_est": null
     }
    ],
    "dotd": "VER"
@@ -7236,8 +7892,9 @@
      "status": "Finished",
      "qpos": 2,
      "stops": 1,
-     "pit_avg": 21.708,
-     "pit_best": 21.708
+     "pit_est": [
+      3.028
+     ]
     },
     {
      "pos": 2,
@@ -7251,8 +7908,9 @@
      "status": "Finished",
      "qpos": 4,
      "stops": 1,
-     "pit_avg": 20.929,
-     "pit_best": 20.929
+     "pit_est": [
+      2.249
+     ]
     },
     {
      "pos": 3,
@@ -7266,8 +7924,9 @@
      "status": "Finished",
      "qpos": 17,
      "stops": 1,
-     "pit_avg": 21.968,
-     "pit_best": 21.968
+     "pit_est": [
+      3.288
+     ]
     },
     {
      "pos": 4,
@@ -7281,8 +7940,9 @@
      "status": "Finished",
      "qpos": 9,
      "stops": 1,
-     "pit_avg": 21.351,
-     "pit_best": 21.351
+     "pit_est": [
+      2.671
+     ]
     },
     {
      "pos": 5,
@@ -7296,8 +7956,9 @@
      "status": "Finished",
      "qpos": 3,
      "stops": 1,
-     "pit_avg": 21.164,
-     "pit_best": 21.164
+     "pit_est": [
+      2.484
+     ]
     },
     {
      "pos": 6,
@@ -7311,8 +7972,9 @@
      "status": "Finished",
      "qpos": 8,
      "stops": 1,
-     "pit_avg": 21.324,
-     "pit_best": 21.324
+     "pit_est": [
+      2.644
+     ]
     },
     {
      "pos": 7,
@@ -7326,8 +7988,9 @@
      "status": "Finished",
      "qpos": 11,
      "stops": 1,
-     "pit_avg": 22.333,
-     "pit_best": 22.333
+     "pit_est": [
+      3.653
+     ]
     },
     {
      "pos": 8,
@@ -7341,8 +8004,9 @@
      "status": "Finished",
      "qpos": 20,
      "stops": 1,
-     "pit_avg": 21.638,
-     "pit_best": 21.638
+     "pit_est": [
+      2.958
+     ]
     },
     {
      "pos": 9,
@@ -7356,8 +8020,9 @@
      "status": "Finished",
      "qpos": 13,
      "stops": 1,
-     "pit_avg": 22.389,
-     "pit_best": 22.389
+     "pit_est": [
+      3.709
+     ]
     },
     {
      "pos": 10,
@@ -7371,8 +8036,9 @@
      "status": "Finished",
      "qpos": 14,
      "stops": 1,
-     "pit_avg": 21.491,
-     "pit_best": 21.491
+     "pit_est": [
+      2.811
+     ]
     },
     {
      "pos": 11,
@@ -7386,8 +8052,9 @@
      "status": "Finished",
      "qpos": 7,
      "stops": 1,
-     "pit_avg": 21.068,
-     "pit_best": 21.068
+     "pit_est": [
+      2.388
+     ]
     },
     {
      "pos": 12,
@@ -7401,8 +8068,10 @@
      "status": "Finished",
      "qpos": 19,
      "stops": 2,
-     "pit_avg": 21.032,
-     "pit_best": 20.68
+     "pit_est": [
+      2.703,
+      2.0
+     ]
     },
     {
      "pos": 13,
@@ -7416,8 +8085,9 @@
      "status": "Finished",
      "qpos": 10,
      "stops": 1,
-     "pit_avg": 23.903,
-     "pit_best": 23.903
+     "pit_est": [
+      5.223
+     ]
     },
     {
      "pos": 14,
@@ -7431,8 +8101,10 @@
      "status": "Finished",
      "qpos": 6,
      "stops": 2,
-     "pit_avg": 27.011,
-     "pit_best": 21.287
+     "pit_est": [
+      14.056,
+      2.607
+     ]
     },
     {
      "pos": 15,
@@ -7446,8 +8118,9 @@
      "status": "Finished",
      "qpos": 15,
      "stops": 1,
-     "pit_avg": 22.842,
-     "pit_best": 22.842
+     "pit_est": [
+      4.162
+     ]
     },
     {
      "pos": null,
@@ -7461,8 +8134,11 @@
      "status": "Collision damage",
      "qpos": 16,
      "stops": 3,
-     "pit_avg": 27.578,
-     "pit_best": 23.361
+     "pit_est": [
+      4.681,
+      11.385,
+      10.628
+     ]
     },
     {
      "pos": null,
@@ -7476,8 +8152,9 @@
      "status": "Collision",
      "qpos": 18,
      "stops": 1,
-     "pit_avg": 33.23,
-     "pit_best": 33.23
+     "pit_est": [
+      14.55
+     ]
     },
     {
      "pos": null,
@@ -7491,8 +8168,7 @@
      "status": "Collision",
      "qpos": 12,
      "stops": 0,
-     "pit_avg": null,
-     "pit_best": null
+     "pit_est": null
     },
     {
      "pos": null,
@@ -7506,8 +8182,9 @@
      "status": "Illegal skid block wear",
      "qpos": 1,
      "stops": 1,
-     "pit_avg": 21.049,
-     "pit_best": 21.049
+     "pit_est": [
+      2.369
+     ]
     },
     {
      "pos": null,
@@ -7521,8 +8198,9 @@
      "status": "Illegal skid block wear",
      "qpos": 5,
      "stops": 1,
-     "pit_avg": 21.371,
-     "pit_best": 21.371
+     "pit_est": [
+      2.691
+     ]
     }
    ],
    "dotd": "VER"
@@ -7578,8 +8256,10 @@
      "status": "Finished",
      "qpos": 3,
      "stops": 2,
-     "pit_avg": 29.069,
-     "pit_best": 28.168
+     "pit_est": [
+      4.117,
+      2.315
+     ]
     },
     {
      "pos": 2,
@@ -7593,8 +8273,10 @@
      "status": "Finished",
      "qpos": 1,
      "stops": 2,
-     "pit_avg": 28.45,
-     "pit_best": 27.853
+     "pit_est": [
+      3.194,
+      2.0
+     ]
     },
     {
      "pos": 3,
@@ -7608,8 +8290,10 @@
      "status": "Finished",
      "qpos": 7,
      "stops": 2,
-     "pit_avg": 28.37,
-     "pit_best": 28.181
+     "pit_est": [
+      2.707,
+      2.328
+     ]
     },
     {
      "pos": 4,
@@ -7623,8 +8307,10 @@
      "status": "Finished",
      "qpos": 2,
      "stops": 2,
-     "pit_avg": 28.09,
-     "pit_best": 27.938
+     "pit_est": [
+      2.085,
+      2.39
+     ]
     },
     {
      "pos": 5,
@@ -7638,8 +8324,10 @@
      "status": "Finished",
      "qpos": 5,
      "stops": 2,
-     "pit_avg": 30.273,
-     "pit_best": 28.544
+     "pit_est": [
+      6.149,
+      2.691
+     ]
     },
     {
      "pos": 6,
@@ -7653,8 +8341,10 @@
      "status": "Finished",
      "qpos": 4,
      "stops": 2,
-     "pit_avg": 31.159,
-     "pit_best": 29.077
+     "pit_est": [
+      7.388,
+      3.224
+     ]
     },
     {
      "pos": 7,
@@ -7668,8 +8358,10 @@
      "status": "Finished",
      "qpos": 8,
      "stops": 2,
-     "pit_avg": 28.611,
-     "pit_best": 28.288
+     "pit_est": [
+      2.435,
+      3.082
+     ]
     },
     {
      "pos": 8,
@@ -7683,8 +8375,10 @@
      "status": "Finished",
      "qpos": 10,
      "stops": 2,
-     "pit_avg": 29.697,
-     "pit_best": 28.999
+     "pit_est": [
+      4.542,
+      3.146
+     ]
     },
     {
      "pos": 9,
@@ -7698,8 +8392,10 @@
      "status": "Finished",
      "qpos": 12,
      "stops": 2,
-     "pit_avg": 28.535,
-     "pit_best": 28.078
+     "pit_est": [
+      3.14,
+      2.225
+     ]
     },
     {
      "pos": 10,
@@ -7713,8 +8409,10 @@
      "status": "Finished",
      "qpos": 16,
      "stops": 2,
-     "pit_avg": 28.759,
-     "pit_best": 28.33
+     "pit_est": [
+      3.335,
+      2.477
+     ]
     },
     {
      "pos": 11,
@@ -7728,8 +8426,10 @@
      "status": "Finished",
      "qpos": 15,
      "stops": 2,
-     "pit_avg": 29.174,
-     "pit_best": 28.89
+     "pit_est": [
+      3.037,
+      3.604
+     ]
     },
     {
      "pos": 12,
@@ -7743,8 +8443,10 @@
      "status": "Finished",
      "qpos": 18,
      "stops": 2,
-     "pit_avg": 30.353,
-     "pit_best": 28.541
+     "pit_est": [
+      6.313,
+      2.688
+     ]
     },
     {
      "pos": 13,
@@ -7758,8 +8460,10 @@
      "status": "Finished",
      "qpos": 14,
      "stops": 2,
-     "pit_avg": 28.352,
-     "pit_best": 28.234
+     "pit_est": [
+      2.618,
+      2.381
+     ]
     },
     {
      "pos": 14,
@@ -7773,8 +8477,10 @@
      "status": "Finished",
      "qpos": 20,
      "stops": 2,
-     "pit_avg": 29.24,
-     "pit_best": 28.942
+     "pit_est": [
+      3.685,
+      3.089
+     ]
     },
     {
      "pos": 15,
@@ -7788,8 +8494,11 @@
      "status": "Finished",
      "qpos": 17,
      "stops": 3,
-     "pit_avg": 33.005,
-     "pit_best": 30.469
+     "pit_est": [
+      8.153,
+      8.687,
+      4.616
+     ]
     },
     {
      "pos": 16,
@@ -7803,8 +8512,10 @@
      "status": "Finished",
      "qpos": 9,
      "stops": 2,
-     "pit_avg": 30.951,
-     "pit_best": 30.559
+     "pit_est": [
+      5.49,
+      4.706
+     ]
     },
     {
      "pos": 17,
@@ -7818,8 +8529,11 @@
      "status": "Collision damage",
      "qpos": 19,
      "stops": 3,
-     "pit_avg": 30.62,
-     "pit_best": 28.064
+     "pit_est": [
+      2.271,
+      2.211,
+      9.818
+     ]
     },
     {
      "pos": 18,
@@ -7833,8 +8547,10 @@
      "status": "Puncture",
      "qpos": 6,
      "stops": 2,
-     "pit_avg": 28.373,
-     "pit_best": 27.931
+     "pit_est": [
+      2.962,
+      2.078
+     ]
     },
     {
      "pos": null,
@@ -7848,8 +8564,11 @@
      "status": "Pit stop issue",
      "qpos": 13,
      "stops": 3,
-     "pit_avg": 37.194,
-     "pit_best": 28.837
+     "pit_est": [
+      2.984,
+      19.379,
+      11.66
+     ]
     },
     {
      "pos": null,
@@ -7863,8 +8582,7 @@
      "status": "Collision",
      "qpos": 11,
      "stops": 0,
-     "pit_avg": null,
-     "pit_best": null
+     "pit_est": null
     }
    ],
    "dotd": "VER"
@@ -7920,8 +8638,9 @@
      "status": "Finished",
      "qpos": 1,
      "stops": 1,
-     "pit_avg": 21.703,
-     "pit_best": 21.703
+     "pit_est": [
+      2.801
+     ]
     },
     {
      "pos": 2,
@@ -7935,8 +8654,9 @@
      "status": "Finished",
      "qpos": 3,
      "stops": 1,
-     "pit_avg": 21.565,
-     "pit_best": 21.565
+     "pit_est": [
+      2.663
+     ]
     },
     {
      "pos": 3,
@@ -7950,8 +8670,10 @@
      "status": "Finished",
      "qpos": 2,
      "stops": 2,
-     "pit_avg": 21.365,
-     "pit_best": 21.323
+     "pit_est": [
+      2.421,
+      2.505
+     ]
     },
     {
      "pos": 4,
@@ -7965,8 +8687,10 @@
      "status": "Finished",
      "qpos": 5,
      "stops": 2,
-     "pit_avg": 21.297,
-     "pit_best": 20.902
+     "pit_est": [
+      2.79,
+      2.0
+     ]
     },
     {
      "pos": 5,
@@ -7980,8 +8704,9 @@
      "status": "Finished",
      "qpos": 4,
      "stops": 1,
-     "pit_avg": 21.979,
-     "pit_best": 21.979
+     "pit_est": [
+      3.077
+     ]
     },
     {
      "pos": 6,
@@ -7995,8 +8720,9 @@
      "status": "Finished",
      "qpos": 6,
      "stops": 1,
-     "pit_avg": 23.267,
-     "pit_best": 23.267
+     "pit_est": [
+      4.365
+     ]
     },
     {
      "pos": 7,
@@ -8010,8 +8736,9 @@
      "status": "Finished",
      "qpos": 8,
      "stops": 1,
-     "pit_avg": 22.254,
-     "pit_best": 22.254
+     "pit_est": [
+      3.352
+     ]
     },
     {
      "pos": 8,
@@ -8025,8 +8752,10 @@
      "status": "Finished",
      "qpos": 16,
      "stops": 2,
-     "pit_avg": 21.509,
-     "pit_best": 21.417
+     "pit_est": [
+      2.699,
+      2.515
+     ]
     },
     {
      "pos": 9,
@@ -8040,8 +8769,10 @@
      "status": "Finished",
      "qpos": 18,
      "stops": 2,
-     "pit_avg": 21.544,
-     "pit_best": 21.468
+     "pit_est": [
+      2.717,
+      2.566
+     ]
     },
     {
      "pos": 10,
@@ -8055,8 +8786,9 @@
      "status": "Finished",
      "qpos": 15,
      "stops": 1,
-     "pit_avg": 21.535,
-     "pit_best": 21.535
+     "pit_est": [
+      2.633
+     ]
     },
     {
      "pos": 11,
@@ -8070,8 +8802,9 @@
      "status": "Finished",
      "qpos": 7,
      "stops": 1,
-     "pit_avg": 22.121,
-     "pit_best": 22.121
+     "pit_est": [
+      3.219
+     ]
     },
     {
      "pos": 12,
@@ -8085,8 +8818,9 @@
      "status": "Finished",
      "qpos": 11,
      "stops": 1,
-     "pit_avg": 22.263,
-     "pit_best": 22.263
+     "pit_est": [
+      3.361
+     ]
     },
     {
      "pos": 13,
@@ -8100,8 +8834,9 @@
      "status": "Finished",
      "qpos": 12,
      "stops": 1,
-     "pit_avg": 21.799,
-     "pit_best": 21.799
+     "pit_est": [
+      2.897
+     ]
     },
     {
      "pos": 14,
@@ -8115,8 +8850,9 @@
      "status": "Finished",
      "qpos": 10,
      "stops": 1,
-     "pit_avg": 27.041,
-     "pit_best": 27.041
+     "pit_est": [
+      8.139
+     ]
     },
     {
      "pos": 15,
@@ -8130,8 +8866,9 @@
      "status": "Finished",
      "qpos": 14,
      "stops": 1,
-     "pit_avg": 22.155,
-     "pit_best": 22.155
+     "pit_est": [
+      3.253
+     ]
     },
     {
      "pos": 16,
@@ -8145,8 +8882,10 @@
      "status": "Finished",
      "qpos": 17,
      "stops": 2,
-     "pit_avg": 21.523,
-     "pit_best": 21.495
+     "pit_est": [
+      2.649,
+      2.593
+     ]
     },
     {
      "pos": 17,
@@ -8160,8 +8899,9 @@
      "status": "Finished",
      "qpos": 9,
      "stops": 1,
-     "pit_avg": 21.932,
-     "pit_best": 21.932
+     "pit_est": [
+      3.03
+     ]
     },
     {
      "pos": 18,
@@ -8175,8 +8915,9 @@
      "status": "Finished",
      "qpos": 13,
      "stops": 1,
-     "pit_avg": 28.369,
-     "pit_best": 28.369
+     "pit_est": [
+      9.467
+     ]
     },
     {
      "pos": 19,
@@ -8190,8 +8931,10 @@
      "status": "Finished",
      "qpos": 19,
      "stops": 2,
-     "pit_avg": 22.41,
-     "pit_best": 22.234
+     "pit_est": [
+      3.683,
+      3.332
+     ]
     },
     {
      "pos": 20,
@@ -8205,8 +8948,10 @@
      "status": "Finished",
      "qpos": 20,
      "stops": 2,
-     "pit_avg": 22.454,
-     "pit_best": 21.953
+     "pit_est": [
+      3.051,
+      4.053
+     ]
     }
    ],
    "dotd": "VER"
@@ -8482,8 +9227,7 @@
    "avg_finish": 3.6,
    "gained": -13,
    "avg_stops": 1.7,
-   "pit_avg": 22.96,
-   "pit_best": 12.804,
+   "stop_s": 2.41,
    "dotd": 1,
    "laps": 1382,
    "laps_led": null
@@ -8504,8 +9248,7 @@
    "avg_finish": 3.0,
    "gained": -7,
    "avg_stops": 1.7,
-   "pit_avg": 23.0,
-   "pit_best": 12.938,
+   "stop_s": 2.54,
    "dotd": 8,
    "laps": 1374,
    "laps_led": null
@@ -8526,8 +9269,7 @@
    "avg_finish": 2.8,
    "gained": -3,
    "avg_stops": 1.7,
-   "pit_avg": 23.45,
-   "pit_best": 12.816,
+   "stop_s": 2.69,
    "dotd": 1,
    "laps": 1343,
    "laps_led": null
@@ -8548,8 +9290,7 @@
    "avg_finish": 4.5,
    "gained": -4,
    "avg_stops": 1.7,
-   "pit_avg": 22.78,
-   "pit_best": 13.672,
+   "stop_s": 2.46,
    "dotd": 0,
    "laps": 1442,
    "laps_led": null
@@ -8570,8 +9311,7 @@
    "avg_finish": 5.0,
    "gained": 9,
    "avg_stops": 1.6,
-   "pit_avg": 22.65,
-   "pit_best": 14.129,
+   "stop_s": 2.41,
    "dotd": 2,
    "laps": 1358,
    "laps_led": null
@@ -8592,8 +9332,7 @@
    "avg_finish": 7.0,
    "gained": 42,
    "avg_stops": 1.8,
-   "pit_avg": 23.95,
-   "pit_best": 14.789,
+   "stop_s": 2.52,
    "dotd": 2,
    "laps": 1359,
    "laps_led": null
@@ -8614,8 +9353,7 @@
    "avg_finish": 8.2,
    "gained": 5,
    "avg_stops": 1.7,
-   "pit_avg": 23.19,
-   "pit_best": 13.975,
+   "stop_s": 2.73,
    "dotd": 2,
    "laps": 1309,
    "laps_led": null
@@ -8636,8 +9374,7 @@
    "avg_finish": 9.7,
    "gained": 59,
    "avg_stops": 1.8,
-   "pit_avg": 23.91,
-   "pit_best": 14.285,
+   "stop_s": 3.09,
    "dotd": 0,
    "laps": 1306,
    "laps_led": null
@@ -8658,8 +9395,7 @@
    "avg_finish": 10.8,
    "gained": 8,
    "avg_stops": 1.5,
-   "pit_avg": 25.15,
-   "pit_best": 17.67,
+   "stop_s": 2.7,
    "dotd": 1,
    "laps": 1245,
    "laps_led": null
@@ -8680,8 +9416,7 @@
    "avg_finish": 10.3,
    "gained": -6,
    "avg_stops": 1.5,
-   "pit_avg": 23.83,
-   "pit_best": 15.034,
+   "stop_s": 2.91,
    "dotd": 1,
    "laps": 1257,
    "laps_led": null
@@ -8702,8 +9437,7 @@
    "avg_finish": 11.2,
    "gained": -43,
    "avg_stops": 1.5,
-   "pit_avg": 23.44,
-   "pit_best": 17.414,
+   "stop_s": 2.52,
    "dotd": 1,
    "laps": 1342,
    "laps_led": null
@@ -8724,8 +9458,7 @@
    "avg_finish": 11.4,
    "gained": 73,
    "avg_stops": 1.5,
-   "pit_avg": 22.67,
-   "pit_best": 14.198,
+   "stop_s": 2.62,
    "dotd": 1,
    "laps": 1229,
    "laps_led": null
@@ -8746,8 +9479,7 @@
    "avg_finish": 10.7,
    "gained": 53,
    "avg_stops": 1.6,
-   "pit_avg": 25.79,
-   "pit_best": 14.605,
+   "stop_s": 3.03,
    "dotd": 1,
    "laps": 1372,
    "laps_led": null
@@ -8768,8 +9500,7 @@
    "avg_finish": 11.4,
    "gained": -11,
    "avg_stops": 1.5,
-   "pit_avg": 23.45,
-   "pit_best": 14.79,
+   "stop_s": 2.61,
    "dotd": 0,
    "laps": 1273,
    "laps_led": null
@@ -8790,8 +9521,7 @@
    "avg_finish": 12.2,
    "gained": 54,
    "avg_stops": 1.5,
-   "pit_avg": 23.98,
-   "pit_best": 14.395,
+   "stop_s": 3.35,
    "dotd": 0,
    "laps": 1401,
    "laps_led": null
@@ -8812,8 +9542,7 @@
    "avg_finish": 12.3,
    "gained": -12,
    "avg_stops": 1.8,
-   "pit_avg": 24.13,
-   "pit_best": 13.605,
+   "stop_s": 2.79,
    "dotd": 1,
    "laps": 1386,
    "laps_led": null
@@ -8834,8 +9563,7 @@
    "avg_finish": 13.5,
    "gained": 51,
    "avg_stops": 1.7,
-   "pit_avg": 24.25,
-   "pit_best": 14.451,
+   "stop_s": 2.73,
    "dotd": 0,
    "laps": 1316,
    "laps_led": null
@@ -8856,8 +9584,7 @@
    "avg_finish": 13.8,
    "gained": -27,
    "avg_stops": 1.5,
-   "pit_avg": 23.75,
-   "pit_best": 14.71,
+   "stop_s": 3.41,
    "dotd": 0,
    "laps": 1313,
    "laps_led": null
@@ -8878,8 +9605,7 @@
    "avg_finish": 13.3,
    "gained": 8,
    "avg_stops": 1.5,
-   "pit_avg": 24.1,
-   "pit_best": 14.206,
+   "stop_s": 2.92,
    "dotd": 2,
    "laps": 1229,
    "laps_led": null
@@ -8900,8 +9626,7 @@
    "avg_finish": 14.8,
    "gained": 6,
    "avg_stops": 1.0,
-   "pit_avg": 23.03,
-   "pit_best": 20.571,
+   "stop_s": 2.7,
    "dotd": 0,
    "laps": 215,
    "laps_led": null
@@ -8922,8 +9647,7 @@
    "avg_finish": 15.8,
    "gained": 1,
    "avg_stops": 1.6,
-   "pit_avg": 24.0,
-   "pit_best": 17.586,
+   "stop_s": 2.94,
    "dotd": 0,
    "laps": 1049,
    "laps_led": null
