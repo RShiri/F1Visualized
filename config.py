@@ -24,6 +24,8 @@ META_JSON: Path = DATA_DIR / "race_meta.json"
 OUTPUT_VIDEO: Path = ROOT_DIR / "latest_race_timelapse.mp4"
 #: Position-battle race — a line of cars swapping order (race_animator.py).
 OUTPUT_REPLAY: Path = ROOT_DIR / "latest_race_replay.mp4"
+#: Both views stitched into one synced video (combine_gp_videos.py).
+OUTPUT_COMBINED: Path = ROOT_DIR / "latest_race_combined.mp4"
 
 #: fastf1 caches every network request here so re-runs are fast and offline-able.
 CACHE_DIR: Path = ROOT_DIR / ".fastf1_cache"

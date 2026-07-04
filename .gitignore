@@ -5,6 +5,7 @@
 # The optional "commit_output" CI step force-adds these when you want them kept.
 latest_race_timelapse.mp4
 latest_race_replay.mp4
+latest_race_combined.mp4
 data/*.csv
 data/*.json
 

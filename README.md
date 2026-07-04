@@ -80,8 +80,7 @@ To publish: enable **GitHub Pages → Source: GitHub Actions**, then run the
 > shown as **TBC** rather than invented.
 
 The dashboard consumes a small JSON contract, so the data producer
-(`build_season_dict`) is decoupled and unit-tested — the same seam that lets the
-video pipeline feed it later.
+(`assemble_season`) is decoupled and unit-tested.
 
 ---
 
@@ -91,12 +90,23 @@ The pipeline is deliberately split into small, importable pieces so it can be
 scripted, tested offline, or reused by the dashboard without rewriting core logic.
 
 ```
-config.py        Shared style tokens, palettes, the car sprite and file paths
-scraper.py       Stage 1 — dynamic data extraction & tidy transformation  → data/
-race_animator.py Stage 2 — position-battle race (cars) engine  → latest_race_replay.mp4
-animator.py      Stage 2 — position-by-lap timeline engine      → latest_race_timelapse.mp4
-tests/           Network-free unit tests for the pure data transforms
+config.py          Shared style tokens, palettes, the car sprite and file paths
+scraper.py         Stage 1 — dynamic data extraction & tidy transformation  → data/
+race_animator.py   Stage 2 — position-battle race (cars) engine  → latest_race_replay.mp4
+animator.py        Stage 2 — position-by-lap timeline engine      → latest_race_timelapse.mp4
+combine_gp_videos.py  Stitch both panels into one synced video    → latest_race_combined.mp4
+tests/             Network-free unit tests for the pure data transforms
 .github/workflows/f1_latest_video.yml   Stage 3 — on-demand CI/CD
+```
+
+`combine_gp_videos.py` renders both engines with a **matched** `fps` /
+`frames_per_lap` — so lap *N* lands on the same frame in both — then ffmpeg
+places them side by side (or `--layout stack`), yielding one in-sync
+comparison video per Grand Prix:
+
+```bash
+python combine_gp_videos.py                 # side-by-side -> latest_race_combined.mp4
+python combine_gp_videos.py --layout stack  # timeline under the race
 ```
 
 ### Stage 1 — `scraper.py`
