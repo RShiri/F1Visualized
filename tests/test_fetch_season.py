@@ -17,10 +17,11 @@ import fetch_season as fs  # noqa: E402
 def setup_function(_):
     fs._yaml_cache.clear()
     fs._driver_cache.clear()
+    fs._country_cache.clear()
     fs._driver_cache.update({
-        "lando-norris": {"code": "NOR", "name": "Lando Norris"},
-        "max-verstappen": {"code": "VER", "name": "Max Verstappen"},
-        "charles-leclerc": {"code": "LEC", "name": "Charles Leclerc"},
+        "lando-norris": {"code": "NOR", "name": "Lando Norris", "nat": "GB"},
+        "max-verstappen": {"code": "VER", "name": "Max Verstappen", "nat": "NL"},
+        "charles-leclerc": {"code": "LEC", "name": "Charles Leclerc", "nat": "MC"},
     })
 
 
@@ -30,6 +31,12 @@ def test_team_name_mapping_and_fallback():
     assert fs.team_name("audi") == "Audi"
     assert fs.team_name("some-new-team") == "Some New Team"   # title-case fallback
     assert fs.team_name(None) == ""
+
+
+def test_country_alpha2_for_flags():
+    fs._yaml_cache["countries/netherlands.yml"] = {"alpha2Code": "NL"}
+    assert fs.country_alpha2("netherlands") == "NL"
+    assert fs.country_alpha2(None) == ""
 
 
 def test_slug_candidates():
@@ -62,7 +69,7 @@ def test_build_race_completed_parses_f1db_results():
     race = fs.build_race(2025, ev, datetime(2025, 7, 1, tzinfo=timezone.utc), wins)
 
     assert race["status"] == "completed"
-    assert race["winner"] == {"code": "NOR", "name": "Lando Norris", "team": "McLaren"}
+    assert race["winner"] == {"code": "NOR", "name": "Lando Norris", "nat": "GB", "team": "McLaren"}
     assert [p["code"] for p in race["podium"]] == ["NOR", "VER", "LEC"]
     assert race["results"][1]["team"] == "Red Bull Racing"
     assert wins["drivers"]["NOR"] == 1 and wins["teams"]["McLaren"] == 1
@@ -84,5 +91,5 @@ def test_assemble_season_schema():
                            team_by_code, wins, now)
     assert set(d) == {"season", "updated", "source", "races", "drivers", "constructors"}
     assert d["drivers"][0] == {"pos": 1, "code": "NOR", "name": "Lando Norris",
-                               "team": "McLaren", "points": 423, "wins": 7}
+                               "nat": "GB", "team": "McLaren", "points": 423, "wins": 7}
     assert d["constructors"][0] == {"pos": 1, "team": "McLaren", "points": 833, "wins": 14}

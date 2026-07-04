@@ -33,13 +33,13 @@ log = logging.getLogger("fetch_season")
 F1DB = "https://raw.githubusercontent.com/f1db/f1db/main/src/data"
 
 # f1db constructorId -> display name (aligned with the front-end colour map).
+# Era-correct display names (f1db uses distinct constructorIds across eras).
 TEAM_NAMES = {
     "mclaren": "McLaren", "ferrari": "Ferrari", "mercedes": "Mercedes",
     "red-bull": "Red Bull Racing", "aston-martin": "Aston Martin", "alpine": "Alpine",
-    "williams": "Williams", "rb": "Racing Bulls", "racing-bulls": "Racing Bulls",
-    "alphatauri": "Racing Bulls", "haas": "Haas", "kick-sauber": "Kick Sauber",
-    "sauber": "Kick Sauber", "alfa-romeo": "Kick Sauber", "audi": "Audi",
-    "cadillac": "Cadillac",
+    "williams": "Williams", "haas": "Haas", "audi": "Audi", "cadillac": "Cadillac",
+    "alphatauri": "AlphaTauri", "rb": "RB", "racing-bulls": "Racing Bulls",
+    "alfa-romeo": "Alfa Romeo", "sauber": "Sauber", "kick-sauber": "Kick Sauber",
 }
 
 # fastf1 event name (lowercased, minus "grand prix") -> f1db grand-prix slug.
@@ -102,17 +102,31 @@ def _get_yaml(path: str, retries: int = 3):
 # Resolvers (cached)
 # --------------------------------------------------------------------------- #
 _driver_cache: dict[str, dict] = {}
+_country_cache: dict[str, str] = {}
+
+
+def country_alpha2(country_id) -> str:
+    """f1db ``countryId`` -> ISO alpha-2 code (drives flag emoji). '' if unknown."""
+    if not country_id:
+        return ""
+    if country_id in _country_cache:
+        return _country_cache[country_id]
+    info = _get_yaml(f"countries/{country_id}.yml") or {}
+    code = str(info.get("alpha2Code") or "").upper()
+    _country_cache[country_id] = code
+    return code
 
 
 def resolve_driver(driver_id: str) -> dict:
-    """``driverId`` -> ``{code, name}`` (from the f1db driver file)."""
+    """``driverId`` -> ``{code, name, nat}`` (from the f1db driver file)."""
     if driver_id in _driver_cache:
         return _driver_cache[driver_id]
     info = _get_yaml(f"drivers/{driver_id}.yml") or {}
     name = info.get("name") or driver_id.replace("-", " ").title()
     last = str(info.get("lastName") or driver_id.split("-")[-1])
     code = info.get("abbreviation") or last[:3].upper()
-    out = {"code": code, "name": name}
+    nat = country_alpha2(info.get("nationalityCountryId"))
+    out = {"code": code, "name": name, "nat": nat}
     _driver_cache[driver_id] = out
     return out
 
@@ -168,7 +182,8 @@ def build_race(year: int, ev: dict, now: datetime, wins: dict) -> dict:
         pos = r.get("position")
         rows.append({
             "pos": int(pos) if isinstance(pos, int) else None,
-            "code": drv["code"], "name": drv["name"], "team": team_name(r.get("constructorId")),
+            "code": drv["code"], "name": drv["name"], "nat": drv["nat"],
+            "team": team_name(r.get("constructorId")),
             "grid": r.get("gridPosition") if isinstance(r.get("gridPosition"), int) else None,
             "points": r.get("points") or 0,
             "laps": r.get("laps") if isinstance(r.get("laps"), int) else None,
@@ -178,11 +193,12 @@ def build_race(year: int, ev: dict, now: datetime, wins: dict) -> dict:
 
     race["status"] = "completed"
     race["results"] = rows
-    race["podium"] = [{"pos": r["pos"], "code": r["code"], "name": r["name"], "team": r["team"]}
+    race["podium"] = [{"pos": r["pos"], "code": r["code"], "name": r["name"],
+                       "nat": r["nat"], "team": r["team"]}
                       for r in rows if r["pos"] in (1, 2, 3)]
     if race["podium"]:
         w = race["podium"][0]
-        race["winner"] = {"code": w["code"], "name": w["name"], "team": w["team"]}
+        race["winner"] = {"code": w["code"], "name": w["name"], "nat": w["nat"], "team": w["team"]}
         wins["drivers"][w["code"]] = wins["drivers"].get(w["code"], 0) + 1
         wins["teams"][w["team"]] = wins["teams"].get(w["team"], 0) + 1
 
@@ -204,7 +220,7 @@ def assemble_season(year, races, driver_standings, constructor_standings,
         drv = resolve_driver(s.get("driverId", ""))
         drivers.append({
             "pos": s.get("position"), "code": drv["code"], "name": drv["name"],
-            "team": team_by_code.get(drv["code"], ""),
+            "nat": drv["nat"], "team": team_by_code.get(drv["code"], ""),
             "points": s.get("points") or 0, "wins": wins["drivers"].get(drv["code"], 0),
         })
     constructors = []
