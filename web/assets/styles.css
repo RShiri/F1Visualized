@@ -210,7 +210,10 @@ table.results tr .dnf { color: var(--ink-3); }
 .prog-play { background: var(--red); color: #fff; border: 0; border-radius: 8px; padding: 8px 16px; font: inherit; font-weight: 800; cursor: pointer; min-width: 78px; }
 .prog-play:hover { background: var(--red-2); }
 .prog-slider { flex: 1; accent-color: var(--red); height: 4px; cursor: pointer; }
-.prog-lap { color: var(--ink-2); font-weight: 800; font-variant-numeric: tabular-nums; min-width: 100px; text-align: right; }
+.prog-lap { color: var(--ink-2); font-weight: 800; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.prog-num { width: 50px; margin: 0 3px; padding: 4px 5px; background: var(--panel-2); color: var(--ink);
+  border: 1px solid var(--border-2); border-radius: 6px; font: inherit; font-weight: 800; text-align: center; }
+.prog-num:focus { outline: none; border-color: var(--red); }
 
 /* ---------- rendered replay video ---------- */
 .replay { margin-top: 20px; }

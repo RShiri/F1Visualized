@@ -303,14 +303,15 @@ function buildProgression(race) {
   const ctrl = el("div", "prog-controls");
   ctrl.innerHTML = `<button type="button" class="prog-play">Play</button>
     <input type="range" class="prog-slider" min="1" max="${total}" value="${total}" step="1" aria-label="Lap">
-    <span class="prog-lap">Lap ${total} / ${total}</span>`;
+    <span class="prog-lap">Lap <input type="number" class="prog-num" min="1" max="${total}" value="${total}" aria-label="Pick lap"> / ${total}</span>`;
   wrap.appendChild(ctrl);
-  const playBtn = $(".prog-play", ctrl), slider = $(".prog-slider", ctrl), lapOut = $(".prog-lap", ctrl);
+  const playBtn = $(".prog-play", ctrl), slider = $(".prog-slider", ctrl), num = $(".prog-num", ctrl);
 
   function setLap(L) {
     L = Math.max(1, Math.min(total, L | 0));
     vline.setAttribute("x1", xOf(L)); vline.setAttribute("x2", xOf(L));
-    lapOut.textContent = `Lap ${L} / ${total}`;
+    slider.value = L;
+    if (document.activeElement !== num) num.value = L;   // don't clobber while typing
     drivers.forEach((d) => {
       const pts = [];
       for (let lap = 1; lap <= L; lap++) { const p = d.positions[lap - 1]; if (p != null) pts.push(`${xOf(lap)},${yOf(p)}`); }
@@ -336,6 +337,10 @@ function buildProgression(race) {
     }, 110);
   }
   slider.addEventListener("input", () => { stopPlay(); setLap(+slider.value); });
+  num.addEventListener("change", () => { stopPlay(); setLap(+num.value || 1); });
+  num.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") { stopPlay(); setLap(+num.value || 1); num.blur(); }
+  });
   playBtn.addEventListener("click", () => (_progTimer ? stopPlay() : play()));
 
   setLap(total);
