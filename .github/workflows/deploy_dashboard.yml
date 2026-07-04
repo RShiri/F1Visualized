@@ -1,11 +1,14 @@
 name: Deploy F1 Dashboard
 
 # Builds the season data and publishes the web/ dashboard to GitHub Pages.
-# On-demand for now; a weekly cron can be enabled later without code changes.
+# Runs on demand, on every push to the default branch, and on a schedule so
+# the live season data refreshes itself after each race weekend.
 on:
   workflow_dispatch:
-  # schedule:
-  #   - cron: "0 6 * * 2"   # Tuesdays, after race weekends
+  push:
+    branches: [claude/f1-pipeline-video-animation-d48zz5]
+  schedule:
+    - cron: "0 6 * * 2,5"   # Tue & Fri 06:00 UTC — after race weekends + midweek f1db updates
 
 permissions:
   contents: read
@@ -52,6 +55,8 @@ jobs:
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
+        with:
+          enablement: true   # turn GitHub Pages on automatically on first run
 
       - name: Upload dashboard artifact
         uses: actions/upload-pages-artifact@v3
