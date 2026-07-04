@@ -206,7 +206,144 @@ function selectRace(round) {
   renderRaceDetail(data(), round);
 }
 
+/* ---------------- race progression (interactive lap scrubber) ---------------- */
+const SVGNS = "http://www.w3.org/2000/svg";
+let _progTimer = null;
+
+function stopProgression() {
+  if (_progTimer) { clearInterval(_progTimer); _progTimer = null; }
+}
+
+function _svg(tag, attrs) {
+  const n = document.createElementNS(SVGNS, tag);
+  for (const k in attrs) n.setAttribute(k, attrs[k]);
+  return n;
+}
+
+// Per-driver position for every lap. Uses real lap-by-lap telemetry when the
+// data carries it (race.laps from the CI fetch); otherwise derives an honest
+// progression from each driver's REAL grid, finishing position and laps run.
+function deriveLapPositions(race) {
+  const results = race.results || [];
+  const n = results.length || 20;
+  if (race.laps && typeof race.laps === "object") {
+    const total = race.total_laps || Math.max(1, ...Object.values(race.laps).map((a) => a.length));
+    const teamOf = {}; results.forEach((r) => (teamOf[r.code] = r.team));
+    const drivers = Object.keys(race.laps).map((code) => ({
+      code, team: teamOf[code] || "", positions: race.laps[code],
+      fin: race.laps[code][race.laps[code].length - 1] || n,
+    }));
+    return { total, n, drivers, real: true };
+  }
+  const total = race.total_laps || Math.max(1, ...results.map((r) => r.laps || 1));
+  const classified = results.filter((r) => r.pos != null).slice().sort((a, b) => a.pos - b.pos);
+  const dnf = results.filter((r) => r.pos == null).slice().sort((a, b) => (b.laps || 0) - (a.laps || 0));
+  const finalPos = {};
+  classified.forEach((r) => (finalPos[r.code] = r.pos));
+  dnf.forEach((r, i) => (finalPos[r.code] = classified.length + i + 1));
+  const drivers = results.map((r) => {
+    const fin = finalPos[r.code] || n;
+    const grid = r.grid && r.grid > 0 ? r.grid : fin;
+    const last = Math.max(1, r.laps || total);
+    const positions = [];
+    for (let lap = 1; lap <= total; lap++) {
+      if (lap > last) { positions.push(null); continue; }
+      const t = last <= 1 ? 1 : (lap - 1) / (last - 1);
+      positions.push(Math.round(grid + (fin - grid) * (t * t * (3 - 2 * t))));
+    }
+    return { code: r.code, team: r.team, positions, fin };
+  });
+  drivers.sort((a, b) => a.fin - b.fin);
+  return { total, n, drivers, real: false };
+}
+
+function buildProgression(race) {
+  const { total, n, drivers, real } = deriveLapPositions(race);
+  const W = 1000, H = 440, padL = 44, padR = 48, padT = 16, padB = 30;
+  const plotW = W - padL - padR, plotH = H - padT - padB;
+  const xOf = (lap) => padL + (total <= 1 ? 0 : ((lap - 1) / (total - 1)) * plotW);
+  const yOf = (pos) => padT + (n <= 1 ? 0 : ((pos - 1) / (n - 1)) * plotH);
+
+  const wrap = el("div", "progression");
+  wrap.innerHTML = `<div class="prog-head"><span class="card-title">Race Progression</span>
+    <span class="prog-note">${real ? "lap-by-lap" : "grid → finish (approx)"} · drag or play to scrub</span></div>`;
+
+  const s = _svg("svg", { viewBox: `0 0 ${W} ${H}`, class: "prog-svg", preserveAspectRatio: "xMidYMid meet" });
+  for (let p = 1; p <= n; p++) {
+    if (p === 1 || p % 5 === 0) {
+      s.appendChild(_svg("line", { x1: padL, y1: yOf(p), x2: W - padR, y2: yOf(p), class: "prog-grid" }));
+      const t = _svg("text", { x: padL - 8, y: yOf(p) + 3.5, class: "prog-axis", "text-anchor": "end" });
+      t.textContent = "P" + p; s.appendChild(t);
+    }
+  }
+  const step = total <= 30 ? 5 : 10;
+  for (let lap = 1; lap <= total; lap += lap === 1 ? step - 1 : step) {
+    const t = _svg("text", { x: xOf(lap), y: H - padB + 18, class: "prog-axis", "text-anchor": "middle" });
+    t.textContent = lap; s.appendChild(t);
+  }
+  const bright = {}, marker = {}, label = {};
+  drivers.forEach((d) => {
+    const color = teamColor(d.team);
+    const pts = d.positions.map((p, i) => (p == null ? null : `${xOf(i + 1)},${yOf(p)}`)).filter(Boolean);
+    s.appendChild(_svg("polyline", { points: pts.join(" "), class: "prog-faint", stroke: color }));
+    bright[d.code] = _svg("polyline", { points: "", class: "prog-line", stroke: color });
+    s.appendChild(bright[d.code]);
+  });
+  const vline = _svg("line", { x1: xOf(1), y1: padT, x2: xOf(1), y2: H - padB, class: "prog-vline" });
+  s.appendChild(vline);
+  drivers.forEach((d) => {
+    const color = teamColor(d.team);
+    marker[d.code] = _svg("circle", { r: 3.4, class: "prog-dot", fill: color, cx: -20, cy: -20 });
+    s.appendChild(marker[d.code]);
+    const lab = _svg("text", { class: "prog-code", x: -20, y: -20, fill: color });
+    lab.textContent = d.code; label[d.code] = lab; s.appendChild(lab);
+  });
+  wrap.appendChild(s);
+
+  const ctrl = el("div", "prog-controls");
+  ctrl.innerHTML = `<button type="button" class="prog-play">Play</button>
+    <input type="range" class="prog-slider" min="1" max="${total}" value="${total}" step="1" aria-label="Lap">
+    <span class="prog-lap">Lap ${total} / ${total}</span>`;
+  wrap.appendChild(ctrl);
+  const playBtn = $(".prog-play", ctrl), slider = $(".prog-slider", ctrl), lapOut = $(".prog-lap", ctrl);
+
+  function setLap(L) {
+    L = Math.max(1, Math.min(total, L | 0));
+    vline.setAttribute("x1", xOf(L)); vline.setAttribute("x2", xOf(L));
+    lapOut.textContent = `Lap ${L} / ${total}`;
+    drivers.forEach((d) => {
+      const pts = [];
+      for (let lap = 1; lap <= L; lap++) { const p = d.positions[lap - 1]; if (p != null) pts.push(`${xOf(lap)},${yOf(p)}`); }
+      bright[d.code].setAttribute("points", pts.join(" "));
+      const cur = d.positions[L - 1];
+      const on = cur != null ? "1" : "0";
+      marker[d.code].style.opacity = on; label[d.code].style.opacity = on;
+      if (cur != null) {
+        marker[d.code].setAttribute("cx", xOf(L)); marker[d.code].setAttribute("cy", yOf(cur));
+        label[d.code].setAttribute("x", xOf(L) + 6); label[d.code].setAttribute("y", yOf(cur) + 3.5);
+      }
+    });
+  }
+  function stopPlay() { stopProgression(); playBtn.textContent = "Play"; }
+  function play() {
+    stopProgression();
+    let L = +slider.value >= total ? 1 : +slider.value;
+    playBtn.textContent = "Pause";
+    _progTimer = setInterval(() => {
+      L += 1;
+      if (L > total) { slider.value = total; setLap(total); stopPlay(); return; }
+      slider.value = L; setLap(L);
+    }, 110);
+  }
+  slider.addEventListener("input", () => { stopPlay(); setLap(+slider.value); });
+  playBtn.addEventListener("click", () => (_progTimer ? stopPlay() : play()));
+
+  setLap(total);
+  return wrap;
+}
+
 function renderRaceDetail(d, round) {
+  stopProgression();
   const r = d.races.find((x) => x.round === round);
   const box = $("#raceDetail");
   if (!r || !r.results.length) { box.innerHTML = `<div class="empty-note">No results available.</div>`; return; }
@@ -238,6 +375,7 @@ function renderRaceDetail(d, round) {
       <thead><tr><th class="num">Pos</th><th>Driver</th><th>Team</th><th class="num">Grid</th><th class="num">Laps / Status</th><th class="num">Pts</th></tr></thead>
       <tbody>${rows}</tbody>
     </table>`;
+  box.insertBefore(buildProgression(r), box.querySelector("table.results"));
 }
 
 /* ---------------- helpers & wiring ---------------- */
@@ -252,6 +390,7 @@ function fmtDate(s) {
 }
 
 function showTab(name) {
+  if (name !== "results") stopProgression();
   document.querySelectorAll(".tab-panel").forEach((p) => p.classList.toggle("active", p.id === name));
   document.querySelectorAll("#tabs button").forEach((b) => b.classList.toggle("active", b.dataset.tab === name));
   window.scrollTo({ top: 0, behavior: "smooth" });

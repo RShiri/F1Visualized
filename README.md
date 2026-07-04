@@ -44,7 +44,11 @@ to GitHub Pages. A **season toggle** switches between years across four sections
 * **Overview** — championship leaders, next-race countdown, last-race podium, top-5 tables.
 * **Standings** — full drivers' & constructors' championships with team-coloured points bars.
 * **Calendar** — every round with country flags, completed winners and a "Next Up" highlight.
-* **Results** — per-race classification, podium and fastest lap.
+* **Results** — per-race classification, podium, fastest lap, and an
+  **interactive lap scrubber**: a position bump-chart you drag or play through
+  lap-by-lap. It uses real lap-by-lap telemetry when present, otherwise derives
+  an honest progression from each driver's real grid, finish and laps completed
+  (labelled *grid → finish (approx)*).
 
 ```
 web/                     The dashboard (static HTML/CSS/JS — no framework)

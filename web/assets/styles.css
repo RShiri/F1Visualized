@@ -194,6 +194,24 @@ table.results .cell-driver .code { color: var(--ink-3); font-size: 12px; font-we
 table.results tr .dnf { color: var(--ink-3); }
 .empty-note { color: var(--ink-3); padding: 30px; text-align: center; border: 1px dashed var(--border); border-radius: 12px; }
 
+/* ---------- race progression (lap scrubber) ---------- */
+.progression { margin-bottom: 18px; }
+.prog-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px; }
+.prog-note { color: var(--ink-3); font-size: 12px; }
+.prog-svg { width: 100%; height: auto; background: var(--panel); border: 1px solid var(--border); border-radius: 12px; display: block; }
+.prog-grid { stroke: var(--border); stroke-width: 1; opacity: .55; }
+.prog-axis { fill: var(--ink-3); font-size: 11px; font-weight: 700; }
+.prog-faint { fill: none; stroke-width: 1.4; opacity: .16; }
+.prog-line { fill: none; stroke-width: 2.3; opacity: .95; stroke-linejoin: round; stroke-linecap: round; }
+.prog-vline { stroke: var(--ink-3); stroke-width: 1; stroke-dasharray: 3 4; opacity: .5; }
+.prog-dot { stroke: #0e0e13; stroke-width: .8; }
+.prog-code { font-size: 11px; font-weight: 800; paint-order: stroke; stroke: #0e0e13; stroke-width: 2.6px; stroke-linejoin: round; }
+.prog-controls { display: flex; align-items: center; gap: 14px; margin-top: 10px; }
+.prog-play { background: var(--red); color: #fff; border: 0; border-radius: 8px; padding: 8px 16px; font: inherit; font-weight: 800; cursor: pointer; min-width: 78px; }
+.prog-play:hover { background: var(--red-2); }
+.prog-slider { flex: 1; accent-color: var(--red); height: 4px; cursor: pointer; }
+.prog-lap { color: var(--ink-2); font-weight: 800; font-variant-numeric: tabular-nums; min-width: 100px; text-align: right; }
+
 .site-footer { max-width: 1180px; margin: 0 auto; padding: 22px 20px 40px; color: var(--ink-3); font-size: 12px; display: flex; justify-content: space-between; gap: 12px; border-top: 1px solid var(--border); }
 
 /* ---------- responsive ---------- */
