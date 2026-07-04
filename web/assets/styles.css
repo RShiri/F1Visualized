@@ -212,6 +212,10 @@ table.results tr .dnf { color: var(--ink-3); }
 .prog-slider { flex: 1; accent-color: var(--red); height: 4px; cursor: pointer; }
 .prog-lap { color: var(--ink-2); font-weight: 800; font-variant-numeric: tabular-nums; min-width: 100px; text-align: right; }
 
+/* ---------- rendered replay video ---------- */
+.replay { margin-top: 20px; }
+.replay-video { width: 100%; max-height: 70vh; border-radius: 12px; border: 1px solid var(--border); background: #000; display: block; }
+
 .site-footer { max-width: 1180px; margin: 0 auto; padding: 22px 20px 40px; color: var(--ink-3); font-size: 12px; display: flex; justify-content: space-between; gap: 12px; border-top: 1px solid var(--border); }
 
 /* ---------- responsive ---------- */

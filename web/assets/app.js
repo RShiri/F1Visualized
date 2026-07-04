@@ -342,6 +342,28 @@ function buildProgression(race) {
   return wrap;
 }
 
+// Rendered replay video (optional). Shown only if a video exists for the race —
+// either inlined for the self-contained bundle (window.RACE_VIDEOS) or served
+// from media/<season>-<round>.mp4 on the deployed site. Hidden gracefully if not.
+function mountReplay(race) {
+  const key = `${current}-${race.round}`;
+  const embedded = window.RACE_VIDEOS && window.RACE_VIDEOS[key];
+  const wrap = el("div", "replay");
+  wrap.style.display = "none";
+  wrap.innerHTML = `<div class="prog-head"><span class="card-title">Race Replay</span>
+    <span class="prog-note">${embedded ? "sample render" : "rendered animation"}</span></div>`;
+  const v = document.createElement("video");
+  v.className = "replay-video";
+  v.controls = true;
+  v.preload = embedded ? "auto" : "metadata";
+  v.playsInline = true;
+  v.src = embedded || `media/${key}.mp4`;
+  v.addEventListener("loadedmetadata", () => { wrap.style.display = ""; });
+  v.addEventListener("error", () => wrap.remove());
+  wrap.appendChild(v);
+  $("#raceDetail").appendChild(wrap);
+}
+
 function renderRaceDetail(d, round) {
   stopProgression();
   const r = d.races.find((x) => x.round === round);
@@ -376,6 +398,7 @@ function renderRaceDetail(d, round) {
       <tbody>${rows}</tbody>
     </table>`;
   box.insertBefore(buildProgression(r), box.querySelector("table.results"));
+  mountReplay(r);
 }
 
 /* ---------------- helpers & wiring ---------------- */
