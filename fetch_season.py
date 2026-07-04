@@ -1,29 +1,17 @@
-"""Fetch a full F1 season via fastf1's Ergast client into a static-site JSON.
+"""Fetch real F1 season data for the dashboard.
 
-This is the data feeder for a static dashboard: for a given year it pulls the
-race **schedule**, per-round **race results**, and the final **driver** and
-**constructor standings** from the Ergast API (through :mod:`fastf1.ergast`),
-then writes a single ``web/data/<year>.json`` document in the exact shape the
-front-end expects.
+Data sources — both reachable without the blocked live-timing / Ergast APIs:
 
-Design notes
-------------
-* **Modular / unit-testable.** The schema is assembled by the *pure* function
-  :func:`build_season_dict`, which takes plain ``pandas`` DataFrames and a
-  ``now`` timestamp and never touches the network. The thin
-  :func:`fetch_season` adapter is the only piece that talks to Ergast; it feeds
-  those DataFrames into the pure builder.
-* **Degrades gracefully.** Every network call is wrapped so that a blocked or
-  missing endpoint logs a warning and still yields a *valid* JSON document
-  (e.g. the schedule with all races marked "upcoming" and empty standings)
-  rather than raising and losing the whole season.
-* **No presentation logic.** Only team *names* are emitted — colours and other
-  styling are the front-end's job.
+* **Calendar** — ``fastf1.get_event_schedule`` (real rounds, names, dates, venues).
+* **Results & standings** — the open-source **f1db** dataset, read straight from
+  its committed source YAML on ``raw.githubusercontent.com`` (authoritative and
+  updated through the current season, 2025 *and* 2026).
 
-Run standalone::
+Writes ``web/data/<year>.json`` in the schema the ``web/`` dashboard consumes.
+The pure ``assemble_season`` builder is decoupled from the network for testing.
 
+    python fetch_season.py --year 2025
     python fetch_season.py                 # both 2025 and 2026
-    python fetch_season.py --year 2025     # a single season
 """
 
 from __future__ import annotations
@@ -31,585 +19,278 @@ from __future__ import annotations
 import argparse
 import json
 import logging
-from datetime import date, datetime, timedelta, timezone
+import re
+import time
+from datetime import datetime, timezone
 from pathlib import Path
-
-import pandas as pd
+from typing import Optional
 
 import config
 
-logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s  %(levelname)-7s %(message)s"
-)
+logging.basicConfig(level=logging.INFO, format="%(asctime)s  %(levelname)-7s %(message)s")
 log = logging.getLogger("fetch_season")
 
-# Seasons fetched when no --year is supplied on the command line.
-DEFAULT_SEASONS = (2025, 2026)
+F1DB = "https://raw.githubusercontent.com/f1db/f1db/main/src/data"
 
-# Ergast paginates on the innermost result rows and defaults to 30. A full
-# season of race results is ~24 races * ~20 cars, so a generous limit keeps the
-# whole season in a single response. 1000 is the Ergast maximum.
-_RESULTS_LIMIT = 1000
-_STANDINGS_LIMIT = 100
-_SCHEDULE_LIMIT = 100
+# f1db constructorId -> display name (aligned with the front-end colour map).
+TEAM_NAMES = {
+    "mclaren": "McLaren", "ferrari": "Ferrari", "mercedes": "Mercedes",
+    "red-bull": "Red Bull Racing", "aston-martin": "Aston Martin", "alpine": "Alpine",
+    "williams": "Williams", "rb": "Racing Bulls", "racing-bulls": "Racing Bulls",
+    "alphatauri": "Racing Bulls", "haas": "Haas", "kick-sauber": "Kick Sauber",
+    "sauber": "Kick Sauber", "alfa-romeo": "Kick Sauber", "audi": "Audi",
+    "cadillac": "Cadillac",
+}
+
+# fastf1 event name (lowercased, minus "grand prix") -> f1db grand-prix slug.
+# Country/locality are tried as extra candidates, so this only needs oddities.
+GP_SLUGS = {
+    "australian": "australia", "chinese": "china", "japanese": "japan",
+    "bahrain": "bahrain", "saudi arabian": "saudi-arabia", "miami": "miami",
+    "emilia romagna": "emilia-romagna", "monaco": "monaco", "spanish": "spain",
+    "canadian": "canada", "austrian": "austria", "british": "great-britain",
+    "belgian": "belgium", "hungarian": "hungary", "dutch": "netherlands",
+    "italian": "italy", "azerbaijan": "azerbaijan", "singapore": "singapore",
+    "united states": "united-states", "mexico city": "mexico", "mexican": "mexico",
+    "são paulo": "sao-paulo", "sao paulo": "sao-paulo", "brazilian": "sao-paulo",
+    "las vegas": "las-vegas", "qatar": "qatar", "abu dhabi": "abu-dhabi",
+    "portuguese": "portugal", "french": "france",
+}
+
+
+def _slugify(text: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "-", (text or "").lower()).strip("-")
 
 
 # --------------------------------------------------------------------------- #
-# Small, defensive value helpers (shared by the pure builder)
+# Network layer (only touches raw.githubusercontent.com)
 # --------------------------------------------------------------------------- #
-def _str(value) -> str:
-    """Coerce any cell to a clean string; NaN/None become an empty string."""
-    if value is None:
-        return ""
-    try:
-        if pd.isna(value):
-            return ""
-    except (TypeError, ValueError):
-        # Non-scalar (e.g. a list) — fall through and stringify.
-        pass
-    return str(value)
+_session = None
+_yaml_cache: dict[str, object] = {}
 
 
-def _int_or_none(value):
-    """Return an ``int`` or ``None``.
+def _get_yaml(path: str, retries: int = 3):
+    """GET + parse an f1db YAML file. Returns parsed data, or None on 404/failure."""
+    if path in _yaml_cache:
+        return _yaml_cache[path]
+    global _session
+    import requests
+    import yaml
 
-    Ergast's ``save_int`` casting uses ``-1`` as a sentinel for missing values,
-    so ``-1`` (and NaN/None/garbage) all collapse to ``None``. Legitimate zeros
-    (e.g. a pit-lane start = grid 0) are preserved.
-    """
-    if value is None:
-        return None
-    try:
-        if pd.isna(value):
-            return None
-    except (TypeError, ValueError):
-        return None
-    try:
-        ivalue = int(value)
-    except (TypeError, ValueError):
-        return None
-    return None if ivalue == -1 else ivalue
-
-
-def _points(value):
-    """Return points as a JSON-friendly number (int when whole, else float)."""
-    if value is None:
-        return 0
-    try:
-        if pd.isna(value):
-            return 0
-    except (TypeError, ValueError):
-        return 0
-    try:
-        fvalue = float(value)
-    except (TypeError, ValueError):
-        return 0
-    return int(fvalue) if fvalue.is_integer() else fvalue
-
-
-def _to_date(value):
-    """Best-effort conversion of a cell to a :class:`datetime.date` or ``None``.
-
-    Handles ``datetime``/``pd.Timestamp`` (auto-cast schedule dates), bare
-    ``date`` objects, and ``YYYY-MM-DD`` strings.
-    """
-    if value is None:
-        return None
-    try:
-        if pd.isna(value):
-            return None
-    except (TypeError, ValueError):
-        return None
-    if isinstance(value, datetime):        # also covers pd.Timestamp
-        return value.date()
-    if isinstance(value, date):
-        return value
-    if isinstance(value, str):
+    if _session is None:
+        _session = requests.Session()
+    url = f"{F1DB}/{path}"
+    for attempt in range(retries):
         try:
-            return datetime.strptime(value[:10], "%Y-%m-%d").date()
-        except ValueError:
-            return None
-    date_attr = getattr(value, "date", None)
-    if callable(date_attr):
-        try:
-            return date_attr()
-        except Exception:
-            return None
-    return None
-
-
-def _format_lap_time(value):
-    """Format an Ergast fastest-lap ``timedelta`` as ``M:SS.mmm`` (or ``None``)."""
-    if value is None:
-        return None
-    try:
-        if pd.isna(value):
-            return None
-    except (TypeError, ValueError):
-        return None
-    try:
-        total = value.total_seconds()
-    except AttributeError:
-        # Already a plain string representation from a non-cast response.
-        text = str(value).strip()
-        return text or None
-    if total < 0:
-        return None
-    minutes = int(total // 60)
-    seconds = total - minutes * 60
-    return f"{minutes}:{seconds:06.3f}"
-
-
-def _json_default(obj):
-    """Last-resort JSON encoder for stray datetime/timedelta/numpy scalars."""
-    if isinstance(obj, (datetime, date)):
-        return obj.isoformat()
-    if isinstance(obj, timedelta):
-        return _format_lap_time(obj)
-    try:
-        import numpy as np
-
-        if isinstance(obj, np.integer):
-            return int(obj)
-        if isinstance(obj, np.floating):
-            return float(obj)
-        if isinstance(obj, np.ndarray):
-            return obj.tolist()
-    except Exception:
-        pass
-    return str(obj)
-
-
-# --------------------------------------------------------------------------- #
-# Driver / team field extraction (shared by results and standings)
-# --------------------------------------------------------------------------- #
-def _driver_code(row) -> str:
-    """3-letter driver code from ``driverCode``; fall back to family name."""
-    code = row.get("driverCode")
-    if isinstance(code, str) and code.strip():
-        return code.strip()
-    family = _str(row.get("familyName")).strip()
-    if family:
-        return family[:3].upper()
-    return ""
-
-
-def _full_name(row) -> str:
-    """``"givenName familyName"`` with whitespace tidied up."""
-    given = _str(row.get("givenName")).strip()
-    family = _str(row.get("familyName")).strip()
-    return f"{given} {family}".strip()
-
-
-def _driver_fields(row):
-    """Return ``(code, name, team)`` for a race-result row."""
-    return _driver_code(row), _full_name(row), _str(row.get("constructorName"))
-
-
-def _standings_team(row) -> str:
-    """Team name for a driver-standings row.
-
-    Driver standings expose ``constructorNames`` as a *list* (a driver may have
-    raced for several teams in a season); the most recent one is used. Falls
-    back to a singular ``constructorName`` when present.
-    """
-    names = row.get("constructorNames")
-    if isinstance(names, str):
-        return names
-    if isinstance(names, (list, tuple)) and len(names):
-        return _str(names[-1])
-    return _str(row.get("constructorName"))
-
-
-# --------------------------------------------------------------------------- #
-# Pure builders — operate on plain DataFrames (no network, unit-testable)
-# --------------------------------------------------------------------------- #
-def _build_results(results_df: pd.DataFrame) -> list:
-    """Full classification for one race, sorted by finishing position."""
-    entries = []
-    for _, row in results_df.iterrows():
-        code, name, team = _driver_fields(row)
-        entries.append({
-            "pos": _int_or_none(row.get("position")),
-            "code": code,
-            "name": name,
-            "team": team,
-            "grid": _int_or_none(row.get("grid")),
-            "points": _points(row.get("points")),
-            "laps": _int_or_none(row.get("laps")),
-            "status": _str(row.get("status")),
-        })
-    # Unclassified rows (pos is None) drop to the bottom.
-    entries.sort(key=lambda e: (e["pos"] is None, e["pos"] if e["pos"] is not None else 0))
-    return entries
-
-
-def _build_podium(results_list: list) -> list:
-    """Top-three finishers as ``{pos, code, name, team}`` (already sorted)."""
-    podium = [
-        {"pos": e["pos"], "code": e["code"], "name": e["name"], "team": e["team"]}
-        for e in results_list
-        if e["pos"] in (1, 2, 3)
-    ]
-    return podium[:3]
-
-
-def _winner_from_podium(podium: list):
-    """Winner ``{code, name, team}`` (pos 1) or ``None``."""
-    for entry in podium:
-        if entry.get("pos") == 1:
-            return {"code": entry["code"], "name": entry["name"], "team": entry["team"]}
-    return None
-
-
-def _build_fastest_lap(results_df: pd.DataFrame):
-    """Fastest-lap ``{code, name, time}`` for a race, or ``None`` if absent.
-
-    Ergast race results *may* carry a fastest-lap block. We prefer the row
-    flagged with ``fastestLapRank == 1``; otherwise we take the smallest
-    ``fastestLapTime``. Any problem (missing columns, odd dtypes) yields
-    ``None`` rather than raising.
-    """
-    try:
-        columns = results_df.columns
-        if "fastestLapTime" not in columns:
-            return None
-
-        best = None
-        if "fastestLapRank" in columns:
-            ranked = results_df[results_df["fastestLapRank"] == 1]
-            if len(ranked):
-                best = ranked.iloc[0]
-        if best is None:
-            valid = results_df[results_df["fastestLapTime"].notna()]
-            if not len(valid):
+            resp = _session.get(url, timeout=25)
+            if resp.status_code == 404:
+                _yaml_cache[path] = None
                 return None
-            best = valid.loc[valid["fastestLapTime"].idxmin()]
+            resp.raise_for_status()
+            data = yaml.safe_load(resp.text)
+            _yaml_cache[path] = data
+            return data
+        except requests.RequestException as exc:
+            if attempt == retries - 1:
+                log.warning("Failed to fetch %s: %s", path, exc)
+                return None
+            time.sleep(1.5 * (attempt + 1))
+    return None
 
-        time_str = _format_lap_time(best.get("fastestLapTime"))
-        if time_str is None:
-            return None
-        code, name, _team = _driver_fields(best)
-        return {"code": code, "name": name, "time": time_str}
-    except Exception as exc:  # never let fastest-lap parsing break a race
-        log.warning("Could not determine fastest lap: %s", exc)
-        return None
+
+# --------------------------------------------------------------------------- #
+# Resolvers (cached)
+# --------------------------------------------------------------------------- #
+_driver_cache: dict[str, dict] = {}
 
 
-def _build_race(row, results_by_round: dict, now_date) -> dict:
-    """Assemble one race object from a schedule row (+ results if completed)."""
-    rnd = _int_or_none(row.get("round")) or 0
-    race_date = _to_date(row.get("raceDate"))
-    results_df = results_by_round.get(rnd)
+def resolve_driver(driver_id: str) -> dict:
+    """``driverId`` -> ``{code, name}`` (from the f1db driver file)."""
+    if driver_id in _driver_cache:
+        return _driver_cache[driver_id]
+    info = _get_yaml(f"drivers/{driver_id}.yml") or {}
+    name = info.get("name") or driver_id.replace("-", " ").title()
+    last = str(info.get("lastName") or driver_id.split("-")[-1])
+    code = info.get("abbreviation") or last[:3].upper()
+    out = {"code": code, "name": name}
+    _driver_cache[driver_id] = out
+    return out
 
-    has_results = results_df is not None and len(results_df) > 0
-    date_in_past = (
-        race_date is not None and now_date is not None and race_date <= now_date
-    )
-    completed = bool(has_results and date_in_past)
 
+def team_name(constructor_id: Optional[str]) -> str:
+    if not constructor_id:
+        return ""
+    return TEAM_NAMES.get(constructor_id, constructor_id.replace("-", " ").title())
+
+
+# --------------------------------------------------------------------------- #
+# Per-race fetch
+# --------------------------------------------------------------------------- #
+def _slug_candidates(event_name: str, country: str, locality: str) -> list[str]:
+    name = (event_name or "").lower().replace(" grand prix", "").strip()
+    cands = []
+    if name in GP_SLUGS:
+        cands.append(GP_SLUGS[name])
+    for token in (name, locality, country):
+        s = _slugify(token)
+        if s and s not in cands:
+            cands.append(s)
+    return cands
+
+
+def _fetch_race_results(year: int, rnd: int, candidates: list[str]):
+    """Return ``(results_list, slug)`` for a completed race, or ``(None, None)``."""
+    for slug in candidates:
+        data = _get_yaml(f"seasons/{year}/races/{rnd:02d}-{slug}/race-results.yml")
+        if data:
+            return data, slug
+    return None, None
+
+
+def build_race(year: int, ev: dict, now: datetime, wins: dict) -> dict:
+    """Assemble one race dict; fetches f1db results if the race is in the past."""
     race = {
-        "round": rnd,
-        "name": _str(row.get("raceName")),
-        "country": _str(row.get("country")),
-        "locality": _str(row.get("locality")),
-        "circuit": _str(row.get("circuitName")),
-        "date": race_date.isoformat() if race_date is not None else "",
-        "status": "completed" if completed else "upcoming",
-        "winner": None,
-        "podium": [],
-        "fastest_lap": None,
-        "results": [],
+        "round": ev["round"], "name": ev["name"], "country": ev["country"],
+        "locality": ev["locality"], "circuit": ev["circuit"], "date": ev["date"],
+        "status": "upcoming", "winner": None, "podium": [], "fastest_lap": None, "results": [],
     }
+    if not (ev["date"] and ev["date"] <= now.strftime("%Y-%m-%d")):
+        return race  # future race — don't probe
 
-    if completed:
-        results_list = _build_results(results_df)
-        race["results"] = results_list
-        race["podium"] = _build_podium(results_list)
-        race["winner"] = _winner_from_podium(race["podium"])
-        race["fastest_lap"] = _build_fastest_lap(results_df)
+    candidates = _slug_candidates(ev["name"], ev["country"], ev["locality"])
+    results, slug = _fetch_race_results(year, ev["round"], candidates)
+    if not results:
+        return race  # completed but not yet in f1db
 
+    rows = []
+    for r in results:
+        drv = resolve_driver(r.get("driverId", ""))
+        pos = r.get("position")
+        rows.append({
+            "pos": int(pos) if isinstance(pos, int) else None,
+            "code": drv["code"], "name": drv["name"], "team": team_name(r.get("constructorId")),
+            "grid": r.get("gridPosition") if isinstance(r.get("gridPosition"), int) else None,
+            "points": r.get("points") or 0,
+            "laps": r.get("laps") if isinstance(r.get("laps"), int) else None,
+            "status": "Finished" if not r.get("reasonRetired") else str(r.get("reasonRetired")),
+        })
+    rows.sort(key=lambda e: (e["pos"] is None, e["pos"] or 0))
+
+    race["status"] = "completed"
+    race["results"] = rows
+    race["podium"] = [{"pos": r["pos"], "code": r["code"], "name": r["name"], "team": r["team"]}
+                      for r in rows if r["pos"] in (1, 2, 3)]
+    if race["podium"]:
+        w = race["podium"][0]
+        race["winner"] = {"code": w["code"], "name": w["name"], "team": w["team"]}
+        wins["drivers"][w["code"]] = wins["drivers"].get(w["code"], 0) + 1
+        wins["teams"][w["team"]] = wins["teams"].get(w["team"], 0) + 1
+
+    fl = _get_yaml(f"seasons/{year}/races/{ev['round']:02d}-{slug}/fast-laps.yml")
+    if isinstance(fl, list) and fl:
+        d = resolve_driver(fl[0].get("driverId", ""))
+        race["fastest_lap"] = {"code": d["code"], "name": d["name"], "time": str(fl[0].get("time") or "")}
     return race
 
 
-def _build_races(schedule_df, results_by_round: dict, now) -> list:
-    """Ordered list of race objects for the whole season."""
-    races: list = []
-    if schedule_df is None or len(schedule_df) == 0:
-        return races
-
-    now_date = _to_date(now)
-
-    # Iterate rounds in ascending order regardless of source ordering.
-    rows = list(schedule_df.iterrows())
-
-    def _round_key(item):
-        _, row = item
-        rnd = _int_or_none(row.get("round"))
-        return rnd if rnd is not None else 0
-
-    rows.sort(key=_round_key)
-
-    for _, row in rows:
-        try:
-            races.append(_build_race(row, results_by_round, now_date))
-        except Exception as exc:  # skip a single malformed row, keep the season
-            log.warning("Skipping malformed schedule row: %s", exc)
-    return races
-
-
-def _build_drivers(driver_standings_df) -> list:
-    """Driver championship table, sorted by standings position."""
-    drivers: list = []
-    if driver_standings_df is None or len(driver_standings_df) == 0:
-        return drivers
-
-    for _, row in driver_standings_df.iterrows():
-        try:
-            drivers.append({
-                "pos": _int_or_none(row.get("position")),
-                "code": _driver_code(row),
-                "name": _full_name(row),
-                "team": _standings_team(row),
-                "points": _points(row.get("points")),
-                "wins": _int_or_none(row.get("wins")) or 0,
-            })
-        except Exception as exc:
-            log.warning("Skipping malformed driver-standings row: %s", exc)
-
-    drivers.sort(key=lambda d: (d["pos"] is None, d["pos"] if d["pos"] is not None else 0))
-    return drivers
-
-
-def _build_constructors(constructor_standings_df) -> list:
-    """Constructor championship table, sorted by standings position."""
-    constructors: list = []
-    if constructor_standings_df is None or len(constructor_standings_df) == 0:
-        return constructors
-
-    for _, row in constructor_standings_df.iterrows():
-        try:
-            constructors.append({
-                "pos": _int_or_none(row.get("position")),
-                "team": _str(row.get("constructorName")),
-                "points": _points(row.get("points")),
-                "wins": _int_or_none(row.get("wins")) or 0,
-            })
-        except Exception as exc:
-            log.warning("Skipping malformed constructor-standings row: %s", exc)
-
-    constructors.sort(key=lambda c: (c["pos"] is None, c["pos"] if c["pos"] is not None else 0))
-    return constructors
-
-
-def build_season_dict(
-    schedule_df,
-    results_by_round: dict,
-    driver_standings_df,
-    constructor_standings_df,
-    year: int,
-    now: datetime,
-) -> dict:
-    """Assemble the dashboard JSON document from plain DataFrames.
-
-    This function is deliberately free of any network or fastf1 dependency so
-    it can be unit-tested with hand-built DataFrames.
-
-    Args:
-        schedule_df: Race schedule (Ergast ``get_race_schedule`` result / plain
-            DataFrame). Expected columns: ``round``, ``raceName``, ``raceDate``,
-            ``circuitName``, ``locality``, ``country``.
-        results_by_round: Mapping of ``round -> race-results DataFrame`` (each
-            an element of an Ergast ``get_race_results`` multi-response).
-        driver_standings_df: Final driver standings DataFrame (Ergast content).
-        constructor_standings_df: Final constructor standings DataFrame.
-        year: Season year.
-        now: Reference "current" time (UTC) used to classify completed vs
-            upcoming races and to stamp the ``updated`` field.
-
-    Returns:
-        A JSON-serialisable ``dict`` following the dashboard schema.
-    """
-    if results_by_round is None:
-        results_by_round = {}
-
+# --------------------------------------------------------------------------- #
+# Season assembly
+# --------------------------------------------------------------------------- #
+def assemble_season(year, races, driver_standings, constructor_standings,
+                    team_by_code, wins, now) -> dict:
+    """Pure assembler: combine fetched pieces into the dashboard schema."""
+    drivers = []
+    for s in driver_standings or []:
+        drv = resolve_driver(s.get("driverId", ""))
+        drivers.append({
+            "pos": s.get("position"), "code": drv["code"], "name": drv["name"],
+            "team": team_by_code.get(drv["code"], ""),
+            "points": s.get("points") or 0, "wins": wins["drivers"].get(drv["code"], 0),
+        })
+    constructors = []
+    for s in constructor_standings or []:
+        tm = team_name(s.get("constructorId"))
+        constructors.append({
+            "pos": s.get("position"), "team": tm,
+            "points": s.get("points") or 0, "wins": wins["teams"].get(tm, 0),
+        })
     return {
-        "season": int(year),
-        "updated": now.isoformat() if hasattr(now, "isoformat") else str(now),
-        "races": _build_races(schedule_df, results_by_round, now),
-        "drivers": _build_drivers(driver_standings_df),
-        "constructors": _build_constructors(constructor_standings_df),
+        "season": int(year), "updated": now.isoformat(), "source": "f1db + fastf1",
+        "races": races, "drivers": drivers, "constructors": constructors,
     }
 
 
-# --------------------------------------------------------------------------- #
-# Ergast adapter — the only part that touches the network
-# --------------------------------------------------------------------------- #
-def _get_ergast():
-    """Enable the on-disk cache and return a configured Ergast client.
+def _team_by_code(year: int, races: list) -> dict:
+    """driver code -> current team: season entrants, overridden by latest race."""
+    out: dict[str, str] = {}
+    for ent in _get_yaml(f"seasons/{year}/entrants.yml") or []:
+        tm = team_name(ent.get("constructorId"))
+        for d in ent.get("drivers", []) or []:
+            if d.get("rounds") and not d.get("testDriver"):
+                out[resolve_driver(d["driverId"])["code"]] = tm
+    for race in races:  # earliest -> latest, so the most recent team wins
+        for r in race.get("results", []):
+            if r["team"]:
+                out[r["code"]] = r["team"]
+    return out
 
-    Mirrors the caching idiom in ``scraper.py``: create the local
-    ``.fastf1_cache`` directory and register it with fastf1 before any request,
-    so repeated runs are fast and offline-friendly.
-    """
-    import fastf1  # lazy import keeps ``import fetch_season`` cheap & network-free
-    from fastf1.ergast import Ergast
+
+def fetch_season(year: int, now: Optional[datetime] = None) -> dict:
+    """Fetch one season from fastf1 (calendar) + f1db (results/standings)."""
+    import fastf1
+    import pandas as pd
 
     config.CACHE_DIR.mkdir(parents=True, exist_ok=True)
     fastf1.Cache.enable_cache(str(config.CACHE_DIR))
-    return Ergast(result_type="pandas", auto_cast=True)
+    now = now or datetime.now(timezone.utc)
+
+    schedule_df = fastf1.get_event_schedule(year, include_testing=False)
+    events = []
+    for _, ev in schedule_df.iterrows():
+        rnd = int(ev["RoundNumber"])
+        if rnd < 1:
+            continue
+        d = pd.to_datetime(ev.get("Session5DateUtc") or ev.get("EventDate"))
+        events.append({
+            "round": rnd, "name": str(ev["EventName"]), "country": str(ev.get("Country", "")),
+            "locality": str(ev.get("Location", "")), "circuit": str(ev.get("Location", "")),
+            "date": d.strftime("%Y-%m-%d") if pd.notna(d) else "",
+        })
+
+    wins = {"drivers": {}, "teams": {}}
+    races = [build_race(year, ev, now, wins) for ev in events]
+
+    driver_standings = _get_yaml(f"seasons/{year}/driver-standings.yml") or []
+    constructor_standings = _get_yaml(f"seasons/{year}/constructor-standings.yml") or []
+    team_by_code = _team_by_code(year, races)
+
+    season = assemble_season(year, races, driver_standings, constructor_standings,
+                             team_by_code, wins, now)
+    done = sum(1 for r in races if r["status"] == "completed")
+    log.info("%s: %d races (%d completed), %d drivers, %d constructors.",
+             year, len(races), done, len(season["drivers"]), len(season["constructors"]))
+    return season
 
 
-def _fetch_schedule(ergast, year: int) -> pd.DataFrame:
-    """Season schedule as a plain DataFrame (empty DataFrame on failure)."""
-    try:
-        response = ergast.get_race_schedule(season=year, limit=_SCHEDULE_LIMIT)
-        return pd.DataFrame(response)
-    except Exception as exc:
-        log.warning("Could not fetch %s race schedule: %s", year, exc)
-        return pd.DataFrame()
-
-
-def _fetch_results(ergast, year: int) -> dict:
-    """Map ``round -> race-results DataFrame`` (empty dict on failure).
-
-    ``get_race_results`` returns an :class:`ErgastMultiResponse`: ``.content``
-    is a list of per-race DataFrames and ``.description`` is a DataFrame whose
-    i-th row (with a ``round`` column) describes ``content[i]``.
-    """
-    results_by_round: dict = {}
-    try:
-        response = ergast.get_race_results(season=year, limit=_RESULTS_LIMIT)
-        description = response.description
-        content = response.content
-    except Exception as exc:
-        log.warning("Could not fetch %s race results: %s", year, exc)
-        return results_by_round
-
-    for i in range(len(content)):
-        try:
-            rnd = int(description.iloc[i]["round"])
-        except Exception:
-            rnd = i + 1  # fall back to positional round numbering
-        results_by_round[rnd] = pd.DataFrame(content[i])
-    return results_by_round
-
-
-def _fetch_driver_standings(ergast, year: int) -> pd.DataFrame:
-    """Final driver standings DataFrame (empty DataFrame on failure).
-
-    ``get_driver_standings`` returns an :class:`ErgastMultiResponse`; a
-    season-wide query yields a single standings list at ``content[0]``.
-    """
-    try:
-        response = ergast.get_driver_standings(season=year, limit=_STANDINGS_LIMIT)
-        content = response.content
-        if content:
-            return pd.DataFrame(content[0])
-        log.warning("No driver standings available for %s.", year)
-    except Exception as exc:
-        log.warning("Could not fetch %s driver standings: %s", year, exc)
-    return pd.DataFrame()
-
-
-def _fetch_constructor_standings(ergast, year: int) -> pd.DataFrame:
-    """Final constructor standings DataFrame (empty DataFrame on failure)."""
-    try:
-        response = ergast.get_constructor_standings(
-            season=year, limit=_STANDINGS_LIMIT
-        )
-        content = response.content
-        if content:
-            return pd.DataFrame(content[0])
-        log.warning("No constructor standings available for %s.", year)
-    except Exception as exc:
-        log.warning("Could not fetch %s constructor standings: %s", year, exc)
-    return pd.DataFrame()
-
-
-def fetch_season(year: int, now: datetime | None = None) -> dict:
-    """Fetch one season from Ergast and build its dashboard JSON document.
-
-    Every network call is isolated so a blocked/missing endpoint degrades to
-    empty data instead of raising; the returned dict is always schema-valid.
-    """
-    if now is None:
-        now = datetime.now(timezone.utc)
-
-    try:
-        ergast = _get_ergast()
-    except Exception as exc:  # fastf1 missing / cache dir unwritable / ...
-        log.warning("Could not initialise Ergast client for %s: %s", year, exc)
-        return build_season_dict(
-            pd.DataFrame(), {}, pd.DataFrame(), pd.DataFrame(), year, now
-        )
-
-    schedule_df = _fetch_schedule(ergast, year)
-    results_by_round = _fetch_results(ergast, year)
-    driver_standings_df = _fetch_driver_standings(ergast, year)
-    constructor_standings_df = _fetch_constructor_standings(ergast, year)
-
-    return build_season_dict(
-        schedule_df,
-        results_by_round,
-        driver_standings_df,
-        constructor_standings_df,
-        year,
-        now,
-    )
-
-
-# --------------------------------------------------------------------------- #
-# Output
-# --------------------------------------------------------------------------- #
-def write_season_json(season: dict, year: int, out_dir: Path | None = None) -> Path:
-    """Write ``season`` to ``<out_dir>/<year>.json`` (default: ``web/data``)."""
-    out_dir = Path(out_dir) if out_dir is not None else (config.ROOT_DIR / "web" / "data")
+def write_season_json(season: dict, year: int, out_dir: Optional[Path] = None) -> Path:
+    out_dir = out_dir or (config.ROOT_DIR / "web" / "data")
     out_dir.mkdir(parents=True, exist_ok=True)
-    out_path = out_dir / f"{year}.json"
-    with out_path.open("w", encoding="utf-8") as fh:
-        json.dump(season, fh, indent=2, ensure_ascii=False, default=_json_default)
-    log.info(
-        "Wrote %s (%d races, %d drivers, %d constructors).",
-        out_path,
-        len(season.get("races", [])),
-        len(season.get("drivers", [])),
-        len(season.get("constructors", [])),
-    )
-    return out_path
+    path = out_dir / f"{year}.json"
+    with path.open("w", encoding="utf-8") as fh:
+        json.dump(season, fh, ensure_ascii=False, indent=1, default=str)
+    log.info("Wrote %s", path)
+    return path
 
 
-# --------------------------------------------------------------------------- #
-# CLI
-# --------------------------------------------------------------------------- #
-def _parse_args(argv=None) -> argparse.Namespace:
-    parser = argparse.ArgumentParser(
-        description="Fetch an F1 season from Ergast into web/data/<year>.json."
-    )
-    parser.add_argument(
-        "--year",
-        type=int,
-        default=None,
-        help=f"Season year (default: {' and '.join(map(str, DEFAULT_SEASONS))}).",
-    )
-    return parser.parse_args(argv)
-
-
-def main(argv=None) -> None:
-    """CLI entry point: fetch the requested season(s) and write their JSON."""
-    args = _parse_args(argv)
-    years = [args.year] if args.year is not None else list(DEFAULT_SEASONS)
-
-    for year in years:
+def main(argv=None):
+    p = argparse.ArgumentParser(description="Fetch real F1 season data for the dashboard.")
+    p.add_argument("--year", type=int, action="append", help="Season(s); repeatable.")
+    args = p.parse_args(argv)
+    for y in (args.year or [2025, 2026]):
         try:
-            season = fetch_season(year)
-        except Exception as exc:  # belt-and-suspenders; fetch_season shouldn't raise
-            log.warning("Falling back to empty document for %s: %s", year, exc)
-            season = build_season_dict(
-                pd.DataFrame(), {}, pd.DataFrame(), pd.DataFrame(),
-                year, datetime.now(timezone.utc),
-            )
-        write_season_json(season, year)
+            write_season_json(fetch_season(y), y)
+        except Exception as exc:
+            log.warning("Could not fetch %s: %s", y, exc)
 
 
 if __name__ == "__main__":

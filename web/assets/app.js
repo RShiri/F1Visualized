@@ -86,7 +86,7 @@ function renderOverview(d) {
     <div class="lc-team">${cl.wins} win${cl.wins === 1 ? "" : "s"}</div>
     <div class="lc-gap">Lead over ${esc(c2 ? c2.team : "—")}: <b>${c2 ? "+" + fmtPts(cl.points - c2.points) : "—"}</b></div>`;
 
-  const next = d.races.find((r) => r.status === "upcoming");
+  const next = d.races.find((r) => r.status === "upcoming" && (!r.date || r.date >= todayISO()));
   const nc = $("#nextRace");
   if (next) {
     const days = Math.max(0, Math.ceil((new Date(next.date) - new Date()) / 864e5));
@@ -159,13 +159,17 @@ function standRow(pos, nameHtml, team, points, max, wins) {
 function renderCalendar(d) {
   const done = d.races.filter((r) => r.status === "completed").length;
   $("#calendarMeta").textContent = `${done} of ${d.races.length} rounds completed`;
-  const nextRound = (d.races.find((r) => r.status === "upcoming") || {}).round;
+  const today = todayISO();
+  const nextRound = (d.races.find((r) => r.status === "upcoming" && (!r.date || r.date >= today)) || {}).round;
   const grid = $("#calendarGrid");
   grid.innerHTML = "";
   d.races.forEach((r) => {
     const isNext = r.round === nextRound;
+    const isTBC = r.status === "upcoming" && r.date && r.date < today;  // scheduled, no result
     const badge = r.status === "completed" ? `<span class="badge done">Completed</span>`
-      : isNext ? `<span class="badge next">Next Up</span>` : `<span class="badge up">Upcoming</span>`;
+      : isNext ? `<span class="badge next">Next Up</span>`
+      : isTBC ? `<span class="badge up">TBC</span>`
+      : `<span class="badge up">Upcoming</span>`;
     const foot = r.status === "completed" && r.winner
       ? `<span class="rc-winner">${swatch(r.winner.team, 4, 15)} ${esc(r.winner.code)} · ${esc(r.winner.name.split(" ").slice(-1)[0])}</span>`
       : `<span class="rc-sub">${fmtDate(r.date)}</span>`;
@@ -237,6 +241,10 @@ function renderRaceDetail(d, round) {
 }
 
 /* ---------------- helpers & wiring ---------------- */
+function todayISO() {
+  return new Date().toISOString().slice(0, 10);
+}
+
 function fmtDate(s) {
   if (!s) return "TBC";
   const d = new Date(s + "T00:00:00");
@@ -281,7 +289,8 @@ async function boot() {
     return;
   }
   if (!SEASONS[current]) current = avail[avail.length - 1];
-  $("#footNote").textContent = "Data via fastf1 / Ergast · sample data shown until the fetch workflow runs";
+  const src = (SEASONS[current] || {}).source || "f1db + fastf1";
+  $("#footNote").textContent = "Data via " + src;
   setSeason(current);
 }
 

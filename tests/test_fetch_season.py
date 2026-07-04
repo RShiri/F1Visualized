@@ -1,92 +1,88 @@
-"""Network-free unit tests for the dashboard data assembler.
+"""Network-free unit tests for the f1db-backed season fetcher.
 
-Builds Ergast-shaped DataFrames by hand and checks that `build_season_dict`
-emits exactly the JSON contract the `web/` dashboard consumes.
+Injects fixtures into the module's caches so the pure assembly logic
+(``build_race``, ``assemble_season``, slug/team helpers) is exercised without
+touching ``raw.githubusercontent.com``.
 """
 
-import json
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
-
-import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 import fetch_season as fs  # noqa: E402
 
 
-def _schedule():
-    return pd.DataFrame([
-        {"round": 1, "raceName": "Australian Grand Prix", "raceDate": pd.Timestamp("2026-03-08"),
-         "circuitName": "Albert Park", "locality": "Melbourne", "country": "Australia"},
-        {"round": 2, "raceName": "Chinese Grand Prix", "raceDate": pd.Timestamp("2026-03-15"),
-         "circuitName": "Shanghai", "locality": "Shanghai", "country": "China"},
-    ])
+def setup_function(_):
+    fs._yaml_cache.clear()
+    fs._driver_cache.clear()
+    fs._driver_cache.update({
+        "lando-norris": {"code": "NOR", "name": "Lando Norris"},
+        "max-verstappen": {"code": "VER", "name": "Max Verstappen"},
+        "charles-leclerc": {"code": "LEC", "name": "Charles Leclerc"},
+    })
 
 
-def _race_results():
-    return pd.DataFrame([
-        {"position": 1, "driverCode": "NOR", "givenName": "Lando", "familyName": "Norris",
-         "constructorName": "McLaren", "grid": 1, "points": 25.0, "laps": 58, "status": "Finished"},
-        {"position": 2, "driverCode": "LEC", "givenName": "Charles", "familyName": "Leclerc",
-         "constructorName": "Ferrari", "grid": 2, "points": 18.0, "laps": 58, "status": "Finished"},
-        {"position": 3, "driverCode": "VER", "givenName": "Max", "familyName": "Verstappen",
-         "constructorName": "Red Bull", "grid": 4, "points": 15.0, "laps": 58, "status": "Finished"},
-        {"position": None, "driverCode": "HAM", "givenName": "Lewis", "familyName": "Hamilton",
-         "constructorName": "Ferrari", "grid": 3, "points": 0.0, "laps": 12, "status": "Retired"},
-    ])
+def test_team_name_mapping_and_fallback():
+    assert fs.team_name("red-bull") == "Red Bull Racing"
+    assert fs.team_name("kick-sauber") == "Kick Sauber"
+    assert fs.team_name("audi") == "Audi"
+    assert fs.team_name("some-new-team") == "Some New Team"   # title-case fallback
+    assert fs.team_name(None) == ""
 
 
-def _driver_standings():
-    return pd.DataFrame([
-        {"position": 1, "driverCode": "NOR", "givenName": "Lando", "familyName": "Norris",
-         "constructorNames": ["McLaren"], "points": 25.0, "wins": 1},
-        {"position": 2, "driverCode": "LEC", "givenName": "Charles", "familyName": "Leclerc",
-         "constructorNames": ["Ferrari"], "points": 18.0, "wins": 0},
-    ])
+def test_slug_candidates():
+    cands = fs._slug_candidates("Austrian Grand Prix", "Austria", "Spielberg")
+    assert cands[0] == "austria"                 # from the name map
+    assert "spielberg" in cands                  # locality is a fallback candidate
 
 
-def _constructor_standings():
-    return pd.DataFrame([
-        {"position": 1, "constructorName": "McLaren", "points": 25.0, "wins": 1},
-        {"position": 2, "constructorName": "Ferrari", "points": 18.0, "wins": 0},
-    ])
+def test_build_race_upcoming_is_offline():
+    ev = {"round": 20, "name": "Qatar Grand Prix", "country": "Qatar",
+          "locality": "Lusail", "circuit": "Lusail", "date": "2026-11-29"}
+    now = datetime(2026, 7, 1, tzinfo=timezone.utc)   # race is in the future
+    race = fs.build_race(2026, ev, now, {"drivers": {}, "teams": {}})
+    assert race["status"] == "upcoming" and race["results"] == [] and race["winner"] is None
 
 
-def _season():
+def test_build_race_completed_parses_f1db_results():
+    fs._yaml_cache["seasons/2025/races/01-australia/race-results.yml"] = [
+        {"position": 1, "driverId": "lando-norris", "constructorId": "mclaren",
+         "points": 25, "gridPosition": 1, "laps": 57, "reasonRetired": None},
+        {"position": 2, "driverId": "max-verstappen", "constructorId": "red-bull",
+         "points": 18, "gridPosition": 3, "laps": 57, "reasonRetired": None},
+        {"position": 3, "driverId": "charles-leclerc", "constructorId": "ferrari",
+         "points": 15, "gridPosition": 2, "laps": 57, "reasonRetired": None},
+    ]
+    fs._yaml_cache["seasons/2025/races/01-australia/fast-laps.yml"] = None
+    ev = {"round": 1, "name": "Australian Grand Prix", "country": "Australia",
+          "locality": "Melbourne", "circuit": "Melbourne", "date": "2025-03-16"}
+    wins = {"drivers": {}, "teams": {}}
+    race = fs.build_race(2025, ev, datetime(2025, 7, 1, tzinfo=timezone.utc), wins)
+
+    assert race["status"] == "completed"
+    assert race["winner"] == {"code": "NOR", "name": "Lando Norris", "team": "McLaren"}
+    assert [p["code"] for p in race["podium"]] == ["NOR", "VER", "LEC"]
+    assert race["results"][1]["team"] == "Red Bull Racing"
+    assert wins["drivers"]["NOR"] == 1 and wins["teams"]["McLaren"] == 1
+
+
+def test_assemble_season_schema():
     now = datetime(2026, 7, 1, tzinfo=timezone.utc)
-    return fs.build_season_dict(_schedule(), {1: _race_results()},
-                                _driver_standings(), _constructor_standings(), 2026, now)
-
-
-def test_top_level_schema():
-    d = _season()
-    assert set(d) == {"season", "updated", "races", "drivers", "constructors"}
-    assert d["season"] == 2026
-    # fully JSON-serialisable (front-end fetches it verbatim)
-    json.dumps(d, default=fs._json_default)
-
-
-def test_completed_vs_upcoming_race():
-    races = _season()["races"]
-    assert races[0]["status"] == "completed"
-    assert races[0]["winner"]["code"] == "NOR"
-    assert len(races[0]["podium"]) == 3
-    # DNF sorts to the bottom of the classification
-    assert races[0]["results"][-1]["status"] == "Retired"
-    # round 2 has no results yet
-    assert races[1]["status"] == "upcoming" and races[1]["results"] == []
-
-
-def test_standings_shape():
-    d = _season()
+    driver_standings = [
+        {"position": 1, "driverId": "lando-norris", "points": 423},
+        {"position": 2, "driverId": "max-verstappen", "points": 421},
+    ]
+    constructor_standings = [
+        {"position": 1, "constructorId": "mclaren", "points": 833},
+        {"position": 2, "constructorId": "red-bull", "points": 451},
+    ]
+    team_by_code = {"NOR": "McLaren", "VER": "Red Bull Racing"}
+    wins = {"drivers": {"NOR": 7, "VER": 8}, "teams": {"McLaren": 14}}
+    d = fs.assemble_season(2025, [], driver_standings, constructor_standings,
+                           team_by_code, wins, now)
+    assert set(d) == {"season", "updated", "source", "races", "drivers", "constructors"}
     assert d["drivers"][0] == {"pos": 1, "code": "NOR", "name": "Lando Norris",
-                               "team": "McLaren", "points": 25.0, "wins": 1}
-    assert d["constructors"][0]["team"] == "McLaren"
-
-
-def test_empty_inputs_do_not_crash():
-    now = datetime(2026, 7, 1, tzinfo=timezone.utc)
-    d = fs.build_season_dict(pd.DataFrame(), {}, pd.DataFrame(), pd.DataFrame(), 2026, now)
-    assert d["races"] == [] and d["drivers"] == [] and d["constructors"] == []
+                               "team": "McLaren", "points": 423, "wins": 7}
+    assert d["constructors"][0] == {"pos": 1, "team": "McLaren", "points": 833, "wins": 14}
