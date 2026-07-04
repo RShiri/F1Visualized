@@ -349,18 +349,35 @@ function deriveLapPositions(race) {
   const finalPos = {};
   classified.forEach((r) => (finalPos[r.code] = r.pos));
   dnf.forEach((r, i) => (finalPos[r.code] = classified.length + i + 1));
-  const drivers = results.map((r) => {
+
+  // Each driver's continuous grid→finish curve and the last lap they ran.
+  const curve = results.map((r) => {
     const fin = finalPos[r.code] || n;
-    const grid = r.grid && r.grid > 0 ? r.grid : fin;
-    const last = Math.max(1, r.laps || total);
-    const positions = [];
-    for (let lap = 1; lap <= total; lap++) {
-      if (lap > last) { positions.push(null); continue; }
-      const t = last <= 1 ? 1 : (lap - 1) / (last - 1);
-      positions.push(Math.round(grid + (fin - grid) * (t * t * (3 - 2 * t))));
-    }
-    return { code: r.code, team: r.team, positions, fin };
+    return {
+      code: r.code, team: r.team, fin,
+      grid: r.grid && r.grid > 0 ? r.grid : fin,
+      last: Math.max(1, r.laps || total),
+    };
   });
+
+  // Positions are a classification: at any lap they must be UNIQUE (1..k across
+  // the cars still running). Rounding each driver's interpolated value on its own
+  // let two cars land on the same slot — instead, rank the running cars by their
+  // continuous value each lap and hand out distinct places.
+  const pos = {};
+  curve.forEach((c) => (pos[c.code] = []));
+  for (let lap = 1; lap <= total; lap++) {
+    const running = [];
+    for (const c of curve) {
+      if (lap > c.last) { pos[c.code].push(null); continue; }
+      const t = c.last <= 1 ? 1 : (lap - 1) / (c.last - 1);
+      running.push({ code: c.code, v: c.grid + (c.fin - c.grid) * (t * t * (3 - 2 * t)), fin: c.fin, grid: c.grid });
+    }
+    running.sort((a, b) => a.v - b.v || a.fin - b.fin || a.grid - b.grid || (a.code < b.code ? -1 : 1));
+    running.forEach((d, i) => pos[d.code].push(i + 1));
+  }
+
+  const drivers = curve.map((c) => ({ code: c.code, team: c.team, positions: pos[c.code], fin: c.fin }));
   drivers.sort((a, b) => a.fin - b.fin);
   return { total, n, drivers, real: false };
 }
