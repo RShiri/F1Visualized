@@ -199,6 +199,42 @@ table.results .cell-driver .code { color: var(--ink-3); font-size: 12px; font-we
 table.results tr .dnf { color: var(--ink-3); }
 .empty-note { color: var(--ink-3); padding: 30px; text-align: center; border: 1px dashed var(--border); border-radius: 12px; }
 
+/* ---------- season stats ---------- */
+.stats-note { color: var(--ink-2); font-size: 13px; line-height: 1.6; margin: -6px 0 14px; max-width: 940px; }
+.stats-note b { color: var(--ink); }
+.stats-note .muted { color: var(--ink-3); }
+.stats-scroll { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius); background: var(--panel); box-shadow: var(--shadow); }
+.stats-table { border-collapse: collapse; width: 100%; min-width: 940px; }
+.stats-table th, .stats-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); font-size: 13px; white-space: nowrap; text-align: left; }
+.stats-table tbody tr:last-child td { border-bottom: 0; }
+.stats-table tbody tr:hover td { background: var(--panel-2); }
+.stats-table th {
+  color: var(--ink-3); font-size: 11px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase;
+  position: sticky; top: 0; background: var(--panel-2); z-index: 2;
+}
+.stats-table td.num, .stats-table th.num { text-align: right; font-variant-numeric: tabular-nums; }
+.stats-table th.sortable { cursor: pointer; user-select: none; }
+.stats-table th.sortable:hover { color: var(--ink-2); }
+.stats-table th.sorted { color: var(--ink); }
+.stats-table th.sorted::after { content: "▾"; margin-left: 4px; font-size: 9px; vertical-align: middle; }
+.stats-table th.sorted.asc::after { content: "▴"; }
+.stats-table td.on { background: rgba(225, 6, 0, .07); color: var(--ink); font-weight: 700; }
+.stats-table th.primary, .stats-table td.primary { color: var(--ink); font-weight: 800; }
+.stats-table td.primary { font-size: 14px; }
+.stats-table td.pos { color: #4ade80; }
+.stats-table td.neg { color: #f47272; }
+.stats-table .cell-driver { display: flex; align-items: center; gap: 9px; font-weight: 700; }
+.stats-table .cell-driver .swatch { width: 5px; height: 18px; border-radius: 3px; }
+.stats-table .cell-driver .code { color: var(--ink-3); font-size: 12px; font-weight: 800; }
+.stats-table .stx-team { color: var(--ink-2); }
+.stats-table .stx-rank { color: var(--ink-3); font-variant-numeric: tabular-nums; text-align: right; width: 40px; padding-right: 10px; }
+/* keep rank + driver pinned while scrolling the wide stat columns */
+.stats-table td.stx-rank, .stats-table td.stx-drv { position: sticky; z-index: 1; background: var(--panel); }
+.stats-table th.stx-rank, .stats-table th.stx-drv { position: sticky; z-index: 3; background: var(--panel-2); }
+.stats-table .stx-rank { left: 0; }
+.stats-table .stx-drv { left: 40px; }
+.stats-table tbody tr:hover td.stx-rank, .stats-table tbody tr:hover td.stx-drv { background: var(--panel-2); }
+
 /* ---------- race progression (lap scrubber) ---------- */
 .progression { margin-bottom: 18px; }
 .prog-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px; }

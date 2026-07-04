@@ -79,6 +79,7 @@ function render() {
   renderStandings(d);
   renderCalendar(d);
   renderResultsSelect(d);
+  renderStats(d);
 }
 
 function renderOverview(d) {
@@ -219,6 +220,96 @@ function selectRace(round) {
   const sel = $("#raceSelect");
   sel.value = round;
   renderRaceDetail(data(), round);
+}
+
+/* ---------------- season stats (sortable table) ---------------- */
+const fmt1 = (v) => (v == null ? "—" : (+v).toFixed(1));
+const fmt2 = (v) => (v == null ? "—" : (+v).toFixed(2));
+const fmtSigned = (v) => (v == null ? "—" : v > 0 ? "+" + v : String(v));
+const gainClass = (v) => (v == null ? "" : v > 0 ? "pos" : v < 0 ? "neg" : "");
+
+// `desc:true` => first click sorts high→low (best-first for a "more is better"
+// stat); `desc:false` sorts low→high first (best-first for avg grid/finish, DNFs…).
+const STAT_COLS = [
+  { key: "points",     label: "Points",     desc: true,  primary: true, fmt: fmtPts, t: "Championship points (includes sprints)" },
+  { key: "wins",       label: "Wins",       desc: true,  t: "Grand Prix wins" },
+  { key: "podiums",    label: "Podiums",    desc: true,  t: "Top-3 finishes" },
+  { key: "poles",      label: "Poles",      desc: true,  t: "Qualifying P1" },
+  { key: "starts",     label: "Starts",     desc: true,  t: "Grand Prix starts" },
+  { key: "avg_finish", label: "Avg Finish", desc: false, fmt: fmt1, t: "Mean finish position — lower is better" },
+  { key: "avg_grid",   label: "Avg Grid",   desc: false, fmt: fmt1, t: "Mean start position — lower is better" },
+  { key: "gained",     label: "Places +/−", desc: true,  fmt: fmtSigned, cls: gainClass, t: "Net positions gained, grid → flag (front-runners trend negative)" },
+  { key: "avg_stops",  label: "Avg Stops",  desc: false, fmt: fmt1, t: "Average pit stops per race" },
+  { key: "pit_avg",    label: "Pit Avg",    desc: false, fmt: fmt2, t: "Average pit-lane time, seconds — lower is better" },
+  { key: "pts_fin",    label: "Pts Fin",    desc: true,  t: "Points finishes (top 10)" },
+  { key: "dnf",        label: "DNF",        desc: false, t: "Did not finish" },
+  { key: "dotd",       label: "DOTD",       desc: true,  t: "Driver of the Day awards" },
+];
+
+let statsSort = { key: "points", dir: "desc" };
+
+function renderStats(d) {
+  const stats = d.stats || [];
+  const done = d.races.filter((r) => r.status === "completed").length;
+  const box = $("#statsTable"), note = $("#statsNote");
+  $("#statsMeta").textContent = stats.length ? `${stats.length} drivers · ${done} rounds` : "";
+  if (!stats.length) {
+    note.textContent = "";
+    box.innerHTML = `<div class="empty-note">No completed races in this season yet.</div>`;
+    return;
+  }
+  const hasLed = stats.some((s) => s.laps_led != null);
+  const cols = STAT_COLS.slice();
+  if (hasLed) cols.push({ key: "laps_led", label: "Laps Led", desc: true, t: "Laps led" });
+  if (!cols.some((c) => c.key === statsSort.key)) statsSort = { key: "points", dir: "desc" };
+  note.innerHTML =
+    `Every completed round, aggregated. Wins · podiums · poles are Grand&nbsp;Prix figures; ` +
+    `<b>Points</b> is the championship total. <b>Places&nbsp;+/−</b> is net positions gained from grid to flag ` +
+    `(front-runners naturally trend negative). Click any column to sort.` +
+    (hasLed ? "" : ` <span class="muted">Laps-led needs lap-by-lap timing — not in the public dataset — so it shows only after a timing-enabled fetch.</span>`);
+  drawStats(box, stats, cols);
+}
+
+function sortStats(stats, { key, dir }) {
+  const sign = dir === "desc" ? -1 : 1;
+  return stats.slice().sort((a, b) => {
+    const av = a[key], bv = b[key];
+    if (av == null && bv == null) return 0;
+    if (av == null) return 1;            // nulls always sort last
+    if (bv == null) return -1;
+    return av < bv ? -sign : av > bv ? sign : 0;
+  });
+}
+
+function drawStats(box, stats, cols) {
+  const sorted = sortStats(stats, statsSort);
+  const head = `<th class="stx-rank">#</th><th class="stx-drv">Driver</th><th class="stx-team">Team</th>` +
+    cols.map((c) => {
+      const on = statsSort.key === c.key;
+      return `<th class="num sortable${on ? " sorted " + statsSort.dir : ""}${c.primary ? " primary" : ""}" ` +
+        `data-key="${c.key}" title="${esc(c.t || c.label)}">${esc(c.label)}</th>`;
+    }).join("");
+  const body = sorted.map((s, i) => {
+    const cells = cols.map((c) => {
+      const v = s[c.key];
+      const disp = c.fmt ? c.fmt(v) : (v == null ? "—" : v);
+      const cls = (c.cls ? c.cls(v) : "") + (c.primary ? " primary" : "") + (statsSort.key === c.key ? " on" : "");
+      return `<td class="num ${cls.trim()}">${disp}</td>`;
+    }).join("");
+    return `<tr style="--accent:${teamColor(s.team)}">
+      <td class="stx-rank">${i + 1}</td>
+      <td class="stx-drv"><span class="cell-driver">${swatch(s.team)}${natFlag(s.nat)}<span>${esc(s.name)}</span><span class="code">${esc(s.code)}</span></span></td>
+      <td class="stx-team">${esc(s.team)}</td>${cells}</tr>`;
+  }).join("");
+  box.innerHTML = `<div class="stats-scroll"><table class="stats-table">
+    <thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div>`;
+  box.querySelectorAll("th.sortable").forEach((th) =>
+    th.addEventListener("click", () => {
+      const k = th.dataset.key;
+      if (statsSort.key === k) statsSort.dir = statsSort.dir === "desc" ? "asc" : "desc";
+      else statsSort = { key: k, dir: cols.find((c) => c.key === k).desc ? "desc" : "asc" };
+      drawStats(box, stats, cols);
+    }));
 }
 
 /* ---------------- race progression (interactive lap scrubber) ---------------- */

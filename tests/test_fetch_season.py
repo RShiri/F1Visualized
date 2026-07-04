@@ -89,7 +89,66 @@ def test_assemble_season_schema():
     wins = {"drivers": {"NOR": 7, "VER": 8}, "teams": {"McLaren": 14}}
     d = fs.assemble_season(2025, [], driver_standings, constructor_standings,
                            team_by_code, wins, now)
-    assert set(d) == {"season", "updated", "source", "races", "drivers", "constructors"}
+    assert set(d) == {"season", "updated", "source", "races", "drivers",
+                      "constructors", "stats"}
     assert d["drivers"][0] == {"pos": 1, "code": "NOR", "name": "Lando Norris",
                                "nat": "GB", "team": "McLaren", "points": 423, "wins": 7}
     assert d["constructors"][0] == {"pos": 1, "team": "McLaren", "points": 833, "wins": 14}
+    assert d["stats"] == []          # no races supplied -> no per-driver rows
+
+
+def test_build_driver_stats_aggregates_across_races():
+    def row(code, name, pos, grid, pts, status="Finished", qpos=None,
+            stops=None, pit_avg=None, pit_best=None, laps=57):
+        return {"code": code, "name": name, "nat": "", "pos": pos, "grid": grid,
+                "points": pts, "status": status, "qpos": qpos, "stops": stops,
+                "pit_avg": pit_avg, "pit_best": pit_best, "laps": laps}
+
+    races = [
+        {"status": "completed", "dotd": "VER", "results": [
+            row("NOR", "Lando Norris", 1, 1, 25, qpos=1, stops=2, pit_avg=23.0, pit_best=22.0),
+            row("VER", "Max Verstappen", 2, 4, 18, qpos=3, stops=2, pit_avg=25.0, pit_best=24.0),
+        ]},
+        {"status": "completed", "dotd": None, "results": [
+            row("NOR", "Lando Norris", 3, 5, 15, qpos=2, stops=1, pit_avg=21.0, pit_best=21.0),
+            row("VER", "Max Verstappen", None, 2, 0, status="Accident", qpos=1,
+                stops=1, pit_avg=27.0, pit_best=27.0, laps=10),
+        ]},
+        {"status": "upcoming", "results": []},   # ignored
+    ]
+    stats = fs.build_driver_stats(races, {"NOR": "McLaren", "VER": "Red Bull Racing"})
+    by = {s["code"]: s for s in stats}
+
+    nor = by["NOR"]
+    assert nor["starts"] == 2 and nor["wins"] == 1 and nor["podiums"] == 2
+    assert nor["poles"] == 1 and nor["dnf"] == 0 and nor["points"] == 40
+    assert nor["avg_finish"] == 2.0 and nor["avg_grid"] == 3.0
+    assert nor["gained"] == 2                       # (1-1) + (5-3)
+    assert nor["avg_stops"] == 1.5                  # (2 + 1) / 2
+    assert nor["pit_avg"] == 22.33                  # (23*2 + 21*1) / 3 stops
+    assert nor["pit_best"] == 21.0
+    assert nor["team"] == "McLaren" and nor["laps_led"] is None
+
+    ver = by["VER"]
+    assert ver["poles"] == 1 and ver["dnf"] == 1 and ver["dotd"] == 1
+    assert ver["gained"] == 2                        # only the finished race counts (4-2)
+    assert stats[0]["code"] == "NOR"                 # sorted by points desc
+
+
+def test_build_driver_stats_uses_official_points_when_given():
+    races = [{"status": "completed", "dotd": None, "results": [
+        {"code": "VER", "name": "Max Verstappen", "nat": "", "pos": 2, "grid": 2,
+         "points": 18, "status": "Finished", "laps": 57},   # sprint points not in GP result
+    ]}]
+    # Championship total (incl. sprint) differs from the summed GP points.
+    stats = fs.build_driver_stats(races, {"VER": "Red Bull Racing"}, {"VER": 26})
+    assert stats[0]["points"] == 26
+
+
+def test_build_driver_stats_surfaces_laps_led_when_present():
+    races = [{"status": "completed", "dotd": None, "results": [
+        {"code": "VER", "name": "Max Verstappen", "nat": "", "pos": 1, "grid": 1,
+         "points": 25, "status": "Finished", "laps": 57, "led": 40},
+    ]}]
+    stats = fs.build_driver_stats(races, {"VER": "Red Bull Racing"})
+    assert stats[0]["laps_led"] == 40

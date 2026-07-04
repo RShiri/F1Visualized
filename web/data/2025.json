@@ -1,6 +1,6 @@
 {
  "season": 2025,
- "updated": "2026-07-04T21:17:17.427195+00:00",
+ "updated": "2026-07-04T22:06:59.898241+00:00",
  "source": "f1db + fastf1",
  "races": [
   {
@@ -51,7 +51,11 @@
      "grid": 1,
      "points": 25,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 1,
+     "stops": 5,
+     "pit_avg": 15.11,
+     "pit_best": 12.804
     },
     {
      "pos": 2,
@@ -62,7 +66,11 @@
      "grid": 3,
      "points": 18,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 3,
+     "stops": 5,
+     "pit_avg": 15.503,
+     "pit_best": 12.938
     },
     {
      "pos": 3,
@@ -73,7 +81,11 @@
      "grid": 4,
      "points": 15,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 4,
+     "stops": 5,
+     "pit_avg": 15.995,
+     "pit_best": 13.672
     },
     {
      "pos": 4,
@@ -84,7 +96,11 @@
      "grid": 16,
      "points": 12,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 16,
+     "stops": 5,
+     "pit_avg": 17.173,
+     "pit_best": 13.975
     },
     {
      "pos": 5,
@@ -95,7 +111,11 @@
      "grid": 6,
      "points": 10,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 6,
+     "stops": 5,
+     "pit_avg": 16.765,
+     "pit_best": 14.285
     },
     {
      "pos": 6,
@@ -106,7 +126,11 @@
      "grid": 13,
      "points": 8,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 13,
+     "stops": 5,
+     "pit_avg": 16.735,
+     "pit_best": 14.451
     },
     {
      "pos": 7,
@@ -117,7 +141,11 @@
      "grid": 17,
      "points": 6,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 17,
+     "stops": 5,
+     "pit_avg": 17.326,
+     "pit_best": 14.198
     },
     {
      "pos": 8,
@@ -128,7 +156,11 @@
      "grid": 7,
      "points": 4,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 7,
+     "stops": 5,
+     "pit_avg": 17.123,
+     "pit_best": 14.129
     },
     {
      "pos": 9,
@@ -139,7 +171,11 @@
      "grid": 2,
      "points": 2,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 2,
+     "stops": 5,
+     "pit_avg": 15.86,
+     "pit_best": 12.816
     },
     {
      "pos": 10,
@@ -150,7 +186,11 @@
      "grid": 8,
      "points": 1,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 8,
+     "stops": 5,
+     "pit_avg": 17.062,
+     "pit_best": 14.789
     },
     {
      "pos": 11,
@@ -161,7 +201,11 @@
      "grid": 9,
      "points": 0,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 9,
+     "stops": 5,
+     "pit_avg": 16.926,
+     "pit_best": 14.71
     },
     {
      "pos": 12,
@@ -172,7 +216,11 @@
      "grid": 5,
      "points": 0,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 5,
+     "stops": 5,
+     "pit_avg": 16.419,
+     "pit_best": 13.605
     },
     {
      "pos": 13,
@@ -183,7 +231,11 @@
      "grid": 19,
      "points": 0,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 19,
+     "stops": 5,
+     "pit_avg": 17.831,
+     "pit_best": 14.395
     },
     {
      "pos": 14,
@@ -194,7 +246,11 @@
      "grid": null,
      "points": 0,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": null,
+     "stops": 5,
+     "pit_avg": 19.051,
+     "pit_best": 14.605
     },
     {
      "pos": null,
@@ -205,7 +261,11 @@
      "grid": null,
      "points": 0,
      "laps": 46,
-     "status": "Accident"
+     "status": "Accident",
+     "qpos": 18,
+     "stops": 4,
+     "pit_avg": 17.511,
+     "pit_best": 14.79
     },
     {
      "pos": null,
@@ -216,7 +276,11 @@
      "grid": 15,
      "points": 0,
      "laps": 45,
-     "status": "Accident"
+     "status": "Accident",
+     "qpos": 15,
+     "stops": 5,
+     "pit_avg": 19.058,
+     "pit_best": 14.206
     },
     {
      "pos": null,
@@ -227,7 +291,11 @@
      "grid": 12,
      "points": 0,
      "laps": 32,
-     "status": "Accident"
+     "status": "Accident",
+     "qpos": 12,
+     "stops": 3,
+     "pit_avg": 15.603,
+     "pit_best": 15.034
     },
     {
      "pos": null,
@@ -238,7 +306,11 @@
      "grid": 10,
      "points": 0,
      "laps": 0,
-     "status": "Accident"
+     "status": "Accident",
+     "qpos": 10,
+     "stops": 0,
+     "pit_avg": null,
+     "pit_best": null
     },
     {
      "pos": null,
@@ -249,7 +321,11 @@
      "grid": 14,
      "points": 0,
      "laps": 0,
-     "status": "Accident"
+     "status": "Accident",
+     "qpos": 14,
+     "stops": 0,
+     "pit_avg": null,
+     "pit_best": null
     },
     {
      "pos": null,
@@ -260,9 +336,14 @@
      "grid": 11,
      "points": 0,
      "laps": 0,
-     "status": "Accident on formation lap"
+     "status": "Accident on formation lap",
+     "qpos": 11,
+     "stops": 0,
+     "pit_avg": null,
+     "pit_best": null
     }
-   ]
+   ],
+   "dotd": "NOR"
   },
   {
    "round": 2,
@@ -312,7 +393,11 @@
      "grid": 1,
      "points": 25,
      "laps": 56,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 1,
+     "stops": 1,
+     "pit_avg": 23.938,
+     "pit_best": 23.938
     },
     {
      "pos": 2,
@@ -323,7 +408,11 @@
      "grid": 3,
      "points": 18,
      "laps": 56,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 3,
+     "stops": 1,
+     "pit_avg": 22.213,
+     "pit_best": 22.213
     },
     {
      "pos": 3,
@@ -334,7 +423,11 @@
      "grid": 2,
      "points": 15,
      "laps": 56,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 2,
+     "stops": 1,
+     "pit_avg": 22.324,
+     "pit_best": 22.324
     },
     {
      "pos": 4,
@@ -345,7 +438,11 @@
      "grid": 4,
      "points": 12,
      "laps": 56,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 4,
+     "stops": 1,
+     "pit_avg": 22.454,
+     "pit_best": 22.454
     },
     {
      "pos": 5,
@@ -356,7 +453,11 @@
      "grid": 11,
      "points": 10,
      "laps": 56,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 11,
+     "stops": 1,
+     "pit_avg": 23.114,
+     "pit_best": 23.114
     },
     {
      "pos": 6,
@@ -367,7 +468,11 @@
      "grid": 8,
      "points": 8,
      "laps": 56,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 8,
+     "stops": 1,
+     "pit_avg": 22.675,
+     "pit_best": 22.675
     },
     {
      "pos": 7,
@@ -378,7 +483,11 @@
      "grid": 10,
      "points": 6,
      "laps": 56,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 10,
+     "stops": 1,
+     "pit_avg": 23.362,
+     "pit_best": 23.362
     },
     {
      "pos": 8,
@@ -389,7 +498,11 @@
      "grid": 17,
      "points": 4,
      "laps": 56,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 17,
+     "stops": 1,
+     "pit_avg": 22.808,
+     "pit_best": 22.808
     },
     {
      "pos": 9,
@@ -400,7 +513,11 @@
      "grid": 14,
      "points": 2,
      "laps": 56,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 14,
+     "stops": 1,
+     "pit_avg": 22.995,
+     "pit_best": 22.995
     },
     {
      "pos": 10,
@@ -411,7 +528,11 @@
      "grid": 15,
      "points": 1,
      "laps": 56,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 15,
+     "stops": 1,
+     "pit_avg": 22.721,
+     "pit_best": 22.721
     },
     {
      "pos": 11,
@@ -422,7 +543,11 @@
      "grid": 7,
      "points": 0,
      "laps": 56,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 7,
+     "stops": 2,
+     "pit_avg": 22.565,
+     "pit_best": 22.234
     },
     {
      "pos": 12,
@@ -433,7 +558,11 @@
      "grid": null,
      "points": 0,
      "laps": 56,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 20,
+     "stops": 2,
+     "pit_avg": 22.446,
+     "pit_best": 22.355
     },
     {
      "pos": 13,
@@ -444,7 +573,11 @@
      "grid": 18,
      "points": 0,
      "laps": 56,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 18,
+     "stops": 1,
+     "pit_avg": 22.793,
+     "pit_best": 22.793
     },
     {
      "pos": 14,
@@ -455,7 +588,11 @@
      "grid": 19,
      "points": 0,
      "laps": 55,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 19,
+     "stops": 2,
+     "pit_avg": 23.087,
+     "pit_best": 22.79
     },
     {
      "pos": 15,
@@ -466,7 +603,11 @@
      "grid": 12,
      "points": 0,
      "laps": 55,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 12,
+     "stops": 1,
+     "pit_avg": 22.959,
+     "pit_best": 22.959
     },
     {
      "pos": 16,
@@ -477,7 +618,11 @@
      "grid": 9,
      "points": 0,
      "laps": 55,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 9,
+     "stops": 3,
+     "pit_avg": 27.735,
+     "pit_best": 22.519
     },
     {
      "pos": null,
@@ -488,7 +633,11 @@
      "grid": 13,
      "points": 0,
      "laps": 4,
-     "status": "Brakes"
+     "status": "Brakes",
+     "qpos": 13,
+     "stops": 0,
+     "pit_avg": null,
+     "pit_best": null
     },
     {
      "pos": null,
@@ -499,7 +648,11 @@
      "grid": 6,
      "points": 0,
      "laps": 56,
-     "status": "Car underweight"
+     "status": "Car underweight",
+     "qpos": 6,
+     "stops": 1,
+     "pit_avg": 22.151,
+     "pit_best": 22.151
     },
     {
      "pos": null,
@@ -510,7 +663,11 @@
      "grid": 5,
      "points": 0,
      "laps": 56,
-     "status": "Illegal skid block wear"
+     "status": "Illegal skid block wear",
+     "qpos": 5,
+     "stops": 2,
+     "pit_avg": 22.376,
+     "pit_best": 22.364
     },
     {
      "pos": null,
@@ -521,9 +678,14 @@
      "grid": 16,
      "points": 0,
      "laps": 56,
-     "status": "Car underweight"
+     "status": "Car underweight",
+     "qpos": 16,
+     "stops": 1,
+     "pit_avg": 23.138,
+     "pit_best": 23.138
     }
-   ]
+   ],
+   "dotd": "ANT"
   },
   {
    "round": 3,
@@ -573,7 +735,11 @@
      "grid": 1,
      "points": 25,
      "laps": 53,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 1,
+     "stops": 1,
+     "pit_avg": 24.397,
+     "pit_best": 24.397
     },
     {
      "pos": 2,
@@ -584,7 +750,11 @@
      "grid": 2,
      "points": 18,
      "laps": 53,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 2,
+     "stops": 1,
+     "pit_avg": 23.222,
+     "pit_best": 23.222
     },
     {
      "pos": 3,
@@ -595,7 +765,11 @@
      "grid": 3,
      "points": 15,
      "laps": 53,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 3,
+     "stops": 1,
+     "pit_avg": 23.037,
+     "pit_best": 23.037
     },
     {
      "pos": 4,
@@ -606,7 +780,11 @@
      "grid": 4,
      "points": 12,
      "laps": 53,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 4,
+     "stops": 1,
+     "pit_avg": 23.346,
+     "pit_best": 23.346
     },
     {
      "pos": 5,
@@ -617,7 +795,11 @@
      "grid": 5,
      "points": 10,
      "laps": 53,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 5,
+     "stops": 1,
+     "pit_avg": 23.184,
+     "pit_best": 23.184
     },
     {
      "pos": 6,
@@ -628,7 +810,11 @@
      "grid": 6,
      "points": 8,
      "laps": 53,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 6,
+     "stops": 1,
+     "pit_avg": 24.38,
+     "pit_best": 24.38
     },
     {
      "pos": 7,
@@ -639,7 +825,11 @@
      "grid": 8,
      "points": 6,
      "laps": 53,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 8,
+     "stops": 1,
+     "pit_avg": 22.937,
+     "pit_best": 22.937
     },
     {
      "pos": 8,
@@ -650,7 +840,11 @@
      "grid": 7,
      "points": 4,
      "laps": 53,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 7,
+     "stops": 1,
+     "pit_avg": 23.333,
+     "pit_best": 23.333
     },
     {
      "pos": 9,
@@ -661,7 +855,11 @@
      "grid": 9,
      "points": 2,
      "laps": 53,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 9,
+     "stops": 1,
+     "pit_avg": 23.093,
+     "pit_best": 23.093
     },
     {
      "pos": 10,
@@ -672,7 +870,11 @@
      "grid": 10,
      "points": 1,
      "laps": 53,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 10,
+     "stops": 1,
+     "pit_avg": 24.834,
+     "pit_best": 24.834
     },
     {
      "pos": 11,
@@ -683,7 +885,11 @@
      "grid": 12,
      "points": 0,
      "laps": 53,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 13,
+     "stops": 1,
+     "pit_avg": 25.708,
+     "pit_best": 25.708
     },
     {
      "pos": 12,
@@ -694,7 +900,11 @@
      "grid": 14,
      "points": 0,
      "laps": 53,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 15,
+     "stops": 1,
+     "pit_avg": 24.181,
+     "pit_best": 24.181
     },
     {
      "pos": 13,
@@ -705,7 +915,11 @@
      "grid": 11,
      "points": 0,
      "laps": 53,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 11,
+     "stops": 1,
+     "pit_avg": 26.041,
+     "pit_best": 26.041
     },
     {
      "pos": 14,
@@ -716,7 +930,11 @@
      "grid": 15,
      "points": 0,
      "laps": 53,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 12,
+     "stops": 1,
+     "pit_avg": 23.337,
+     "pit_best": 23.337
     },
     {
      "pos": 15,
@@ -727,7 +945,11 @@
      "grid": 19,
      "points": 0,
      "laps": 53,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 19,
+     "stops": 1,
+     "pit_avg": 23.382,
+     "pit_best": 23.382
     },
     {
      "pos": 16,
@@ -738,7 +960,11 @@
      "grid": 16,
      "points": 0,
      "laps": 53,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 16,
+     "stops": 1,
+     "pit_avg": 23.515,
+     "pit_best": 23.515
     },
     {
      "pos": 17,
@@ -749,7 +975,11 @@
      "grid": 13,
      "points": 0,
      "laps": 53,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 14,
+     "stops": 1,
+     "pit_avg": 23.662,
+     "pit_best": 23.662
     },
     {
      "pos": 18,
@@ -760,7 +990,11 @@
      "grid": 18,
      "points": 0,
      "laps": 53,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 18,
+     "stops": 1,
+     "pit_avg": 24.464,
+     "pit_best": 24.464
     },
     {
      "pos": 19,
@@ -771,7 +1005,11 @@
      "grid": 17,
      "points": 0,
      "laps": 53,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 17,
+     "stops": 1,
+     "pit_avg": 23.419,
+     "pit_best": 23.419
     },
     {
      "pos": 20,
@@ -782,9 +1020,14 @@
      "grid": 20,
      "points": 0,
      "laps": 52,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 20,
+     "stops": 2,
+     "pit_avg": 23.666,
+     "pit_best": 23.608
     }
-   ]
+   ],
+   "dotd": "TSU"
   },
   {
    "round": 4,
@@ -834,7 +1077,11 @@
      "grid": 1,
      "points": 25,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 1,
+     "stops": 2,
+     "pit_avg": 24.699,
+     "pit_best": 24.498
     },
     {
      "pos": 2,
@@ -845,7 +1092,11 @@
      "grid": 3,
      "points": 18,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 2,
+     "stops": 2,
+     "pit_avg": 24.072,
+     "pit_best": 24.044
     },
     {
      "pos": 3,
@@ -856,7 +1107,11 @@
      "grid": 6,
      "points": 15,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 6,
+     "stops": 2,
+     "pit_avg": 26.928,
+     "pit_best": 24.035
     },
     {
      "pos": 4,
@@ -867,7 +1122,11 @@
      "grid": 2,
      "points": 12,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 3,
+     "stops": 2,
+     "pit_avg": 24.521,
+     "pit_best": 24.241
     },
     {
      "pos": 5,
@@ -878,7 +1137,11 @@
      "grid": 9,
      "points": 10,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 9,
+     "stops": 2,
+     "pit_avg": 24.345,
+     "pit_best": 24.34
     },
     {
      "pos": 6,
@@ -889,7 +1152,11 @@
      "grid": 7,
      "points": 8,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 7,
+     "stops": 2,
+     "pit_avg": 27.293,
+     "pit_best": 26.518
     },
     {
      "pos": 7,
@@ -900,7 +1167,11 @@
      "grid": 4,
      "points": 6,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 5,
+     "stops": 2,
+     "pit_avg": 24.995,
+     "pit_best": 24.958
     },
     {
      "pos": 8,
@@ -911,7 +1182,11 @@
      "grid": 14,
      "points": 4,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 14,
+     "stops": 2,
+     "pit_avg": 24.854,
+     "pit_best": 24.832
     },
     {
      "pos": 9,
@@ -922,7 +1197,11 @@
      "grid": 10,
      "points": 2,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 10,
+     "stops": 2,
+     "pit_avg": 25.632,
+     "pit_best": 24.771
     },
     {
      "pos": 10,
@@ -933,7 +1212,11 @@
      "grid": 20,
      "points": 1,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 20,
+     "stops": 2,
+     "pit_avg": 24.729,
+     "pit_best": 24.562
     },
     {
      "pos": 11,
@@ -944,7 +1227,11 @@
      "grid": 5,
      "points": 0,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 4,
+     "stops": 3,
+     "pit_avg": 24.669,
+     "pit_best": 24.506
     },
     {
      "pos": 12,
@@ -955,7 +1242,11 @@
      "grid": 15,
      "points": 0,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 15,
+     "stops": 2,
+     "pit_avg": 25.692,
+     "pit_best": 25.394
     },
     {
      "pos": 13,
@@ -966,7 +1257,11 @@
      "grid": 12,
      "points": 0,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 12,
+     "stops": 2,
+     "pit_avg": 24.953,
+     "pit_best": 24.64
     },
     {
      "pos": 14,
@@ -977,7 +1272,11 @@
      "grid": 11,
      "points": 0,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 11,
+     "stops": 2,
+     "pit_avg": 24.942,
+     "pit_best": 24.791
     },
     {
      "pos": 15,
@@ -988,7 +1287,11 @@
      "grid": 13,
      "points": 0,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 13,
+     "stops": 2,
+     "pit_avg": 24.836,
+     "pit_best": 24.826
     },
     {
      "pos": 16,
@@ -999,7 +1302,11 @@
      "grid": 17,
      "points": 0,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 17,
+     "stops": 2,
+     "pit_avg": 24.716,
+     "pit_best": 24.191
     },
     {
      "pos": 17,
@@ -1010,7 +1317,11 @@
      "grid": 19,
      "points": 0,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 19,
+     "stops": 2,
+     "pit_avg": 24.602,
+     "pit_best": 24.592
     },
     {
      "pos": 18,
@@ -1021,7 +1332,11 @@
      "grid": 18,
      "points": 0,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 18,
+     "stops": 2,
+     "pit_avg": 24.77,
+     "pit_best": 24.143
     },
     {
      "pos": null,
@@ -1032,7 +1347,11 @@
      "grid": 8,
      "points": 0,
      "laps": 45,
-     "status": "Collision damage"
+     "status": "Collision damage",
+     "qpos": 8,
+     "stops": 3,
+     "pit_avg": 28.677,
+     "pit_best": 24.315
     },
     {
      "pos": null,
@@ -1043,9 +1362,14 @@
      "grid": 16,
      "points": 0,
      "laps": null,
-     "status": "Illegal skid block wear"
+     "status": "Illegal skid block wear",
+     "qpos": 16,
+     "stops": 2,
+     "pit_avg": 24.26,
+     "pit_best": 24.229
     }
-   ]
+   ],
+   "dotd": "HAM"
   },
   {
    "round": 5,
@@ -1095,7 +1419,11 @@
      "grid": 2,
      "points": 25,
      "laps": 50,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 2,
+     "stops": 1,
+     "pit_avg": 21.388,
+     "pit_best": 21.388
     },
     {
      "pos": 2,
@@ -1106,7 +1434,11 @@
      "grid": 1,
      "points": 18,
      "laps": 50,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 1,
+     "stops": 1,
+     "pit_avg": 26.03,
+     "pit_best": 26.03
     },
     {
      "pos": 3,
@@ -1117,7 +1449,11 @@
      "grid": 4,
      "points": 15,
      "laps": 50,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 4,
+     "stops": 1,
+     "pit_avg": 20.131,
+     "pit_best": 20.131
     },
     {
      "pos": 4,
@@ -1128,7 +1464,11 @@
      "grid": 10,
      "points": 12,
      "laps": 50,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 10,
+     "stops": 1,
+     "pit_avg": 20.427,
+     "pit_best": 20.427
     },
     {
      "pos": 5,
@@ -1139,7 +1479,11 @@
      "grid": 3,
      "points": 10,
      "laps": 50,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 3,
+     "stops": 1,
+     "pit_avg": 20.329,
+     "pit_best": 20.329
     },
     {
      "pos": 6,
@@ -1150,7 +1494,11 @@
      "grid": 5,
      "points": 8,
      "laps": 50,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 5,
+     "stops": 1,
+     "pit_avg": 20.399,
+     "pit_best": 20.399
     },
     {
      "pos": 7,
@@ -1161,7 +1509,11 @@
      "grid": 7,
      "points": 6,
      "laps": 50,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 7,
+     "stops": 1,
+     "pit_avg": 20.144,
+     "pit_best": 20.144
     },
     {
      "pos": 8,
@@ -1172,7 +1524,11 @@
      "grid": 6,
      "points": 4,
      "laps": 50,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 6,
+     "stops": 1,
+     "pit_avg": 24.148,
+     "pit_best": 24.148
     },
     {
      "pos": 9,
@@ -1183,7 +1539,11 @@
      "grid": 11,
      "points": 2,
      "laps": 50,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 11,
+     "stops": 1,
+     "pit_avg": 22.135,
+     "pit_best": 22.135
     },
     {
      "pos": 10,
@@ -1194,7 +1554,11 @@
      "grid": 14,
      "points": 1,
      "laps": 50,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 14,
+     "stops": 1,
+     "pit_avg": 20.827,
+     "pit_best": 20.827
     },
     {
      "pos": 11,
@@ -1205,7 +1569,11 @@
      "grid": 13,
      "points": 0,
      "laps": 50,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 13,
+     "stops": 1,
+     "pit_avg": 21.891,
+     "pit_best": 21.891
     },
     {
      "pos": 12,
@@ -1216,7 +1584,11 @@
      "grid": 12,
      "points": 0,
      "laps": 50,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 12,
+     "stops": 1,
+     "pit_avg": 20.534,
+     "pit_best": 20.534
     },
     {
      "pos": 13,
@@ -1227,7 +1599,11 @@
      "grid": 15,
      "points": 0,
      "laps": 50,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 15,
+     "stops": 1,
+     "pit_avg": 22.095,
+     "pit_best": 22.095
     },
     {
      "pos": 14,
@@ -1238,7 +1614,11 @@
      "grid": 19,
      "points": 0,
      "laps": 50,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 19,
+     "stops": 1,
+     "pit_avg": 21.512,
+     "pit_best": 21.512
     },
     {
      "pos": 15,
@@ -1249,7 +1629,11 @@
      "grid": 18,
      "points": 0,
      "laps": 49,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 18,
+     "stops": 1,
+     "pit_avg": 20.441,
+     "pit_best": 20.441
     },
     {
      "pos": 16,
@@ -1260,7 +1644,11 @@
      "grid": 16,
      "points": 0,
      "laps": 49,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 16,
+     "stops": 1,
+     "pit_avg": 20.487,
+     "pit_best": 20.487
     },
     {
      "pos": 17,
@@ -1271,7 +1659,11 @@
      "grid": 17,
      "points": 0,
      "laps": 49,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 17,
+     "stops": 2,
+     "pit_avg": 21.046,
+     "pit_best": 20.571
     },
     {
      "pos": 18,
@@ -1282,7 +1674,11 @@
      "grid": 20,
      "points": 0,
      "laps": 49,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 20,
+     "stops": 1,
+     "pit_avg": 21.854,
+     "pit_best": 21.854
     },
     {
      "pos": null,
@@ -1293,7 +1689,11 @@
      "grid": 8,
      "points": 0,
      "laps": 1,
-     "status": "Collision damage"
+     "status": "Collision damage",
+     "qpos": 8,
+     "stops": 0,
+     "pit_avg": null,
+     "pit_best": null
     },
     {
      "pos": null,
@@ -1304,9 +1704,14 @@
      "grid": 9,
      "points": 0,
      "laps": 0,
-     "status": "Collision"
+     "status": "Collision",
+     "qpos": 9,
+     "stops": 0,
+     "pit_avg": null,
+     "pit_best": null
     }
-   ]
+   ],
+   "dotd": "VER"
   },
   {
    "round": 6,
@@ -1356,7 +1761,11 @@
      "grid": 4,
      "points": 25,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 4,
+     "stops": 1,
+     "pit_avg": 22.106,
+     "pit_best": 22.106
     },
     {
      "pos": 2,
@@ -1367,7 +1776,11 @@
      "grid": 2,
      "points": 18,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 2,
+     "stops": 1,
+     "pit_avg": 22.044,
+     "pit_best": 22.044
     },
     {
      "pos": 3,
@@ -1378,7 +1791,11 @@
      "grid": 5,
      "points": 15,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 5,
+     "stops": 1,
+     "pit_avg": 24.257,
+     "pit_best": 24.257
     },
     {
      "pos": 4,
@@ -1389,7 +1806,11 @@
      "grid": 1,
      "points": 12,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 1,
+     "stops": 1,
+     "pit_avg": 22.501,
+     "pit_best": 22.501
     },
     {
      "pos": 5,
@@ -1400,7 +1821,11 @@
      "grid": 7,
      "points": 10,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 7,
+     "stops": 1,
+     "pit_avg": 21.906,
+     "pit_best": 21.906
     },
     {
      "pos": 6,
@@ -1411,7 +1836,11 @@
      "grid": 3,
      "points": 8,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 3,
+     "stops": 1,
+     "pit_avg": 24.383,
+     "pit_best": 24.383
     },
     {
      "pos": 7,
@@ -1422,7 +1851,11 @@
      "grid": 8,
      "points": 6,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 8,
+     "stops": 1,
+     "pit_avg": 22.183,
+     "pit_best": 22.183
     },
     {
      "pos": 8,
@@ -1433,7 +1866,11 @@
      "grid": 12,
      "points": 4,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 12,
+     "stops": 1,
+     "pit_avg": 23.104,
+     "pit_best": 23.104
     },
     {
      "pos": 9,
@@ -1444,7 +1881,11 @@
      "grid": 6,
      "points": 2,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 6,
+     "stops": 1,
+     "pit_avg": 22.415,
+     "pit_best": 22.415
     },
     {
      "pos": 10,
@@ -1455,7 +1896,11 @@
      "grid": 10,
      "points": 1,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 10,
+     "stops": 1,
+     "pit_avg": 22.56,
+     "pit_best": 22.56
     },
     {
      "pos": 11,
@@ -1466,7 +1911,11 @@
      "grid": 11,
      "points": 0,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 11,
+     "stops": 1,
+     "pit_avg": 22.115,
+     "pit_best": 22.115
     },
     {
      "pos": 12,
@@ -1477,7 +1926,11 @@
      "grid": 9,
      "points": 0,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 9,
+     "stops": 1,
+     "pit_avg": 23.162,
+     "pit_best": 23.162
     },
     {
      "pos": 13,
@@ -1488,7 +1941,11 @@
      "grid": null,
      "points": 0,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 18,
+     "stops": 1,
+     "pit_avg": 22.06,
+     "pit_best": 22.06
     },
     {
      "pos": 14,
@@ -1499,7 +1956,11 @@
      "grid": 16,
      "points": 0,
      "laps": 56,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 16,
+     "stops": 1,
+     "pit_avg": 22.108,
+     "pit_best": 22.108
     },
     {
      "pos": 15,
@@ -1510,7 +1971,11 @@
      "grid": 17,
      "points": 0,
      "laps": 56,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 17,
+     "stops": 1,
+     "pit_avg": 23.602,
+     "pit_best": 23.602
     },
     {
      "pos": 16,
@@ -1521,7 +1986,11 @@
      "grid": 18,
      "points": 0,
      "laps": 56,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 19,
+     "stops": 1,
+     "pit_avg": 22.317,
+     "pit_best": 22.317
     },
     {
      "pos": null,
@@ -1532,7 +2001,11 @@
      "grid": 15,
      "points": 0,
      "laps": 36,
-     "status": "Collision damage"
+     "status": "Collision damage",
+     "qpos": 15,
+     "stops": 1,
+     "pit_avg": 22.439,
+     "pit_best": 22.439
     },
     {
      "pos": null,
@@ -1543,7 +2016,11 @@
      "grid": 13,
      "points": 0,
      "laps": 30,
-     "status": "Engine"
+     "status": "Engine",
+     "qpos": 13,
+     "stops": 1,
+     "pit_avg": 22.188,
+     "pit_best": 22.188
     },
     {
      "pos": null,
@@ -1554,7 +2031,11 @@
      "grid": 19,
      "points": 0,
      "laps": 27,
-     "status": "Fuel system"
+     "status": "Fuel system",
+     "qpos": 20,
+     "stops": 0,
+     "pit_avg": null,
+     "pit_best": null
     },
     {
      "pos": null,
@@ -1565,9 +2046,14 @@
      "grid": 14,
      "points": 0,
      "laps": 0,
-     "status": "Collision"
+     "status": "Collision",
+     "qpos": 14,
+     "stops": 0,
+     "pit_avg": null,
+     "pit_best": null
     }
-   ]
+   ],
+   "dotd": "PIA"
   },
   {
    "round": 7,
@@ -1617,7 +2103,11 @@
      "grid": 2,
      "points": 25,
      "laps": 63,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 2,
+     "stops": 2,
+     "pit_avg": 29.824,
+     "pit_best": 29.657
     },
     {
      "pos": 2,
@@ -1628,7 +2118,11 @@
      "grid": 4,
      "points": 18,
      "laps": 63,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 4,
+     "stops": 2,
+     "pit_avg": 30.594,
+     "pit_best": 29.513
     },
     {
      "pos": 3,
@@ -1639,7 +2133,11 @@
      "grid": 1,
      "points": 15,
      "laps": 63,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 1,
+     "stops": 2,
+     "pit_avg": 30.791,
+     "pit_best": 30.609
     },
     {
      "pos": 4,
@@ -1650,7 +2148,11 @@
      "grid": 12,
      "points": 12,
      "laps": 63,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 12,
+     "stops": 2,
+     "pit_avg": 29.95,
+     "pit_best": 29.949
     },
     {
      "pos": 5,
@@ -1661,7 +2163,11 @@
      "grid": 7,
      "points": 10,
      "laps": 63,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 7,
+     "stops": 2,
+     "pit_avg": 30.129,
+     "pit_best": 29.786
     },
     {
      "pos": 6,
@@ -1672,7 +2178,11 @@
      "grid": 11,
      "points": 8,
      "laps": 63,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 11,
+     "stops": 2,
+     "pit_avg": 30.766,
+     "pit_best": 29.634
     },
     {
      "pos": 7,
@@ -1683,7 +2193,11 @@
      "grid": 3,
      "points": 6,
      "laps": 63,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 3,
+     "stops": 2,
+     "pit_avg": 30.269,
+     "pit_best": 29.784
     },
     {
      "pos": 8,
@@ -1694,7 +2208,11 @@
      "grid": 6,
      "points": 4,
      "laps": 63,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 6,
+     "stops": 2,
+     "pit_avg": 30.358,
+     "pit_best": 30.08
     },
     {
      "pos": 9,
@@ -1705,7 +2223,11 @@
      "grid": 9,
      "points": 2,
      "laps": 63,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 9,
+     "stops": 2,
+     "pit_avg": 30.11,
+     "pit_best": 30.096
     },
     {
      "pos": 10,
@@ -1716,7 +2238,11 @@
      "grid": null,
      "points": 1,
      "laps": 63,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": null,
+     "stops": 1,
+     "pit_avg": 29.807,
+     "pit_best": 29.807
     },
     {
      "pos": 11,
@@ -1727,7 +2253,11 @@
      "grid": 5,
      "points": 0,
      "laps": 63,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 5,
+     "stops": 2,
+     "pit_avg": 30.524,
+     "pit_best": 30.163
     },
     {
      "pos": 12,
@@ -1738,7 +2268,11 @@
      "grid": 17,
      "points": 0,
      "laps": 63,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 17,
+     "stops": 1,
+     "pit_avg": 30.184,
+     "pit_best": 30.184
     },
     {
      "pos": 13,
@@ -1749,7 +2283,11 @@
      "grid": 10,
      "points": 0,
      "laps": 63,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 10,
+     "stops": 2,
+     "pit_avg": 31.745,
+     "pit_best": 31.488
     },
     {
      "pos": 14,
@@ -1760,7 +2298,11 @@
      "grid": 15,
      "points": 0,
      "laps": 63,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 16,
+     "stops": 2,
+     "pit_avg": 29.993,
+     "pit_best": 29.695
     },
     {
      "pos": 15,
@@ -1771,7 +2313,11 @@
      "grid": 8,
      "points": 0,
      "laps": 63,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 8,
+     "stops": 2,
+     "pit_avg": 32.857,
+     "pit_best": 31.218
     },
     {
      "pos": 16,
@@ -1782,7 +2328,11 @@
      "grid": 16,
      "points": 0,
      "laps": 63,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 15,
+     "stops": 2,
+     "pit_avg": 30.712,
+     "pit_best": 30.317
     },
     {
      "pos": 17,
@@ -1793,7 +2343,11 @@
      "grid": 19,
      "points": 0,
      "laps": 63,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 19,
+     "stops": 2,
+     "pit_avg": 44.085,
+     "pit_best": 31.414
     },
     {
      "pos": 18,
@@ -1804,7 +2358,11 @@
      "grid": 14,
      "points": 0,
      "laps": 63,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 14,
+     "stops": 3,
+     "pit_avg": 30.476,
+     "pit_best": 29.917
     },
     {
      "pos": null,
@@ -1815,7 +2373,11 @@
      "grid": 13,
      "points": 0,
      "laps": 44,
-     "status": "Throttle"
+     "status": "Throttle",
+     "qpos": 13,
+     "stops": 1,
+     "pit_avg": 30.051,
+     "pit_best": 30.051
     },
     {
      "pos": null,
@@ -1826,9 +2388,14 @@
      "grid": 18,
      "points": 0,
      "laps": 27,
-     "status": "Engine"
+     "status": "Engine",
+     "qpos": 18,
+     "stops": 1,
+     "pit_avg": 30.506,
+     "pit_best": 30.506
     }
-   ]
+   ],
+   "dotd": "VER"
   },
   {
    "round": 8,
@@ -1878,7 +2445,11 @@
      "grid": 1,
      "points": 25,
      "laps": 78,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 1,
+     "stops": 2,
+     "pit_avg": 24.125,
+     "pit_best": 23.704
     },
     {
      "pos": 2,
@@ -1889,7 +2460,11 @@
      "grid": 2,
      "points": 18,
      "laps": 78,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 2,
+     "stops": 2,
+     "pit_avg": 23.627,
+     "pit_best": 23.576
     },
     {
      "pos": 3,
@@ -1900,7 +2475,11 @@
      "grid": 3,
      "points": 15,
      "laps": 78,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 3,
+     "stops": 2,
+     "pit_avg": 24.832,
+     "pit_best": 23.908
     },
     {
      "pos": 4,
@@ -1911,7 +2490,11 @@
      "grid": 4,
      "points": 12,
      "laps": 78,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 5,
+     "stops": 2,
+     "pit_avg": 24.032,
+     "pit_best": 23.95
     },
     {
      "pos": 5,
@@ -1922,7 +2505,11 @@
      "grid": 7,
      "points": 10,
      "laps": 78,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 4,
+     "stops": 2,
+     "pit_avg": 23.91,
+     "pit_best": 23.565
     },
     {
      "pos": 6,
@@ -1933,7 +2520,11 @@
      "grid": 5,
      "points": 8,
      "laps": 77,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 6,
+     "stops": 2,
+     "pit_avg": 24.171,
+     "pit_best": 24.031
     },
     {
      "pos": 7,
@@ -1944,7 +2535,11 @@
      "grid": 8,
      "points": 6,
      "laps": 77,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 8,
+     "stops": 2,
+     "pit_avg": 25.174,
+     "pit_best": 24.773
     },
     {
      "pos": 8,
@@ -1955,7 +2550,11 @@
      "grid": 9,
      "points": 4,
      "laps": 77,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 9,
+     "stops": 2,
+     "pit_avg": 24.263,
+     "pit_best": 24.206
     },
     {
      "pos": 9,
@@ -1966,7 +2565,11 @@
      "grid": 10,
      "points": 2,
      "laps": 76,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 10,
+     "stops": 2,
+     "pit_avg": 24.059,
+     "pit_best": 23.927
     },
     {
      "pos": 10,
@@ -1977,7 +2580,11 @@
      "grid": 11,
      "points": 1,
      "laps": 76,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 11,
+     "stops": 2,
+     "pit_avg": 24.273,
+     "pit_best": 24.049
     },
     {
      "pos": 11,
@@ -1988,7 +2595,11 @@
      "grid": 14,
      "points": 0,
      "laps": 76,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 14,
+     "stops": 2,
+     "pit_avg": 24.544,
+     "pit_best": 24.025
     },
     {
      "pos": 12,
@@ -1999,7 +2610,11 @@
      "grid": 20,
      "points": 0,
      "laps": 76,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 17,
+     "stops": 2,
+     "pit_avg": 37.386,
+     "pit_best": 24.58
     },
     {
      "pos": 13,
@@ -2010,7 +2625,11 @@
      "grid": 18,
      "points": 0,
      "laps": 76,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 20,
+     "stops": 2,
+     "pit_avg": 24.426,
+     "pit_best": 24.355
     },
     {
      "pos": 14,
@@ -2021,7 +2640,11 @@
      "grid": 16,
      "points": 0,
      "laps": 76,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 16,
+     "stops": 3,
+     "pit_avg": 28.657,
+     "pit_best": 24.246
     },
     {
      "pos": 15,
@@ -2032,7 +2655,11 @@
      "grid": 19,
      "points": 0,
      "laps": 76,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 19,
+     "stops": 2,
+     "pit_avg": 24.947,
+     "pit_best": 23.978
     },
     {
      "pos": 16,
@@ -2043,7 +2670,11 @@
      "grid": 13,
      "points": 0,
      "laps": 76,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 13,
+     "stops": 2,
+     "pit_avg": 24.231,
+     "pit_best": 24.065
     },
     {
      "pos": 17,
@@ -2054,7 +2685,11 @@
      "grid": 12,
      "points": 0,
      "laps": 76,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 12,
+     "stops": 2,
+     "pit_avg": 24.305,
+     "pit_best": 24.086
     },
     {
      "pos": 18,
@@ -2065,7 +2700,11 @@
      "grid": 15,
      "points": 0,
      "laps": 75,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 15,
+     "stops": 2,
+     "pit_avg": 24.647,
+     "pit_best": 24.457
     },
     {
      "pos": null,
@@ -2076,7 +2715,11 @@
      "grid": 6,
      "points": 0,
      "laps": 36,
-     "status": "Engine"
+     "status": "Engine",
+     "qpos": 7,
+     "stops": 1,
+     "pit_avg": 25.375,
+     "pit_best": 25.375
     },
     {
      "pos": null,
@@ -2087,9 +2730,14 @@
      "grid": 17,
      "points": 0,
      "laps": 7,
-     "status": "Collision damage"
+     "status": "Collision damage",
+     "qpos": 18,
+     "stops": 1,
+     "pit_avg": 24.376,
+     "pit_best": 24.376
     }
-   ]
+   ],
+   "dotd": "LEC"
   },
   {
    "round": 9,
@@ -2139,7 +2787,11 @@
      "grid": 1,
      "points": 25,
      "laps": 66,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 1,
+     "stops": 3,
+     "pit_avg": 22.148,
+     "pit_best": 21.838
     },
     {
      "pos": 2,
@@ -2150,7 +2802,11 @@
      "grid": 2,
      "points": 18,
      "laps": 66,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 2,
+     "stops": 3,
+     "pit_avg": 22.626,
+     "pit_best": 21.863
     },
     {
      "pos": 3,
@@ -2161,7 +2817,11 @@
      "grid": 7,
      "points": 15,
      "laps": 66,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 7,
+     "stops": 3,
+     "pit_avg": 22.046,
+     "pit_best": 21.863
     },
     {
      "pos": 4,
@@ -2172,7 +2832,11 @@
      "grid": 4,
      "points": 12,
      "laps": 66,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 4,
+     "stops": 3,
+     "pit_avg": 22.219,
+     "pit_best": 21.739
     },
     {
      "pos": 5,
@@ -2183,7 +2847,11 @@
      "grid": 15,
      "points": 10,
      "laps": 66,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 16,
+     "stops": 3,
+     "pit_avg": 21.995,
+     "pit_best": 21.849
     },
     {
      "pos": 6,
@@ -2194,7 +2862,11 @@
      "grid": 5,
      "points": 8,
      "laps": 66,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 5,
+     "stops": 3,
+     "pit_avg": 23.068,
+     "pit_best": 21.957
     },
     {
      "pos": 7,
@@ -2205,7 +2877,11 @@
      "grid": 9,
      "points": 6,
      "laps": 66,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 9,
+     "stops": 3,
+     "pit_avg": 21.876,
+     "pit_best": 21.769
     },
     {
      "pos": 8,
@@ -2216,7 +2892,11 @@
      "grid": 8,
      "points": 4,
      "laps": 66,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 8,
+     "stops": 3,
+     "pit_avg": 22.349,
+     "pit_best": 22.006
     },
     {
      "pos": 9,
@@ -2227,7 +2907,11 @@
      "grid": 10,
      "points": 2,
      "laps": 66,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 10,
+     "stops": 3,
+     "pit_avg": 22.413,
+     "pit_best": 22.216
     },
     {
      "pos": 10,
@@ -2238,7 +2922,11 @@
      "grid": 3,
      "points": 1,
      "laps": 66,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 3,
+     "stops": 4,
+     "pit_avg": 21.95,
+     "pit_best": 21.802
     },
     {
      "pos": 11,
@@ -2249,7 +2937,11 @@
      "grid": 13,
      "points": 0,
      "laps": 66,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 13,
+     "stops": 2,
+     "pit_avg": 22.083,
+     "pit_best": 22.039
     },
     {
      "pos": 12,
@@ -2260,7 +2952,11 @@
      "grid": 12,
      "points": 0,
      "laps": 66,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 12,
+     "stops": 2,
+     "pit_avg": 22.497,
+     "pit_best": 22.041
     },
     {
      "pos": 13,
@@ -2271,7 +2967,11 @@
      "grid": null,
      "points": 0,
      "laps": 66,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 20,
+     "stops": 4,
+     "pit_avg": 22.007,
+     "pit_best": 21.822
     },
     {
      "pos": 14,
@@ -2282,7 +2982,11 @@
      "grid": 17,
      "points": 0,
      "laps": 66,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 18,
+     "stops": 3,
+     "pit_avg": 24.959,
+     "pit_best": 21.984
     },
     {
      "pos": 15,
@@ -2293,7 +2997,11 @@
      "grid": 18,
      "points": 0,
      "laps": 66,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 19,
+     "stops": 3,
+     "pit_avg": 22.161,
+     "pit_best": 21.874
     },
     {
      "pos": 16,
@@ -2304,7 +3012,11 @@
      "grid": 16,
      "points": 0,
      "laps": 66,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 17,
+     "stops": 2,
+     "pit_avg": 22.511,
+     "pit_best": 22.468
     },
     {
      "pos": 17,
@@ -2315,7 +3027,11 @@
      "grid": 14,
      "points": 0,
      "laps": 66,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 15,
+     "stops": 3,
+     "pit_avg": 22.348,
+     "pit_best": 22.009
     },
     {
      "pos": null,
@@ -2326,7 +3042,11 @@
      "grid": 6,
      "points": 0,
      "laps": 53,
-     "status": "Oil pressure"
+     "status": "Oil pressure",
+     "qpos": 6,
+     "stops": 2,
+     "pit_avg": 22.846,
+     "pit_best": 22.234
     },
     {
      "pos": null,
@@ -2337,7 +3057,11 @@
      "grid": 11,
      "points": 0,
      "laps": 27,
-     "status": "Collision damage"
+     "status": "Collision damage",
+     "qpos": 11,
+     "stops": 2,
+     "pit_avg": 34.248,
+     "pit_best": 30.823
     },
     {
      "pos": null,
@@ -2348,9 +3072,14 @@
      "grid": null,
      "points": 0,
      "laps": null,
-     "status": "Injury"
+     "status": "Injury",
+     "qpos": 14,
+     "stops": 0,
+     "pit_avg": null,
+     "pit_best": null
     }
-   ]
+   ],
+   "dotd": "VER"
   },
   {
    "round": 10,
@@ -2400,7 +3129,11 @@
      "grid": 1,
      "points": 25,
      "laps": 70,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 1,
+     "stops": 2,
+     "pit_avg": 23.747,
+     "pit_best": 23.231
     },
     {
      "pos": 2,
@@ -2411,7 +3144,11 @@
      "grid": 2,
      "points": 18,
      "laps": 70,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 2,
+     "stops": 2,
+     "pit_avg": 23.362,
+     "pit_best": 23.121
     },
     {
      "pos": 3,
@@ -2422,7 +3159,11 @@
      "grid": 4,
      "points": 15,
      "laps": 70,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 4,
+     "stops": 2,
+     "pit_avg": 23.368,
+     "pit_best": 23.32
     },
     {
      "pos": 4,
@@ -2433,7 +3174,11 @@
      "grid": 3,
      "points": 12,
      "laps": 70,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 3,
+     "stops": 3,
+     "pit_avg": 24.268,
+     "pit_best": 23.174
     },
     {
      "pos": 5,
@@ -2444,7 +3189,11 @@
      "grid": 8,
      "points": 10,
      "laps": 70,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 8,
+     "stops": 2,
+     "pit_avg": 23.61,
+     "pit_best": 23.36
     },
     {
      "pos": 6,
@@ -2455,7 +3204,11 @@
      "grid": 5,
      "points": 8,
      "laps": 70,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 5,
+     "stops": 2,
+     "pit_avg": 23.471,
+     "pit_best": 23.338
     },
     {
      "pos": 7,
@@ -2466,7 +3219,11 @@
      "grid": 6,
      "points": 6,
      "laps": 70,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 6,
+     "stops": 2,
+     "pit_avg": 23.715,
+     "pit_best": 23.409
     },
     {
      "pos": 8,
@@ -2477,7 +3234,11 @@
      "grid": 11,
      "points": 4,
      "laps": 70,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 13,
+     "stops": 1,
+     "pit_avg": 23.476,
+     "pit_best": 23.476
     },
     {
      "pos": 9,
@@ -2488,7 +3249,11 @@
      "grid": 14,
      "points": 2,
      "laps": 69,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 15,
+     "stops": 1,
+     "pit_avg": 24.452,
+     "pit_best": 24.452
     },
     {
      "pos": 10,
@@ -2499,7 +3264,11 @@
      "grid": 16,
      "points": 1,
      "laps": 69,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 17,
+     "stops": 1,
+     "pit_avg": 23.269,
+     "pit_best": 23.269
     },
     {
      "pos": 11,
@@ -2510,7 +3279,11 @@
      "grid": 13,
      "points": 0,
      "laps": 69,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 14,
+     "stops": 2,
+     "pit_avg": 25.773,
+     "pit_best": 23.562
     },
     {
      "pos": 12,
@@ -2521,7 +3294,11 @@
      "grid": 18,
      "points": 0,
      "laps": 69,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 11,
+     "stops": 1,
+     "pit_avg": 25.178,
+     "pit_best": 25.178
     },
     {
      "pos": 13,
@@ -2532,7 +3309,11 @@
      "grid": 10,
      "points": 0,
      "laps": 69,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 12,
+     "stops": 1,
+     "pit_avg": 24.735,
+     "pit_best": 24.735
     },
     {
      "pos": 14,
@@ -2543,7 +3324,11 @@
      "grid": 15,
      "points": 0,
      "laps": 69,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 16,
+     "stops": 1,
+     "pit_avg": 23.715,
+     "pit_best": 23.715
     },
     {
      "pos": 15,
@@ -2554,7 +3339,11 @@
      "grid": null,
      "points": 0,
      "laps": 69,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 20,
+     "stops": 1,
+     "pit_avg": 23.987,
+     "pit_best": 23.987
     },
     {
      "pos": 16,
@@ -2565,7 +3354,11 @@
      "grid": 12,
      "points": 0,
      "laps": 69,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 9,
+     "stops": 2,
+     "pit_avg": 23.912,
+     "pit_best": 23.693
     },
     {
      "pos": 17,
@@ -2576,7 +3369,11 @@
      "grid": 17,
      "points": 0,
      "laps": 69,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 18,
+     "stops": 3,
+     "pit_avg": 27.419,
+     "pit_best": 23.742
     },
     {
      "pos": 18,
@@ -2587,7 +3384,11 @@
      "grid": 7,
      "points": 0,
      "laps": 66,
-     "status": "Collision"
+     "status": "Collision",
+     "qpos": 7,
+     "stops": 2,
+     "pit_avg": 23.347,
+     "pit_best": 23.223
     },
     {
      "pos": null,
@@ -2598,7 +3399,11 @@
      "grid": null,
      "points": 0,
      "laps": 53,
-     "status": "Overheating"
+     "status": "Overheating",
+     "qpos": 19,
+     "stops": 1,
+     "pit_avg": 23.28,
+     "pit_best": 23.28
     },
     {
      "pos": null,
@@ -2609,9 +3414,14 @@
      "grid": 9,
      "points": 0,
      "laps": 46,
-     "status": "Engine"
+     "status": "Engine",
+     "qpos": 10,
+     "stops": 1,
+     "pit_avg": 23.898,
+     "pit_best": 23.898
     }
-   ]
+   ],
+   "dotd": "ANT"
   },
   {
    "round": 11,
@@ -2661,7 +3471,11 @@
      "grid": 1,
      "points": 25,
      "laps": 70,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 1,
+     "stops": 2,
+     "pit_avg": 21.779,
+     "pit_best": 21.427
     },
     {
      "pos": 2,
@@ -2672,7 +3486,11 @@
      "grid": 3,
      "points": 18,
      "laps": 70,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 3,
+     "stops": 2,
+     "pit_avg": 21.816,
+     "pit_best": 21.033
     },
     {
      "pos": 3,
@@ -2683,7 +3501,11 @@
      "grid": 2,
      "points": 15,
      "laps": 70,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 2,
+     "stops": 2,
+     "pit_avg": 21.422,
+     "pit_best": 21.308
     },
     {
      "pos": 4,
@@ -2694,7 +3516,11 @@
      "grid": 4,
      "points": 12,
      "laps": 70,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 4,
+     "stops": 2,
+     "pit_avg": 21.223,
+     "pit_best": 21.158
     },
     {
      "pos": 5,
@@ -2705,7 +3531,11 @@
      "grid": 5,
      "points": 10,
      "laps": 70,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 5,
+     "stops": 2,
+     "pit_avg": 21.599,
+     "pit_best": 21.344
     },
     {
      "pos": 6,
@@ -2716,7 +3546,11 @@
      "grid": 6,
      "points": 8,
      "laps": 70,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 6,
+     "stops": 1,
+     "pit_avg": 21.434,
+     "pit_best": 21.434
     },
     {
      "pos": 7,
@@ -2727,7 +3561,11 @@
      "grid": 11,
      "points": 6,
      "laps": 69,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 11,
+     "stops": 1,
+     "pit_avg": 21.865,
+     "pit_best": 21.865
     },
     {
      "pos": 8,
@@ -2738,7 +3576,11 @@
      "grid": 8,
      "points": 4,
      "laps": 69,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 8,
+     "stops": 2,
+     "pit_avg": 21.481,
+     "pit_best": 21.286
     },
     {
      "pos": 9,
@@ -2749,7 +3591,11 @@
      "grid": 20,
      "points": 2,
      "laps": 69,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 20,
+     "stops": 2,
+     "pit_avg": 21.141,
+     "pit_best": 21.045
     },
     {
      "pos": 10,
@@ -2760,7 +3606,11 @@
      "grid": 17,
      "points": 1,
      "laps": 69,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 17,
+     "stops": 2,
+     "pit_avg": 22.736,
+     "pit_best": 22.284
     },
     {
      "pos": 11,
@@ -2771,7 +3621,11 @@
      "grid": 15,
      "points": 0,
      "laps": 69,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 15,
+     "stops": 2,
+     "pit_avg": 21.84,
+     "pit_best": 21.771
     },
     {
      "pos": 12,
@@ -2782,7 +3636,11 @@
      "grid": 13,
      "points": 0,
      "laps": 69,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 13,
+     "stops": 2,
+     "pit_avg": 21.489,
+     "pit_best": 21.297
     },
     {
      "pos": 13,
@@ -2793,7 +3651,11 @@
      "grid": 10,
      "points": 0,
      "laps": 69,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 10,
+     "stops": 2,
+     "pit_avg": 22.032,
+     "pit_best": 21.959
     },
     {
      "pos": 14,
@@ -2804,7 +3666,11 @@
      "grid": 16,
      "points": 0,
      "laps": 69,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 16,
+     "stops": 2,
+     "pit_avg": 22.335,
+     "pit_best": 21.763
     },
     {
      "pos": 15,
@@ -2815,7 +3681,11 @@
      "grid": 14,
      "points": 0,
      "laps": 69,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 14,
+     "stops": 2,
+     "pit_avg": 22.062,
+     "pit_best": 21.087
     },
     {
      "pos": 16,
@@ -2826,7 +3696,11 @@
      "grid": 18,
      "points": 0,
      "laps": 68,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 18,
+     "stops": 3,
+     "pit_avg": 28.045,
+     "pit_best": 21.492
     },
     {
      "pos": null,
@@ -2837,7 +3711,11 @@
      "grid": 12,
      "points": 0,
      "laps": 15,
-     "status": "Engine"
+     "status": "Engine",
+     "qpos": 12,
+     "stops": 1,
+     "pit_avg": 21.21,
+     "pit_best": 21.21
     },
     {
      "pos": null,
@@ -2848,7 +3726,11 @@
      "grid": 7,
      "points": 0,
      "laps": 0,
-     "status": "Collision"
+     "status": "Collision",
+     "qpos": 7,
+     "stops": 0,
+     "pit_avg": null,
+     "pit_best": null
     },
     {
      "pos": null,
@@ -2859,7 +3741,11 @@
      "grid": 9,
      "points": 0,
      "laps": 0,
-     "status": "Collision"
+     "status": "Collision",
+     "qpos": 9,
+     "stops": 0,
+     "pit_avg": null,
+     "pit_best": null
     },
     {
      "pos": null,
@@ -2870,9 +3756,14 @@
      "grid": null,
      "points": 0,
      "laps": null,
-     "status": "Brakes"
+     "status": "Brakes",
+     "qpos": 19,
+     "stops": 0,
+     "pit_avg": null,
+     "pit_best": null
     }
-   ]
+   ],
+   "dotd": "BOR"
   },
   {
    "round": 12,
@@ -2922,7 +3813,11 @@
      "grid": 3,
      "points": 25,
      "laps": 52,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 3,
+     "stops": 2,
+     "pit_avg": 29.422,
+     "pit_best": 28.214
     },
     {
      "pos": 2,
@@ -2933,7 +3828,11 @@
      "grid": 2,
      "points": 18,
      "laps": 52,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 2,
+     "stops": 2,
+     "pit_avg": 34.886,
+     "pit_best": 29.491
     },
     {
      "pos": 3,
@@ -2944,7 +3843,11 @@
      "grid": 19,
      "points": 15,
      "laps": 52,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 19,
+     "stops": 2,
+     "pit_avg": 29.844,
+     "pit_best": 29.736
     },
     {
      "pos": 4,
@@ -2955,7 +3858,11 @@
      "grid": 5,
      "points": 12,
      "laps": 52,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 5,
+     "stops": 2,
+     "pit_avg": 29.022,
+     "pit_best": 28.917
     },
     {
      "pos": 5,
@@ -2966,7 +3873,11 @@
      "grid": 1,
      "points": 10,
      "laps": 52,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 1,
+     "stops": 2,
+     "pit_avg": 28.935,
+     "pit_best": 28.182
     },
     {
      "pos": 6,
@@ -2977,7 +3888,11 @@
      "grid": 8,
      "points": 8,
      "laps": 52,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 10,
+     "stops": 2,
+     "pit_avg": 28.691,
+     "pit_best": 28.469
     },
     {
      "pos": 7,
@@ -2988,7 +3903,11 @@
      "grid": 17,
      "points": 6,
      "laps": 52,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 18,
+     "stops": 3,
+     "pit_avg": 28.844,
+     "pit_best": 28.553
     },
     {
      "pos": 8,
@@ -2999,7 +3918,11 @@
      "grid": 13,
      "points": 4,
      "laps": 52,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 14,
+     "stops": 2,
+     "pit_avg": 29.272,
+     "pit_best": 29.251
     },
     {
      "pos": 9,
@@ -3010,7 +3933,11 @@
      "grid": 7,
      "points": 2,
      "laps": 52,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 9,
+     "stops": 2,
+     "pit_avg": 28.62,
+     "pit_best": 28.534
     },
     {
      "pos": 10,
@@ -3021,7 +3948,11 @@
      "grid": 4,
      "points": 1,
      "laps": 52,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 4,
+     "stops": 2,
+     "pit_avg": 28.426,
+     "pit_best": 28.205
     },
     {
      "pos": 11,
@@ -3032,7 +3963,11 @@
      "grid": 18,
      "points": 0,
      "laps": 52,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 8,
+     "stops": 2,
+     "pit_avg": 29.145,
+     "pit_best": 29.09
     },
     {
      "pos": 12,
@@ -3043,7 +3978,11 @@
      "grid": 9,
      "points": 0,
      "laps": 52,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 11,
+     "stops": 2,
+     "pit_avg": 29.105,
+     "pit_best": 28.655
     },
     {
      "pos": 13,
@@ -3054,7 +3993,11 @@
      "grid": 14,
      "points": 0,
      "laps": 52,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 15,
+     "stops": 2,
+     "pit_avg": 29.104,
+     "pit_best": 28.646
     },
     {
      "pos": 14,
@@ -3065,7 +4008,11 @@
      "grid": 6,
      "points": 0,
      "laps": 52,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 6,
+     "stops": 2,
+     "pit_avg": 28.965,
+     "pit_best": 28.84
     },
     {
      "pos": 15,
@@ -3076,7 +4023,11 @@
      "grid": 11,
      "points": 0,
      "laps": 51,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 12,
+     "stops": 1,
+     "pit_avg": 28.544,
+     "pit_best": 28.544
     },
     {
      "pos": null,
@@ -3087,7 +4038,11 @@
      "grid": 10,
      "points": 0,
      "laps": 23,
-     "status": "Collision damage"
+     "status": "Collision damage",
+     "qpos": 7,
+     "stops": 3,
+     "pit_avg": 29.052,
+     "pit_best": 28.707
     },
     {
      "pos": null,
@@ -3098,7 +4053,11 @@
      "grid": 12,
      "points": 0,
      "laps": 17,
-     "status": "Accident"
+     "status": "Accident",
+     "qpos": 13,
+     "stops": 1,
+     "pit_avg": 28.523,
+     "pit_best": 28.523
     },
     {
      "pos": null,
@@ -3109,7 +4068,11 @@
      "grid": 16,
      "points": 0,
      "laps": 3,
-     "status": "Accident"
+     "status": "Accident",
+     "qpos": 17,
+     "stops": 0,
+     "pit_avg": null,
+     "pit_best": null
     },
     {
      "pos": null,
@@ -3120,7 +4083,11 @@
      "grid": 15,
      "points": 0,
      "laps": 0,
-     "status": "Collision"
+     "status": "Collision",
+     "qpos": 16,
+     "stops": 0,
+     "pit_avg": null,
+     "pit_best": null
     },
     {
      "pos": null,
@@ -3131,9 +4098,14 @@
      "grid": null,
      "points": 0,
      "laps": null,
-     "status": "Transmission"
+     "status": "Transmission",
+     "qpos": 20,
+     "stops": 0,
+     "pit_avg": null,
+     "pit_best": null
     }
-   ]
+   ],
+   "dotd": "HUL"
   },
   {
    "round": 13,
@@ -3183,7 +4155,11 @@
      "grid": 2,
      "points": 25,
      "laps": 44,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 2,
+     "stops": 1,
+     "pit_avg": 23.844,
+     "pit_best": 23.844
     },
     {
      "pos": 2,
@@ -3194,7 +4170,11 @@
      "grid": 1,
      "points": 18,
      "laps": 44,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 1,
+     "stops": 1,
+     "pit_avg": 24.376,
+     "pit_best": 24.376
     },
     {
      "pos": 3,
@@ -3205,7 +4185,11 @@
      "grid": 3,
      "points": 15,
      "laps": 44,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 3,
+     "stops": 1,
+     "pit_avg": 23.806,
+     "pit_best": 23.806
     },
     {
      "pos": 4,
@@ -3216,7 +4200,11 @@
      "grid": 4,
      "points": 12,
      "laps": 44,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 4,
+     "stops": 1,
+     "pit_avg": 25.913,
+     "pit_best": 25.913
     },
     {
      "pos": 5,
@@ -3227,7 +4215,11 @@
      "grid": 6,
      "points": 10,
      "laps": 44,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 6,
+     "stops": 1,
+     "pit_avg": 23.635,
+     "pit_best": 23.635
     },
     {
      "pos": 6,
@@ -3238,7 +4230,11 @@
      "grid": 5,
      "points": 8,
      "laps": 44,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 5,
+     "stops": 1,
+     "pit_avg": 24.029,
+     "pit_best": 24.029
     },
     {
      "pos": 7,
@@ -3249,7 +4245,11 @@
      "grid": null,
      "points": 6,
      "laps": 44,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 16,
+     "stops": 1,
+     "pit_avg": 23.284,
+     "pit_best": 23.284
     },
     {
      "pos": 8,
@@ -3260,7 +4260,11 @@
      "grid": 9,
      "points": 4,
      "laps": 44,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 9,
+     "stops": 1,
+     "pit_avg": 23.269,
+     "pit_best": 23.269
     },
     {
      "pos": 9,
@@ -3271,7 +4275,11 @@
      "grid": 10,
      "points": 2,
      "laps": 44,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 10,
+     "stops": 1,
+     "pit_avg": 23.274,
+     "pit_best": 23.274
     },
     {
      "pos": 10,
@@ -3282,7 +4290,11 @@
      "grid": 13,
      "points": 1,
      "laps": 44,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 13,
+     "stops": 1,
+     "pit_avg": 26.825,
+     "pit_best": 26.825
     },
     {
      "pos": 11,
@@ -3293,7 +4305,11 @@
      "grid": 12,
      "points": 0,
      "laps": 44,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 12,
+     "stops": 1,
+     "pit_avg": 24.13,
+     "pit_best": 24.13
     },
     {
      "pos": 12,
@@ -3304,7 +4320,11 @@
      "grid": 14,
      "points": 0,
      "laps": 44,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 14,
+     "stops": 2,
+     "pit_avg": 23.745,
+     "pit_best": 23.599
     },
     {
      "pos": 13,
@@ -3315,7 +4335,11 @@
      "grid": 7,
      "points": 0,
      "laps": 44,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 7,
+     "stops": 1,
+     "pit_avg": 23.33,
+     "pit_best": 23.33
     },
     {
      "pos": 14,
@@ -3326,7 +4350,11 @@
      "grid": 16,
      "points": 0,
      "laps": 44,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 20,
+     "stops": 1,
+     "pit_avg": 23.787,
+     "pit_best": 23.787
     },
     {
      "pos": 15,
@@ -3337,7 +4365,11 @@
      "grid": 11,
      "points": 0,
      "laps": 44,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 11,
+     "stops": 1,
+     "pit_avg": 23.802,
+     "pit_best": 23.802
     },
     {
      "pos": 16,
@@ -3348,7 +4380,11 @@
      "grid": null,
      "points": 0,
      "laps": 44,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 18,
+     "stops": 2,
+     "pit_avg": 23.334,
+     "pit_best": 23.059
     },
     {
      "pos": 17,
@@ -3359,7 +4395,11 @@
      "grid": null,
      "points": 0,
      "laps": 44,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 19,
+     "stops": 2,
+     "pit_avg": 23.548,
+     "pit_best": 23.404
     },
     {
      "pos": 18,
@@ -3370,7 +4410,11 @@
      "grid": null,
      "points": 0,
      "laps": 44,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 15,
+     "stops": 2,
+     "pit_avg": 25.649,
+     "pit_best": 23.77
     },
     {
      "pos": 19,
@@ -3381,7 +4425,11 @@
      "grid": 15,
      "points": 0,
      "laps": 44,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 17,
+     "stops": 2,
+     "pit_avg": 23.557,
+     "pit_best": 23.449
     },
     {
      "pos": 20,
@@ -3392,9 +4440,14 @@
      "grid": 8,
      "points": 0,
      "laps": 43,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 8,
+     "stops": 2,
+     "pit_avg": 23.478,
+     "pit_best": 23.376
     }
-   ]
+   ],
+   "dotd": "HAM"
   },
   {
    "round": 14,
@@ -3444,7 +4497,11 @@
      "grid": 3,
      "points": 25,
      "laps": 70,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 3,
+     "stops": 1,
+     "pit_avg": 20.94,
+     "pit_best": 20.94
     },
     {
      "pos": 2,
@@ -3455,7 +4512,11 @@
      "grid": 2,
      "points": 18,
      "laps": 70,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 2,
+     "stops": 2,
+     "pit_avg": 21.043,
+     "pit_best": 20.94
     },
     {
      "pos": 3,
@@ -3466,7 +4527,11 @@
      "grid": 4,
      "points": 15,
      "laps": 70,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 4,
+     "stops": 2,
+     "pit_avg": 21.576,
+     "pit_best": 21.45
     },
     {
      "pos": 4,
@@ -3477,7 +4542,11 @@
      "grid": 1,
      "points": 12,
      "laps": 70,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 1,
+     "stops": 2,
+     "pit_avg": 21.133,
+     "pit_best": 21.13
     },
     {
      "pos": 5,
@@ -3488,7 +4557,11 @@
      "grid": 5,
      "points": 10,
      "laps": 70,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 5,
+     "stops": 1,
+     "pit_avg": 22.204,
+     "pit_best": 22.204
     },
     {
      "pos": 6,
@@ -3499,7 +4572,11 @@
      "grid": 7,
      "points": 8,
      "laps": 70,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 7,
+     "stops": 1,
+     "pit_avg": 21.773,
+     "pit_best": 21.773
     },
     {
      "pos": 7,
@@ -3510,7 +4587,11 @@
      "grid": 6,
      "points": 6,
      "laps": 70,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 6,
+     "stops": 1,
+     "pit_avg": 21.464,
+     "pit_best": 21.464
     },
     {
      "pos": 8,
@@ -3521,7 +4602,11 @@
      "grid": 9,
      "points": 4,
      "laps": 70,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 9,
+     "stops": 1,
+     "pit_avg": 22.136,
+     "pit_best": 22.136
     },
     {
      "pos": 9,
@@ -3532,7 +4617,11 @@
      "grid": 8,
      "points": 2,
      "laps": 70,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 8,
+     "stops": 2,
+     "pit_avg": 21.346,
+     "pit_best": 21.258
     },
     {
      "pos": 10,
@@ -3543,7 +4632,11 @@
      "grid": 15,
      "points": 1,
      "laps": 69,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 15,
+     "stops": 1,
+     "pit_avg": 22.328,
+     "pit_best": 22.328
     },
     {
      "pos": 11,
@@ -3554,7 +4647,11 @@
      "grid": 10,
      "points": 0,
      "laps": 69,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 10,
+     "stops": 1,
+     "pit_avg": 21.096,
+     "pit_best": 21.096
     },
     {
      "pos": 12,
@@ -3565,7 +4662,11 @@
      "grid": 12,
      "points": 0,
      "laps": 69,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 12,
+     "stops": 1,
+     "pit_avg": 21.15,
+     "pit_best": 21.15
     },
     {
      "pos": 13,
@@ -3576,7 +4677,11 @@
      "grid": 18,
      "points": 0,
      "laps": 69,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 19,
+     "stops": 2,
+     "pit_avg": 25.186,
+     "pit_best": 21.594
     },
     {
      "pos": 14,
@@ -3587,7 +4692,11 @@
      "grid": 13,
      "points": 0,
      "laps": 69,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 13,
+     "stops": 2,
+     "pit_avg": 21.547,
+     "pit_best": 21.423
     },
     {
      "pos": 15,
@@ -3598,7 +4707,11 @@
      "grid": 19,
      "points": 0,
      "laps": 69,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 20,
+     "stops": 2,
+     "pit_avg": 22.035,
+     "pit_best": 21.345
     },
     {
      "pos": 16,
@@ -3609,7 +4722,11 @@
      "grid": 17,
      "points": 0,
      "laps": 69,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 18,
+     "stops": 1,
+     "pit_avg": 22.444,
+     "pit_best": 22.444
     },
     {
      "pos": 17,
@@ -3620,7 +4737,11 @@
      "grid": null,
      "points": 0,
      "laps": 69,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 16,
+     "stops": 2,
+     "pit_avg": 21.418,
+     "pit_best": 21.295
     },
     {
      "pos": 18,
@@ -3631,7 +4752,11 @@
      "grid": 14,
      "points": 0,
      "laps": 69,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 14,
+     "stops": 2,
+     "pit_avg": 28.264,
+     "pit_best": 26.28
     },
     {
      "pos": 19,
@@ -3642,7 +4767,11 @@
      "grid": 16,
      "points": 0,
      "laps": 69,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 17,
+     "stops": 1,
+     "pit_avg": 21.699,
+     "pit_best": 21.699
     },
     {
      "pos": null,
@@ -3653,9 +4782,14 @@
      "grid": 11,
      "points": 0,
      "laps": 48,
-     "status": "Undertray"
+     "status": "Undertray",
+     "qpos": 11,
+     "stops": 1,
+     "pit_avg": 21.754,
+     "pit_best": 21.754
     }
-   ]
+   ],
+   "dotd": "BOR"
   },
   {
    "round": 15,
@@ -3705,7 +4839,11 @@
      "grid": 1,
      "points": 25,
      "laps": 72,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 1,
+     "stops": 2,
+     "pit_avg": 17.982,
+     "pit_best": 17.375
     },
     {
      "pos": 2,
@@ -3716,7 +4854,11 @@
      "grid": 3,
      "points": 18,
      "laps": 72,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 3,
+     "stops": 2,
+     "pit_avg": 18.5,
+     "pit_best": 18.261
     },
     {
      "pos": 3,
@@ -3727,7 +4869,11 @@
      "grid": 4,
      "points": 15,
      "laps": 72,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 4,
+     "stops": 2,
+     "pit_avg": 17.974,
+     "pit_best": 17.414
     },
     {
      "pos": 4,
@@ -3738,7 +4884,11 @@
      "grid": 5,
      "points": 12,
      "laps": 72,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 5,
+     "stops": 2,
+     "pit_avg": 18.088,
+     "pit_best": 17.344
     },
     {
      "pos": 5,
@@ -3749,7 +4899,11 @@
      "grid": 15,
      "points": 10,
      "laps": 72,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 15,
+     "stops": 2,
+     "pit_avg": 18.766,
+     "pit_best": 17.84
     },
     {
      "pos": 6,
@@ -3760,7 +4914,11 @@
      "grid": null,
      "points": 8,
      "laps": 72,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 19,
+     "stops": 1,
+     "pit_avg": 18.622,
+     "pit_best": 18.622
     },
     {
      "pos": 7,
@@ -3771,7 +4929,11 @@
      "grid": 19,
      "points": 6,
      "laps": 72,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": null,
+     "stops": 2,
+     "pit_avg": 17.579,
+     "pit_best": 17.561
     },
     {
      "pos": 8,
@@ -3782,7 +4944,11 @@
      "grid": 10,
      "points": 4,
      "laps": 72,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 10,
+     "stops": 2,
+     "pit_avg": 17.683,
+     "pit_best": 17.417
     },
     {
      "pos": 9,
@@ -3793,7 +4959,11 @@
      "grid": 12,
      "points": 2,
      "laps": 72,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 12,
+     "stops": 2,
+     "pit_avg": 18.247,
+     "pit_best": 18.147
     },
     {
      "pos": 10,
@@ -3804,7 +4974,11 @@
      "grid": 18,
      "points": 1,
      "laps": 72,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 18,
+     "stops": 1,
+     "pit_avg": 18.27,
+     "pit_best": 18.27
     },
     {
      "pos": 11,
@@ -3815,7 +4989,11 @@
      "grid": 16,
      "points": 0,
      "laps": 72,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 16,
+     "stops": 3,
+     "pit_avg": 17.883,
+     "pit_best": 17.586
     },
     {
      "pos": 12,
@@ -3826,7 +5004,11 @@
      "grid": 8,
      "points": 0,
      "laps": 72,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 8,
+     "stops": 3,
+     "pit_avg": 19.437,
+     "pit_best": 17.549
     },
     {
      "pos": 13,
@@ -3837,7 +5019,11 @@
      "grid": 9,
      "points": 0,
      "laps": 72,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 9,
+     "stops": 4,
+     "pit_avg": 23.874,
+     "pit_best": 17.67
     },
     {
      "pos": 14,
@@ -3848,7 +5034,11 @@
      "grid": 17,
      "points": 0,
      "laps": 72,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 17,
+     "stops": 2,
+     "pit_avg": 17.773,
+     "pit_best": 17.602
     },
     {
      "pos": 15,
@@ -3859,7 +5049,11 @@
      "grid": 13,
      "points": 0,
      "laps": 72,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 13,
+     "stops": 2,
+     "pit_avg": 17.7,
+     "pit_best": 17.491
     },
     {
      "pos": 16,
@@ -3870,7 +5064,11 @@
      "grid": 11,
      "points": 0,
      "laps": 72,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 11,
+     "stops": 3,
+     "pit_avg": 18.734,
+     "pit_best": 17.365
     },
     {
      "pos": 17,
@@ -3881,7 +5079,11 @@
      "grid": 14,
      "points": 0,
      "laps": 72,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 14,
+     "stops": 1,
+     "pit_avg": 19.223,
+     "pit_best": 19.223
     },
     {
      "pos": 18,
@@ -3892,7 +5094,11 @@
      "grid": 2,
      "points": 0,
      "laps": 64,
-     "status": "Chassis"
+     "status": "Chassis",
+     "qpos": 2,
+     "stops": 2,
+     "pit_avg": 21.325,
+     "pit_best": 20.042
     },
     {
      "pos": null,
@@ -3903,7 +5109,11 @@
      "grid": 6,
      "points": 0,
      "laps": 52,
-     "status": "Collision"
+     "status": "Collision",
+     "qpos": 6,
+     "stops": 2,
+     "pit_avg": 17.062,
+     "pit_best": 17.042
     },
     {
      "pos": null,
@@ -3914,9 +5124,14 @@
      "grid": 7,
      "points": 0,
      "laps": 22,
-     "status": "Accident"
+     "status": "Accident",
+     "qpos": 7,
+     "stops": 0,
+     "pit_avg": null,
+     "pit_best": null
     }
-   ]
+   ],
+   "dotd": "HAD"
   },
   {
    "round": 16,
@@ -3966,7 +5181,11 @@
      "grid": 1,
      "points": 25,
      "laps": 53,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 1,
+     "stops": 1,
+     "pit_avg": 24.545,
+     "pit_best": 24.545
     },
     {
      "pos": 2,
@@ -3977,7 +5196,11 @@
      "grid": 2,
      "points": 18,
      "laps": 53,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 2,
+     "stops": 1,
+     "pit_avg": 27.498,
+     "pit_best": 27.498
     },
     {
      "pos": 3,
@@ -3988,7 +5211,11 @@
      "grid": 3,
      "points": 15,
      "laps": 53,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 3,
+     "stops": 1,
+     "pit_avg": 23.602,
+     "pit_best": 23.602
     },
     {
      "pos": 4,
@@ -3999,7 +5226,11 @@
      "grid": 4,
      "points": 12,
      "laps": 53,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 4,
+     "stops": 1,
+     "pit_avg": 24.235,
+     "pit_best": 24.235
     },
     {
      "pos": 5,
@@ -4010,7 +5241,11 @@
      "grid": 5,
      "points": 10,
      "laps": 53,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 6,
+     "stops": 1,
+     "pit_avg": 25.021,
+     "pit_best": 25.021
     },
     {
      "pos": 6,
@@ -4021,7 +5256,11 @@
      "grid": 10,
      "points": 8,
      "laps": 53,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 5,
+     "stops": 1,
+     "pit_avg": 23.971,
+     "pit_best": 23.971
     },
     {
      "pos": 7,
@@ -4032,7 +5271,11 @@
      "grid": 14,
      "points": 6,
      "laps": 53,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 14,
+     "stops": 1,
+     "pit_avg": 24.717,
+     "pit_best": 24.717
     },
     {
      "pos": 8,
@@ -4043,7 +5286,11 @@
      "grid": 7,
      "points": 4,
      "laps": 53,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 8,
+     "stops": 1,
+     "pit_avg": 26.143,
+     "pit_best": 26.143
     },
     {
      "pos": 9,
@@ -4054,7 +5301,11 @@
      "grid": 6,
      "points": 2,
      "laps": 53,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 7,
+     "stops": 1,
+     "pit_avg": 24.916,
+     "pit_best": 24.916
     },
     {
      "pos": 10,
@@ -4065,7 +5316,11 @@
      "grid": null,
      "points": 1,
      "laps": 53,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 16,
+     "stops": 1,
+     "pit_avg": 24.326,
+     "pit_best": 24.326
     },
     {
      "pos": 11,
@@ -4076,7 +5331,11 @@
      "grid": 13,
      "points": 0,
      "laps": 53,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 13,
+     "stops": 1,
+     "pit_avg": 24.605,
+     "pit_best": 24.605
     },
     {
      "pos": 12,
@@ -4087,7 +5346,11 @@
      "grid": 11,
      "points": 0,
      "laps": 53,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 11,
+     "stops": 1,
+     "pit_avg": 25.372,
+     "pit_best": 25.372
     },
     {
      "pos": 13,
@@ -4098,7 +5361,11 @@
      "grid": 9,
      "points": 0,
      "laps": 53,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 10,
+     "stops": 1,
+     "pit_avg": 24.372,
+     "pit_best": 24.372
     },
     {
      "pos": 14,
@@ -4109,7 +5376,11 @@
      "grid": 18,
      "points": 0,
      "laps": 53,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 20,
+     "stops": 1,
+     "pit_avg": 24.156,
+     "pit_best": 24.156
     },
     {
      "pos": 15,
@@ -4120,7 +5391,11 @@
      "grid": 15,
      "points": 0,
      "laps": 52,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 15,
+     "stops": 1,
+     "pit_avg": 30.754,
+     "pit_best": 30.754
     },
     {
      "pos": 16,
@@ -4131,7 +5406,11 @@
      "grid": null,
      "points": 0,
      "laps": 52,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 19,
+     "stops": 1,
+     "pit_avg": 25.012,
+     "pit_best": 25.012
     },
     {
      "pos": 17,
@@ -4142,7 +5421,11 @@
      "grid": 17,
      "points": 0,
      "laps": 52,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 18,
+     "stops": 1,
+     "pit_avg": 24.971,
+     "pit_best": 24.971
     },
     {
      "pos": 18,
@@ -4153,7 +5436,11 @@
      "grid": 16,
      "points": 0,
      "laps": 52,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 17,
+     "stops": 1,
+     "pit_avg": 38.418,
+     "pit_best": 38.418
     },
     {
      "pos": null,
@@ -4164,7 +5451,11 @@
      "grid": 8,
      "points": 0,
      "laps": 24,
-     "status": "Suspension"
+     "status": "Suspension",
+     "qpos": 9,
+     "stops": 1,
+     "pit_avg": 25.16,
+     "pit_best": 25.16
     },
     {
      "pos": null,
@@ -4175,9 +5466,14 @@
      "grid": null,
      "points": 0,
      "laps": null,
-     "status": "Hydraulics"
+     "status": "Hydraulics",
+     "qpos": 12,
+     "stops": 0,
+     "pit_avg": null,
+     "pit_best": null
     }
-   ]
+   ],
+   "dotd": "VER"
   },
   {
    "round": 17,
@@ -4227,7 +5523,11 @@
      "grid": 1,
      "points": 25,
      "laps": 51,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 1,
+     "stops": 1,
+     "pit_avg": 20.221,
+     "pit_best": 20.221
     },
     {
      "pos": 2,
@@ -4238,7 +5538,11 @@
      "grid": 5,
      "points": 18,
      "laps": 51,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 5,
+     "stops": 1,
+     "pit_avg": 19.809,
+     "pit_best": 19.809
     },
     {
      "pos": 3,
@@ -4249,7 +5553,11 @@
      "grid": 2,
      "points": 15,
      "laps": 51,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 2,
+     "stops": 1,
+     "pit_avg": 20.508,
+     "pit_best": 20.508
     },
     {
      "pos": 4,
@@ -4260,7 +5568,11 @@
      "grid": 4,
      "points": 12,
      "laps": 51,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 4,
+     "stops": 1,
+     "pit_avg": 20.669,
+     "pit_best": 20.669
     },
     {
      "pos": 5,
@@ -4271,7 +5583,11 @@
      "grid": 3,
      "points": 10,
      "laps": 51,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 3,
+     "stops": 1,
+     "pit_avg": 20.283,
+     "pit_best": 20.283
     },
     {
      "pos": 6,
@@ -4282,7 +5598,11 @@
      "grid": 6,
      "points": 8,
      "laps": 51,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 6,
+     "stops": 1,
+     "pit_avg": 20.323,
+     "pit_best": 20.323
     },
     {
      "pos": 7,
@@ -4293,7 +5613,11 @@
      "grid": 7,
      "points": 6,
      "laps": 51,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 7,
+     "stops": 1,
+     "pit_avg": 21.975,
+     "pit_best": 21.975
     },
     {
      "pos": 8,
@@ -4304,7 +5628,11 @@
      "grid": 12,
      "points": 4,
      "laps": 51,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 12,
+     "stops": 1,
+     "pit_avg": 20.062,
+     "pit_best": 20.062
     },
     {
      "pos": 9,
@@ -4315,7 +5643,11 @@
      "grid": 10,
      "points": 2,
      "laps": 51,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 10,
+     "stops": 1,
+     "pit_avg": 20.542,
+     "pit_best": 20.542
     },
     {
      "pos": 10,
@@ -4326,7 +5658,11 @@
      "grid": 8,
      "points": 1,
      "laps": 51,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 8,
+     "stops": 1,
+     "pit_avg": 20.294,
+     "pit_best": 20.294
     },
     {
      "pos": 11,
@@ -4337,7 +5673,11 @@
      "grid": 13,
      "points": 0,
      "laps": 51,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 13,
+     "stops": 1,
+     "pit_avg": 20.845,
+     "pit_best": 20.845
     },
     {
      "pos": 12,
@@ -4348,7 +5688,11 @@
      "grid": 15,
      "points": 0,
      "laps": 51,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 15,
+     "stops": 1,
+     "pit_avg": 21.194,
+     "pit_best": 21.194
     },
     {
      "pos": 13,
@@ -4359,7 +5703,11 @@
      "grid": 19,
      "points": 0,
      "laps": 51,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 19,
+     "stops": 2,
+     "pit_avg": 20.623,
+     "pit_best": 20.489
     },
     {
      "pos": 14,
@@ -4370,7 +5718,11 @@
      "grid": 20,
      "points": 0,
      "laps": 51,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": null,
+     "stops": 2,
+     "pit_avg": 20.725,
+     "pit_best": 20.691
     },
     {
      "pos": 15,
@@ -4381,7 +5733,11 @@
      "grid": 11,
      "points": 0,
      "laps": 51,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 11,
+     "stops": 1,
+     "pit_avg": 25.768,
+     "pit_best": 25.768
     },
     {
      "pos": 16,
@@ -4392,7 +5748,11 @@
      "grid": 17,
      "points": 0,
      "laps": 51,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 17,
+     "stops": 1,
+     "pit_avg": 19.97,
+     "pit_best": 19.97
     },
     {
      "pos": 17,
@@ -4403,7 +5763,11 @@
      "grid": 14,
      "points": 0,
      "laps": 51,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 14,
+     "stops": 1,
+     "pit_avg": 21.82,
+     "pit_best": 21.82
     },
     {
      "pos": 18,
@@ -4414,7 +5778,11 @@
      "grid": 18,
      "points": 0,
      "laps": 50,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 18,
+     "stops": 1,
+     "pit_avg": 21.5,
+     "pit_best": 21.5
     },
     {
      "pos": 19,
@@ -4425,7 +5793,11 @@
      "grid": 16,
      "points": 0,
      "laps": 50,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 16,
+     "stops": 1,
+     "pit_avg": 21.088,
+     "pit_best": 21.088
     },
     {
      "pos": null,
@@ -4436,9 +5808,14 @@
      "grid": 9,
      "points": 0,
      "laps": 0,
-     "status": "Accident"
+     "status": "Accident",
+     "qpos": 9,
+     "stops": 0,
+     "pit_avg": null,
+     "pit_best": null
     }
-   ]
+   ],
+   "dotd": "SAI"
   },
   {
    "round": 18,
@@ -4488,7 +5865,11 @@
      "grid": 1,
      "points": 25,
      "laps": 62,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 1,
+     "stops": 1,
+     "pit_avg": 23.966,
+     "pit_best": 23.966
     },
     {
      "pos": 2,
@@ -4499,7 +5880,11 @@
      "grid": 2,
      "points": 18,
      "laps": 62,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 2,
+     "stops": 1,
+     "pit_avg": 24.008,
+     "pit_best": 24.008
     },
     {
      "pos": 3,
@@ -4510,7 +5895,11 @@
      "grid": 5,
      "points": 15,
      "laps": 62,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 5,
+     "stops": 1,
+     "pit_avg": 23.314,
+     "pit_best": 23.314
     },
     {
      "pos": 4,
@@ -4521,7 +5910,11 @@
      "grid": 3,
      "points": 12,
      "laps": 62,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 3,
+     "stops": 1,
+     "pit_avg": 26.637,
+     "pit_best": 26.637
     },
     {
      "pos": 5,
@@ -4532,7 +5925,11 @@
      "grid": 4,
      "points": 10,
      "laps": 62,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 4,
+     "stops": 1,
+     "pit_avg": 23.806,
+     "pit_best": 23.806
     },
     {
      "pos": 6,
@@ -4543,7 +5940,11 @@
      "grid": 7,
      "points": 8,
      "laps": 62,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 7,
+     "stops": 1,
+     "pit_avg": 23.63,
+     "pit_best": 23.63
     },
     {
      "pos": 7,
@@ -4554,7 +5955,11 @@
      "grid": 10,
      "points": 6,
      "laps": 62,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 10,
+     "stops": 1,
+     "pit_avg": 30.749,
+     "pit_best": 30.749
     },
     {
      "pos": 8,
@@ -4565,7 +5970,11 @@
      "grid": 6,
      "points": 4,
      "laps": 62,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 6,
+     "stops": 2,
+     "pit_avg": 24.069,
+     "pit_best": 23.344
     },
     {
      "pos": 9,
@@ -4576,7 +5985,11 @@
      "grid": 9,
      "points": 2,
      "laps": 62,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 9,
+     "stops": 1,
+     "pit_avg": 23.979,
+     "pit_best": 23.979
     },
     {
      "pos": 10,
@@ -4587,7 +6000,11 @@
      "grid": 18,
      "points": 1,
      "laps": 61,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": null,
+     "stops": 1,
+     "pit_avg": 24.075,
+     "pit_best": 24.075
     },
     {
      "pos": 11,
@@ -4598,7 +6015,11 @@
      "grid": 8,
      "points": 0,
      "laps": 61,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 8,
+     "stops": 1,
+     "pit_avg": 23.827,
+     "pit_best": 23.827
     },
     {
      "pos": 12,
@@ -4609,7 +6030,11 @@
      "grid": 13,
      "points": 0,
      "laps": 61,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 13,
+     "stops": 1,
+     "pit_avg": 24.61,
+     "pit_best": 24.61
     },
     {
      "pos": 13,
@@ -4620,7 +6045,11 @@
      "grid": 15,
      "points": 0,
      "laps": 61,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 15,
+     "stops": 1,
+     "pit_avg": 24.012,
+     "pit_best": 24.012
     },
     {
      "pos": 14,
@@ -4631,7 +6060,11 @@
      "grid": null,
      "points": 0,
      "laps": 61,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": null,
+     "stops": 1,
+     "pit_avg": 25.732,
+     "pit_best": 25.732
     },
     {
      "pos": 15,
@@ -4642,7 +6075,11 @@
      "grid": 12,
      "points": 0,
      "laps": 61,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 12,
+     "stops": 1,
+     "pit_avg": 24.027,
+     "pit_best": 24.027
     },
     {
      "pos": 16,
@@ -4653,7 +6090,11 @@
      "grid": 16,
      "points": 0,
      "laps": 61,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 16,
+     "stops": 1,
+     "pit_avg": 24.04,
+     "pit_best": 24.04
     },
     {
      "pos": 17,
@@ -4664,7 +6105,11 @@
      "grid": 14,
      "points": 0,
      "laps": 61,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 14,
+     "stops": 1,
+     "pit_avg": 32.856,
+     "pit_best": 32.856
     },
     {
      "pos": 18,
@@ -4675,7 +6120,11 @@
      "grid": 17,
      "points": 0,
      "laps": 61,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 17,
+     "stops": 1,
+     "pit_avg": 25.078,
+     "pit_best": 25.078
     },
     {
      "pos": 19,
@@ -4686,7 +6135,11 @@
      "grid": null,
      "points": 0,
      "laps": 61,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 18,
+     "stops": 2,
+     "pit_avg": 25.386,
+     "pit_best": 25.188
     },
     {
      "pos": 20,
@@ -4697,9 +6150,14 @@
      "grid": 11,
      "points": 0,
      "laps": 61,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 11,
+     "stops": 2,
+     "pit_avg": 28.044,
+     "pit_best": 24.193
     }
-   ]
+   ],
+   "dotd": "ALO"
   },
   {
    "round": 19,
@@ -4749,7 +6207,11 @@
      "grid": 1,
      "points": 25,
      "laps": 56,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 1,
+     "stops": 1,
+     "pit_avg": 23.987,
+     "pit_best": 23.987
     },
     {
      "pos": 2,
@@ -4760,7 +6222,11 @@
      "grid": 2,
      "points": 18,
      "laps": 56,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 2,
+     "stops": 1,
+     "pit_avg": 24.58,
+     "pit_best": 24.58
     },
     {
      "pos": 3,
@@ -4771,7 +6237,11 @@
      "grid": 3,
      "points": 15,
      "laps": 56,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 3,
+     "stops": 1,
+     "pit_avg": 23.718,
+     "pit_best": 23.718
     },
     {
      "pos": 4,
@@ -4782,7 +6252,11 @@
      "grid": 5,
      "points": 12,
      "laps": 56,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 5,
+     "stops": 1,
+     "pit_avg": 23.937,
+     "pit_best": 23.937
     },
     {
      "pos": 5,
@@ -4793,7 +6267,11 @@
      "grid": 6,
      "points": 10,
      "laps": 56,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 6,
+     "stops": 1,
+     "pit_avg": 23.452,
+     "pit_best": 23.452
     },
     {
      "pos": 6,
@@ -4804,7 +6282,11 @@
      "grid": 4,
      "points": 8,
      "laps": 56,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 4,
+     "stops": 1,
+     "pit_avg": 23.555,
+     "pit_best": 23.555
     },
     {
      "pos": 7,
@@ -4815,7 +6297,11 @@
      "grid": 13,
      "points": 6,
      "laps": 56,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 13,
+     "stops": 1,
+     "pit_avg": 24.539,
+     "pit_best": 24.539
     },
     {
      "pos": 8,
@@ -4826,7 +6312,11 @@
      "grid": 11,
      "points": 4,
      "laps": 56,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 11,
+     "stops": 1,
+     "pit_avg": 23.753,
+     "pit_best": 23.753
     },
     {
      "pos": 9,
@@ -4837,7 +6327,11 @@
      "grid": 8,
      "points": 2,
      "laps": 56,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 8,
+     "stops": 1,
+     "pit_avg": 24.11,
+     "pit_best": 24.11
     },
     {
      "pos": 10,
@@ -4848,7 +6342,11 @@
      "grid": 10,
      "points": 1,
      "laps": 56,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 10,
+     "stops": 1,
+     "pit_avg": 24.054,
+     "pit_best": 24.054
     },
     {
      "pos": 11,
@@ -4859,7 +6357,11 @@
      "grid": 12,
      "points": 0,
      "laps": 56,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 12,
+     "stops": 1,
+     "pit_avg": 23.681,
+     "pit_best": 23.681
     },
     {
      "pos": 12,
@@ -4870,7 +6372,11 @@
      "grid": 19,
      "points": 0,
      "laps": 56,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 18,
+     "stops": 1,
+     "pit_avg": 24.192,
+     "pit_best": 24.192
     },
     {
      "pos": 13,
@@ -4881,7 +6387,11 @@
      "grid": 7,
      "points": 0,
      "laps": 56,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 7,
+     "stops": 1,
+     "pit_avg": 23.949,
+     "pit_best": 23.949
     },
     {
      "pos": 14,
@@ -4892,7 +6402,11 @@
      "grid": 18,
      "points": 0,
      "laps": 56,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 19,
+     "stops": 2,
+     "pit_avg": 24.172,
+     "pit_best": 23.763
     },
     {
      "pos": 15,
@@ -4903,7 +6417,11 @@
      "grid": 17,
      "points": 0,
      "laps": 56,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 17,
+     "stops": 1,
+     "pit_avg": 25.06,
+     "pit_best": 25.06
     },
     {
      "pos": 16,
@@ -4914,7 +6432,11 @@
      "grid": 20,
      "points": 0,
      "laps": 56,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": null,
+     "stops": 1,
+     "pit_avg": 23.831,
+     "pit_best": 23.831
     },
     {
      "pos": 17,
@@ -4925,7 +6447,11 @@
      "grid": 15,
      "points": 0,
      "laps": 55,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 15,
+     "stops": 1,
+     "pit_avg": 24.045,
+     "pit_best": 24.045
     },
     {
      "pos": 18,
@@ -4936,7 +6462,11 @@
      "grid": 16,
      "points": 0,
      "laps": 55,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 16,
+     "stops": 2,
+     "pit_avg": 24.787,
+     "pit_best": 24.007
     },
     {
      "pos": 19,
@@ -4947,7 +6477,11 @@
      "grid": 14,
      "points": 0,
      "laps": 55,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 14,
+     "stops": 1,
+     "pit_avg": 26.631,
+     "pit_best": 26.631
     },
     {
      "pos": null,
@@ -4958,9 +6492,14 @@
      "grid": 9,
      "points": 0,
      "laps": 5,
-     "status": "Collision damage"
+     "status": "Collision damage",
+     "qpos": 9,
+     "stops": 0,
+     "pit_avg": null,
+     "pit_best": null
     }
-   ]
+   ],
+   "dotd": "LEC"
   },
   {
    "round": 20,
@@ -5010,7 +6549,11 @@
      "grid": 1,
      "points": 25,
      "laps": 71,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 1,
+     "stops": 1,
+     "pit_avg": 22.567,
+     "pit_best": 22.567
     },
     {
      "pos": 2,
@@ -5021,7 +6564,11 @@
      "grid": 2,
      "points": 18,
      "laps": 71,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 2,
+     "stops": 1,
+     "pit_avg": 22.215,
+     "pit_best": 22.215
     },
     {
      "pos": 3,
@@ -5032,7 +6579,11 @@
      "grid": 5,
      "points": 15,
      "laps": 71,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 5,
+     "stops": 1,
+     "pit_avg": 22.762,
+     "pit_best": 22.762
     },
     {
      "pos": 4,
@@ -5043,7 +6594,11 @@
      "grid": 9,
      "points": 12,
      "laps": 71,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 10,
+     "stops": 2,
+     "pit_avg": 22.41,
+     "pit_best": 22.174
     },
     {
      "pos": 5,
@@ -5054,7 +6609,11 @@
      "grid": 7,
      "points": 10,
      "laps": 71,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 8,
+     "stops": 2,
+     "pit_avg": 22.685,
+     "pit_best": 22.159
     },
     {
      "pos": 6,
@@ -5065,7 +6624,11 @@
      "grid": 6,
      "points": 8,
      "laps": 71,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 6,
+     "stops": 2,
+     "pit_avg": 23.499,
+     "pit_best": 22.476
     },
     {
      "pos": 7,
@@ -5076,7 +6639,11 @@
      "grid": 4,
      "points": 6,
      "laps": 71,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 4,
+     "stops": 2,
+     "pit_avg": 22.409,
+     "pit_best": 22.347
     },
     {
      "pos": 8,
@@ -5087,7 +6654,11 @@
      "grid": 3,
      "points": 4,
      "laps": 71,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 3,
+     "stops": 2,
+     "pit_avg": 28.325,
+     "pit_best": 23.342
     },
     {
      "pos": 9,
@@ -5098,7 +6669,11 @@
      "grid": 11,
      "points": 2,
      "laps": 71,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 12,
+     "stops": 1,
+     "pit_avg": 23.203,
+     "pit_best": 23.203
     },
     {
      "pos": 10,
@@ -5109,7 +6684,11 @@
      "grid": 16,
      "points": 1,
      "laps": 71,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 16,
+     "stops": 1,
+     "pit_avg": 22.41,
+     "pit_best": 22.41
     },
     {
      "pos": 11,
@@ -5120,7 +6699,11 @@
      "grid": 10,
      "points": 0,
      "laps": 71,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 11,
+     "stops": 1,
+     "pit_avg": 31.63,
+     "pit_best": 31.63
     },
     {
      "pos": 12,
@@ -5131,7 +6714,11 @@
      "grid": 17,
      "points": 0,
      "laps": 70,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 17,
+     "stops": 1,
+     "pit_avg": 22.04,
+     "pit_best": 22.04
     },
     {
      "pos": 13,
@@ -5142,7 +6729,11 @@
      "grid": 8,
      "points": 0,
      "laps": 70,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 9,
+     "stops": 1,
+     "pit_avg": 22.196,
+     "pit_best": 22.196
     },
     {
      "pos": 14,
@@ -5153,7 +6744,11 @@
      "grid": 19,
      "points": 0,
      "laps": 70,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 19,
+     "stops": 2,
+     "pit_avg": 22.892,
+     "pit_best": 22.071
     },
     {
      "pos": 15,
@@ -5164,7 +6759,11 @@
      "grid": 18,
      "points": 0,
      "laps": 70,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 18,
+     "stops": 1,
+     "pit_avg": 22.834,
+     "pit_best": 22.834
     },
     {
      "pos": 16,
@@ -5175,7 +6774,11 @@
      "grid": 20,
      "points": 0,
      "laps": 70,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 20,
+     "stops": 1,
+     "pit_avg": 22.789,
+     "pit_best": 22.789
     },
     {
      "pos": 17,
@@ -5186,7 +6789,11 @@
      "grid": 12,
      "points": 0,
      "laps": 67,
-     "status": "Accident"
+     "status": "Accident",
+     "qpos": 7,
+     "stops": 2,
+     "pit_avg": 26.524,
+     "pit_best": 22.502
     },
     {
      "pos": null,
@@ -5197,7 +6804,11 @@
      "grid": 14,
      "points": 0,
      "laps": 34,
-     "status": "Brakes"
+     "status": "Brakes",
+     "qpos": 14,
+     "stops": 1,
+     "pit_avg": 26.816,
+     "pit_best": 26.816
     },
     {
      "pos": null,
@@ -5208,7 +6819,11 @@
      "grid": 13,
      "points": 0,
      "laps": 25,
-     "status": "Handling"
+     "status": "Handling",
+     "qpos": 13,
+     "stops": 0,
+     "pit_avg": null,
+     "pit_best": null
     },
     {
      "pos": null,
@@ -5219,9 +6834,14 @@
      "grid": 15,
      "points": 0,
      "laps": 5,
-     "status": "Collision damage"
+     "status": "Collision damage",
+     "qpos": 15,
+     "stops": 1,
+     "pit_avg": 34.212,
+     "pit_best": 34.212
     }
-   ]
+   ],
+   "dotd": "BEA"
   },
   {
    "round": 21,
@@ -5271,7 +6891,11 @@
      "grid": 1,
      "points": 25,
      "laps": 71,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 1,
+     "stops": 2,
+     "pit_avg": 23.364,
+     "pit_best": 23.238
     },
     {
      "pos": 2,
@@ -5282,7 +6906,11 @@
      "grid": 2,
      "points": 18,
      "laps": 71,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 2,
+     "stops": 2,
+     "pit_avg": 23.379,
+     "pit_best": 23.356
     },
     {
      "pos": 3,
@@ -5293,7 +6921,11 @@
      "grid": null,
      "points": 15,
      "laps": 71,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 16,
+     "stops": 3,
+     "pit_avg": 23.189,
+     "pit_best": 23.058
     },
     {
      "pos": 4,
@@ -5304,7 +6936,11 @@
      "grid": 6,
      "points": 12,
      "laps": 71,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 6,
+     "stops": 2,
+     "pit_avg": 23.243,
+     "pit_best": 23.128
     },
     {
      "pos": 5,
@@ -5315,7 +6951,11 @@
      "grid": 4,
      "points": 10,
      "laps": 71,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 4,
+     "stops": 2,
+     "pit_avg": 28.878,
+     "pit_best": 23.113
     },
     {
      "pos": 6,
@@ -5326,7 +6966,11 @@
      "grid": 8,
      "points": 8,
      "laps": 71,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 8,
+     "stops": 2,
+     "pit_avg": 24.201,
+     "pit_best": 23.748
     },
     {
      "pos": 7,
@@ -5337,7 +6981,11 @@
      "grid": 7,
      "points": 6,
      "laps": 71,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 7,
+     "stops": 1,
+     "pit_avg": 22.899,
+     "pit_best": 22.899
     },
     {
      "pos": 8,
@@ -5348,7 +6996,11 @@
      "grid": 5,
      "points": 4,
      "laps": 71,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 5,
+     "stops": 2,
+     "pit_avg": 23.584,
+     "pit_best": 23.46
     },
     {
      "pos": 9,
@@ -5359,7 +7011,11 @@
      "grid": 10,
      "points": 2,
      "laps": 71,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 10,
+     "stops": 1,
+     "pit_avg": 23.086,
+     "pit_best": 23.086
     },
     {
      "pos": 10,
@@ -5370,7 +7026,11 @@
      "grid": 9,
      "points": 1,
      "laps": 71,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 9,
+     "stops": 2,
+     "pit_avg": 23.66,
+     "pit_best": 23.648
     },
     {
      "pos": 11,
@@ -5381,7 +7041,11 @@
      "grid": 12,
      "points": 0,
      "laps": 71,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 12,
+     "stops": 2,
+     "pit_avg": 23.087,
+     "pit_best": 23.061
     },
     {
      "pos": 12,
@@ -5392,7 +7056,11 @@
      "grid": null,
      "points": 0,
      "laps": 71,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 17,
+     "stops": 2,
+     "pit_avg": 24.191,
+     "pit_best": 24.177
     },
     {
      "pos": 13,
@@ -5403,7 +7071,11 @@
      "grid": 15,
      "points": 0,
      "laps": 71,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 15,
+     "stops": 2,
+     "pit_avg": 24.649,
+     "pit_best": 23.234
     },
     {
      "pos": 14,
@@ -5414,7 +7086,11 @@
      "grid": 11,
      "points": 0,
      "laps": 71,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 11,
+     "stops": 2,
+     "pit_avg": 23.752,
+     "pit_best": 23.563
     },
     {
      "pos": 15,
@@ -5425,7 +7101,11 @@
      "grid": 16,
      "points": 0,
      "laps": 71,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 18,
+     "stops": 2,
+     "pit_avg": 24.917,
+     "pit_best": 23.71
     },
     {
      "pos": 16,
@@ -5436,7 +7116,11 @@
      "grid": 14,
      "points": 0,
      "laps": 71,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 14,
+     "stops": 2,
+     "pit_avg": 23.364,
+     "pit_best": 22.968
     },
     {
      "pos": 17,
@@ -5447,7 +7131,11 @@
      "grid": 17,
      "points": 0,
      "laps": 71,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 19,
+     "stops": 3,
+     "pit_avg": 30.333,
+     "pit_best": 22.974
     },
     {
      "pos": null,
@@ -5458,7 +7146,11 @@
      "grid": 13,
      "points": 0,
      "laps": 37,
-     "status": "Collision damage"
+     "status": "Collision damage",
+     "qpos": 13,
+     "stops": 3,
+     "pit_avg": 31.418,
+     "pit_best": 23.426
     },
     {
      "pos": null,
@@ -5469,7 +7161,11 @@
      "grid": 3,
      "points": 0,
      "laps": 5,
-     "status": "Collision"
+     "status": "Collision",
+     "qpos": 3,
+     "stops": 0,
+     "pit_avg": null,
+     "pit_best": null
     },
     {
      "pos": null,
@@ -5480,9 +7176,14 @@
      "grid": 18,
      "points": 0,
      "laps": 0,
-     "status": "Accident"
+     "status": "Accident",
+     "qpos": null,
+     "stops": 0,
+     "pit_avg": null,
+     "pit_best": null
     }
-   ]
+   ],
+   "dotd": "VER"
   },
   {
    "round": 22,
@@ -5532,7 +7233,11 @@
      "grid": 2,
      "points": 25,
      "laps": 50,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 2,
+     "stops": 1,
+     "pit_avg": 21.708,
+     "pit_best": 21.708
     },
     {
      "pos": 2,
@@ -5543,7 +7248,11 @@
      "grid": 4,
      "points": 18,
      "laps": 50,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 4,
+     "stops": 1,
+     "pit_avg": 20.929,
+     "pit_best": 20.929
     },
     {
      "pos": 3,
@@ -5554,7 +7263,11 @@
      "grid": 17,
      "points": 15,
      "laps": 50,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 17,
+     "stops": 1,
+     "pit_avg": 21.968,
+     "pit_best": 21.968
     },
     {
      "pos": 4,
@@ -5565,7 +7278,11 @@
      "grid": 9,
      "points": 12,
      "laps": 50,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 9,
+     "stops": 1,
+     "pit_avg": 21.351,
+     "pit_best": 21.351
     },
     {
      "pos": 5,
@@ -5576,7 +7293,11 @@
      "grid": 3,
      "points": 10,
      "laps": 50,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 3,
+     "stops": 1,
+     "pit_avg": 21.164,
+     "pit_best": 21.164
     },
     {
      "pos": 6,
@@ -5587,7 +7308,11 @@
      "grid": 8,
      "points": 8,
      "laps": 50,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 8,
+     "stops": 1,
+     "pit_avg": 21.324,
+     "pit_best": 21.324
     },
     {
      "pos": 7,
@@ -5598,7 +7323,11 @@
      "grid": 11,
      "points": 6,
      "laps": 50,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 11,
+     "stops": 1,
+     "pit_avg": 22.333,
+     "pit_best": 22.333
     },
     {
      "pos": 8,
@@ -5609,7 +7338,11 @@
      "grid": 19,
      "points": 4,
      "laps": 50,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 20,
+     "stops": 1,
+     "pit_avg": 21.638,
+     "pit_best": 21.638
     },
     {
      "pos": 9,
@@ -5620,7 +7353,11 @@
      "grid": 13,
      "points": 2,
      "laps": 50,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 13,
+     "stops": 1,
+     "pit_avg": 22.389,
+     "pit_best": 22.389
     },
     {
      "pos": 10,
@@ -5631,7 +7368,11 @@
      "grid": 14,
      "points": 1,
      "laps": 50,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 14,
+     "stops": 1,
+     "pit_avg": 21.491,
+     "pit_best": 21.491
     },
     {
      "pos": 11,
@@ -5642,7 +7383,11 @@
      "grid": 7,
      "points": 0,
      "laps": 50,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 7,
+     "stops": 1,
+     "pit_avg": 21.068,
+     "pit_best": 21.068
     },
     {
      "pos": 12,
@@ -5653,7 +7398,11 @@
      "grid": null,
      "points": 0,
      "laps": 50,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 19,
+     "stops": 2,
+     "pit_avg": 21.032,
+     "pit_best": 20.68
     },
     {
      "pos": 13,
@@ -5664,7 +7413,11 @@
      "grid": 10,
      "points": 0,
      "laps": 50,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 10,
+     "stops": 1,
+     "pit_avg": 23.903,
+     "pit_best": 23.903
     },
     {
      "pos": 14,
@@ -5675,7 +7428,11 @@
      "grid": 6,
      "points": 0,
      "laps": 49,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 6,
+     "stops": 2,
+     "pit_avg": 27.011,
+     "pit_best": 21.287
     },
     {
      "pos": 15,
@@ -5686,7 +7443,11 @@
      "grid": 15,
      "points": 0,
      "laps": 49,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 15,
+     "stops": 1,
+     "pit_avg": 22.842,
+     "pit_best": 22.842
     },
     {
      "pos": null,
@@ -5697,7 +7458,11 @@
      "grid": 16,
      "points": 0,
      "laps": 35,
-     "status": "Collision damage"
+     "status": "Collision damage",
+     "qpos": 16,
+     "stops": 3,
+     "pit_avg": 27.578,
+     "pit_best": 23.361
     },
     {
      "pos": null,
@@ -5708,7 +7473,11 @@
      "grid": 18,
      "points": 0,
      "laps": 2,
-     "status": "Collision"
+     "status": "Collision",
+     "qpos": 18,
+     "stops": 1,
+     "pit_avg": 33.23,
+     "pit_best": 33.23
     },
     {
      "pos": null,
@@ -5719,7 +7488,11 @@
      "grid": 12,
      "points": 0,
      "laps": 0,
-     "status": "Collision"
+     "status": "Collision",
+     "qpos": 12,
+     "stops": 0,
+     "pit_avg": null,
+     "pit_best": null
     },
     {
      "pos": null,
@@ -5730,7 +7503,11 @@
      "grid": 1,
      "points": 0,
      "laps": null,
-     "status": "Illegal skid block wear"
+     "status": "Illegal skid block wear",
+     "qpos": 1,
+     "stops": 1,
+     "pit_avg": 21.049,
+     "pit_best": 21.049
     },
     {
      "pos": null,
@@ -5741,9 +7518,14 @@
      "grid": 5,
      "points": 0,
      "laps": null,
-     "status": "Illegal skid block wear"
+     "status": "Illegal skid block wear",
+     "qpos": 5,
+     "stops": 1,
+     "pit_avg": 21.371,
+     "pit_best": 21.371
     }
-   ]
+   ],
+   "dotd": "VER"
   },
   {
    "round": 23,
@@ -5793,7 +7575,11 @@
      "grid": 3,
      "points": 25,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 3,
+     "stops": 2,
+     "pit_avg": 29.069,
+     "pit_best": 28.168
     },
     {
      "pos": 2,
@@ -5804,7 +7590,11 @@
      "grid": 1,
      "points": 18,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 1,
+     "stops": 2,
+     "pit_avg": 28.45,
+     "pit_best": 27.853
     },
     {
      "pos": 3,
@@ -5815,7 +7605,11 @@
      "grid": 7,
      "points": 15,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 7,
+     "stops": 2,
+     "pit_avg": 28.37,
+     "pit_best": 28.181
     },
     {
      "pos": 4,
@@ -5826,7 +7620,11 @@
      "grid": 2,
      "points": 12,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 2,
+     "stops": 2,
+     "pit_avg": 28.09,
+     "pit_best": 27.938
     },
     {
      "pos": 5,
@@ -5837,7 +7635,11 @@
      "grid": 5,
      "points": 10,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 5,
+     "stops": 2,
+     "pit_avg": 30.273,
+     "pit_best": 28.544
     },
     {
      "pos": 6,
@@ -5848,7 +7650,11 @@
      "grid": 4,
      "points": 8,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 4,
+     "stops": 2,
+     "pit_avg": 31.159,
+     "pit_best": 29.077
     },
     {
      "pos": 7,
@@ -5859,7 +7665,11 @@
      "grid": 8,
      "points": 6,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 8,
+     "stops": 2,
+     "pit_avg": 28.611,
+     "pit_best": 28.288
     },
     {
      "pos": 8,
@@ -5870,7 +7680,11 @@
      "grid": 10,
      "points": 4,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 10,
+     "stops": 2,
+     "pit_avg": 29.697,
+     "pit_best": 28.999
     },
     {
      "pos": 9,
@@ -5881,7 +7695,11 @@
      "grid": 12,
      "points": 2,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 12,
+     "stops": 2,
+     "pit_avg": 28.535,
+     "pit_best": 28.078
     },
     {
      "pos": 10,
@@ -5892,7 +7710,11 @@
      "grid": 15,
      "points": 1,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 16,
+     "stops": 2,
+     "pit_avg": 28.759,
+     "pit_best": 28.33
     },
     {
      "pos": 11,
@@ -5903,7 +7725,11 @@
      "grid": 14,
      "points": 0,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 15,
+     "stops": 2,
+     "pit_avg": 29.174,
+     "pit_best": 28.89
     },
     {
      "pos": 12,
@@ -5914,7 +7740,11 @@
      "grid": 17,
      "points": 0,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 18,
+     "stops": 2,
+     "pit_avg": 30.353,
+     "pit_best": 28.541
     },
     {
      "pos": 13,
@@ -5925,7 +7755,11 @@
      "grid": 19,
      "points": 0,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 14,
+     "stops": 2,
+     "pit_avg": 28.352,
+     "pit_best": 28.234
     },
     {
      "pos": 14,
@@ -5936,7 +7770,11 @@
      "grid": null,
      "points": 0,
      "laps": 56,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 20,
+     "stops": 2,
+     "pit_avg": 29.24,
+     "pit_best": 28.942
     },
     {
      "pos": 15,
@@ -5947,7 +7785,11 @@
      "grid": 16,
      "points": 0,
      "laps": 56,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 17,
+     "stops": 3,
+     "pit_avg": 33.005,
+     "pit_best": 30.469
     },
     {
      "pos": 16,
@@ -5958,7 +7800,11 @@
      "grid": 9,
      "points": 0,
      "laps": 56,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 9,
+     "stops": 2,
+     "pit_avg": 30.951,
+     "pit_best": 30.559
     },
     {
      "pos": 17,
@@ -5969,7 +7815,11 @@
      "grid": 18,
      "points": 0,
      "laps": 55,
-     "status": "Collision damage"
+     "status": "Collision damage",
+     "qpos": 19,
+     "stops": 3,
+     "pit_avg": 30.62,
+     "pit_best": 28.064
     },
     {
      "pos": 18,
@@ -5980,7 +7830,11 @@
      "grid": 6,
      "points": 0,
      "laps": 55,
-     "status": "Puncture"
+     "status": "Puncture",
+     "qpos": 6,
+     "stops": 2,
+     "pit_avg": 28.373,
+     "pit_best": 27.931
     },
     {
      "pos": null,
@@ -5991,7 +7845,11 @@
      "grid": 13,
      "points": 0,
      "laps": 41,
-     "status": "Pit stop issue"
+     "status": "Pit stop issue",
+     "qpos": 13,
+     "stops": 3,
+     "pit_avg": 37.194,
+     "pit_best": 28.837
     },
     {
      "pos": null,
@@ -6002,9 +7860,14 @@
      "grid": 11,
      "points": 0,
      "laps": 6,
-     "status": "Collision"
+     "status": "Collision",
+     "qpos": 11,
+     "stops": 0,
+     "pit_avg": null,
+     "pit_best": null
     }
-   ]
+   ],
+   "dotd": "VER"
   },
   {
    "round": 24,
@@ -6054,7 +7917,11 @@
      "grid": 1,
      "points": 25,
      "laps": 58,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 1,
+     "stops": 1,
+     "pit_avg": 21.703,
+     "pit_best": 21.703
     },
     {
      "pos": 2,
@@ -6065,7 +7932,11 @@
      "grid": 3,
      "points": 18,
      "laps": 58,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 3,
+     "stops": 1,
+     "pit_avg": 21.565,
+     "pit_best": 21.565
     },
     {
      "pos": 3,
@@ -6076,7 +7947,11 @@
      "grid": 2,
      "points": 15,
      "laps": 58,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 2,
+     "stops": 2,
+     "pit_avg": 21.365,
+     "pit_best": 21.323
     },
     {
      "pos": 4,
@@ -6087,7 +7962,11 @@
      "grid": 5,
      "points": 12,
      "laps": 58,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 5,
+     "stops": 2,
+     "pit_avg": 21.297,
+     "pit_best": 20.902
     },
     {
      "pos": 5,
@@ -6098,7 +7977,11 @@
      "grid": 4,
      "points": 10,
      "laps": 58,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 4,
+     "stops": 1,
+     "pit_avg": 21.979,
+     "pit_best": 21.979
     },
     {
      "pos": 6,
@@ -6109,7 +7992,11 @@
      "grid": 6,
      "points": 8,
      "laps": 58,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 6,
+     "stops": 1,
+     "pit_avg": 23.267,
+     "pit_best": 23.267
     },
     {
      "pos": 7,
@@ -6120,7 +8007,11 @@
      "grid": 8,
      "points": 6,
      "laps": 58,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 8,
+     "stops": 1,
+     "pit_avg": 22.254,
+     "pit_best": 22.254
     },
     {
      "pos": 8,
@@ -6131,7 +8022,11 @@
      "grid": 16,
      "points": 4,
      "laps": 58,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 16,
+     "stops": 2,
+     "pit_avg": 21.509,
+     "pit_best": 21.417
     },
     {
      "pos": 9,
@@ -6142,7 +8037,11 @@
      "grid": 18,
      "points": 2,
      "laps": 58,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 18,
+     "stops": 2,
+     "pit_avg": 21.544,
+     "pit_best": 21.468
     },
     {
      "pos": 10,
@@ -6153,7 +8052,11 @@
      "grid": 15,
      "points": 1,
      "laps": 58,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 15,
+     "stops": 1,
+     "pit_avg": 21.535,
+     "pit_best": 21.535
     },
     {
      "pos": 11,
@@ -6164,7 +8067,11 @@
      "grid": 7,
      "points": 0,
      "laps": 58,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 7,
+     "stops": 1,
+     "pit_avg": 22.121,
+     "pit_best": 22.121
     },
     {
      "pos": 12,
@@ -6175,7 +8082,11 @@
      "grid": 11,
      "points": 0,
      "laps": 58,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 11,
+     "stops": 1,
+     "pit_avg": 22.263,
+     "pit_best": 22.263
     },
     {
      "pos": 13,
@@ -6186,7 +8097,11 @@
      "grid": 12,
      "points": 0,
      "laps": 58,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 12,
+     "stops": 1,
+     "pit_avg": 21.799,
+     "pit_best": 21.799
     },
     {
      "pos": 14,
@@ -6197,7 +8112,11 @@
      "grid": 10,
      "points": 0,
      "laps": 58,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 10,
+     "stops": 1,
+     "pit_avg": 27.041,
+     "pit_best": 27.041
     },
     {
      "pos": 15,
@@ -6208,7 +8127,11 @@
      "grid": 14,
      "points": 0,
      "laps": 58,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 14,
+     "stops": 1,
+     "pit_avg": 22.155,
+     "pit_best": 22.155
     },
     {
      "pos": 16,
@@ -6219,7 +8142,11 @@
      "grid": 17,
      "points": 0,
      "laps": 58,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 17,
+     "stops": 2,
+     "pit_avg": 21.523,
+     "pit_best": 21.495
     },
     {
      "pos": 17,
@@ -6230,7 +8157,11 @@
      "grid": 9,
      "points": 0,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 9,
+     "stops": 1,
+     "pit_avg": 21.932,
+     "pit_best": 21.932
     },
     {
      "pos": 18,
@@ -6241,7 +8172,11 @@
      "grid": 13,
      "points": 0,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 13,
+     "stops": 1,
+     "pit_avg": 28.369,
+     "pit_best": 28.369
     },
     {
      "pos": 19,
@@ -6252,7 +8187,11 @@
      "grid": 19,
      "points": 0,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 19,
+     "stops": 2,
+     "pit_avg": 22.41,
+     "pit_best": 22.234
     },
     {
      "pos": 20,
@@ -6263,9 +8202,14 @@
      "grid": 20,
      "points": 0,
      "laps": 57,
-     "status": "Finished"
+     "status": "Finished",
+     "qpos": 20,
+     "stops": 2,
+     "pit_avg": 22.454,
+     "pit_best": 21.953
     }
-   ]
+   ],
+   "dotd": "VER"
   }
  ],
  "drivers": [
@@ -6519,6 +8463,470 @@
    "team": "Alpine",
    "points": 22,
    "wins": 0
+  }
+ ],
+ "stats": [
+  {
+   "code": "NOR",
+   "name": "Lando Norris",
+   "nat": "GB",
+   "team": "McLaren",
+   "starts": 24,
+   "wins": 7,
+   "podiums": 18,
+   "poles": 7,
+   "pts_fin": 21,
+   "dnf": 3,
+   "points": 423,
+   "avg_grid": 3.0,
+   "avg_finish": 3.6,
+   "gained": -13,
+   "avg_stops": 1.7,
+   "pit_avg": 22.96,
+   "pit_best": 12.804,
+   "dotd": 1,
+   "laps": 1382,
+   "laps_led": null
+  },
+  {
+   "code": "VER",
+   "name": "Max Verstappen",
+   "nat": "NL",
+   "team": "Red Bull Racing",
+   "starts": 24,
+   "wins": 8,
+   "podiums": 15,
+   "poles": 8,
+   "pts_fin": 23,
+   "dnf": 1,
+   "points": 421,
+   "avg_grid": 2.9,
+   "avg_finish": 3.0,
+   "gained": -7,
+   "avg_stops": 1.7,
+   "pit_avg": 23.0,
+   "pit_best": 12.938,
+   "dotd": 8,
+   "laps": 1374,
+   "laps_led": null
+  },
+  {
+   "code": "PIA",
+   "name": "Oscar Piastri",
+   "nat": "AU",
+   "team": "McLaren",
+   "starts": 24,
+   "wins": 7,
+   "podiums": 16,
+   "poles": 6,
+   "pts_fin": 22,
+   "dnf": 2,
+   "points": 410,
+   "avg_grid": 3.0,
+   "avg_finish": 2.8,
+   "gained": -3,
+   "avg_stops": 1.7,
+   "pit_avg": 23.45,
+   "pit_best": 12.816,
+   "dotd": 1,
+   "laps": 1343,
+   "laps_led": null
+  },
+  {
+   "code": "RUS",
+   "name": "George Russell",
+   "nat": "GB",
+   "team": "Mercedes",
+   "starts": 24,
+   "wins": 2,
+   "podiums": 9,
+   "poles": 2,
+   "pts_fin": 23,
+   "dnf": 0,
+   "points": 319,
+   "avg_grid": 4.4,
+   "avg_finish": 4.5,
+   "gained": -4,
+   "avg_stops": 1.7,
+   "pit_avg": 22.78,
+   "pit_best": 13.672,
+   "dotd": 0,
+   "laps": 1442,
+   "laps_led": null
+  },
+  {
+   "code": "LEC",
+   "name": "Charles Leclerc",
+   "nat": "MC",
+   "team": "Ferrari",
+   "starts": 24,
+   "wins": 0,
+   "podiums": 7,
+   "poles": 1,
+   "pts_fin": 20,
+   "dnf": 3,
+   "points": 242,
+   "avg_grid": 5.4,
+   "avg_finish": 5.0,
+   "gained": 9,
+   "avg_stops": 1.6,
+   "pit_avg": 22.65,
+   "pit_best": 14.129,
+   "dotd": 2,
+   "laps": 1358,
+   "laps_led": null
+  },
+  {
+   "code": "HAM",
+   "name": "Lewis Hamilton",
+   "nat": "GB",
+   "team": "Ferrari",
+   "starts": 24,
+   "wins": 0,
+   "podiums": 0,
+   "poles": 0,
+   "pts_fin": 19,
+   "dnf": 3,
+   "points": 156,
+   "avg_grid": 9.0,
+   "avg_finish": 7.0,
+   "gained": 42,
+   "avg_stops": 1.8,
+   "pit_avg": 23.95,
+   "pit_best": 14.789,
+   "dotd": 2,
+   "laps": 1359,
+   "laps_led": null
+  },
+  {
+   "code": "ANT",
+   "name": "Kimi Antonelli",
+   "nat": "IT",
+   "team": "Mercedes",
+   "starts": 24,
+   "wins": 0,
+   "podiums": 3,
+   "poles": 0,
+   "pts_fin": 14,
+   "dnf": 4,
+   "points": 150,
+   "avg_grid": 8.3,
+   "avg_finish": 8.2,
+   "gained": 5,
+   "avg_stops": 1.7,
+   "pit_avg": 23.19,
+   "pit_best": 13.975,
+   "dotd": 2,
+   "laps": 1309,
+   "laps_led": null
+  },
+  {
+   "code": "ALB",
+   "name": "Alexander Albon",
+   "nat": "TH",
+   "team": "Williams",
+   "starts": 24,
+   "wins": 0,
+   "podiums": 0,
+   "poles": 0,
+   "pts_fin": 11,
+   "dnf": 4,
+   "points": 73,
+   "avg_grid": 12.4,
+   "avg_finish": 9.7,
+   "gained": 59,
+   "avg_stops": 1.8,
+   "pit_avg": 23.91,
+   "pit_best": 14.285,
+   "dotd": 0,
+   "laps": 1306,
+   "laps_led": null
+  },
+  {
+   "code": "SAI",
+   "name": "Carlos Sainz Jr.",
+   "nat": "ES",
+   "team": "Williams",
+   "starts": 24,
+   "wins": 0,
+   "podiums": 2,
+   "poles": 0,
+   "pts_fin": 10,
+   "dnf": 5,
+   "points": 64,
+   "avg_grid": 10.5,
+   "avg_finish": 10.8,
+   "gained": 8,
+   "avg_stops": 1.5,
+   "pit_avg": 25.15,
+   "pit_best": 17.67,
+   "dotd": 1,
+   "laps": 1245,
+   "laps_led": null
+  },
+  {
+   "code": "ALO",
+   "name": "Fernando Alonso",
+   "nat": "ES",
+   "team": "Aston Martin",
+   "starts": 24,
+   "wins": 0,
+   "podiums": 0,
+   "poles": 0,
+   "pts_fin": 10,
+   "dnf": 5,
+   "points": 56,
+   "avg_grid": 9.8,
+   "avg_finish": 10.3,
+   "gained": -6,
+   "avg_stops": 1.5,
+   "pit_avg": 23.83,
+   "pit_best": 15.034,
+   "dotd": 1,
+   "laps": 1257,
+   "laps_led": null
+  },
+  {
+   "code": "HAD",
+   "name": "Isack Hadjar",
+   "nat": "FR",
+   "team": "Racing Bulls",
+   "starts": 24,
+   "wins": 0,
+   "podiums": 1,
+   "poles": 0,
+   "pts_fin": 10,
+   "dnf": 3,
+   "points": 51,
+   "avg_grid": 9.4,
+   "avg_finish": 11.2,
+   "gained": -43,
+   "avg_stops": 1.5,
+   "pit_avg": 23.44,
+   "pit_best": 17.414,
+   "dotd": 1,
+   "laps": 1342,
+   "laps_led": null
+  },
+  {
+   "code": "HUL",
+   "name": "Nico Hülkenberg",
+   "nat": "DE",
+   "team": "Kick Sauber",
+   "starts": 24,
+   "wins": 0,
+   "podiums": 1,
+   "poles": 0,
+   "pts_fin": 9,
+   "dnf": 4,
+   "points": 51,
+   "avg_grid": 14.8,
+   "avg_finish": 11.4,
+   "gained": 73,
+   "avg_stops": 1.5,
+   "pit_avg": 22.67,
+   "pit_best": 14.198,
+   "dotd": 1,
+   "laps": 1229,
+   "laps_led": null
+  },
+  {
+   "code": "BEA",
+   "name": "Oliver Bearman",
+   "nat": "GB",
+   "team": "Haas",
+   "starts": 24,
+   "wins": 0,
+   "podiums": 0,
+   "poles": 0,
+   "pts_fin": 9,
+   "dnf": 3,
+   "points": 41,
+   "avg_grid": 13.7,
+   "avg_finish": 10.7,
+   "gained": 53,
+   "avg_stops": 1.6,
+   "pit_avg": 25.79,
+   "pit_best": 14.605,
+   "dotd": 1,
+   "laps": 1372,
+   "laps_led": null
+  },
+  {
+   "code": "LAW",
+   "name": "Liam Lawson",
+   "nat": "NZ",
+   "team": "Racing Bulls",
+   "starts": 24,
+   "wins": 0,
+   "podiums": 0,
+   "poles": 0,
+   "pts_fin": 7,
+   "dnf": 5,
+   "points": 38,
+   "avg_grid": 11.4,
+   "avg_finish": 11.4,
+   "gained": -11,
+   "avg_stops": 1.5,
+   "pit_avg": 23.45,
+   "pit_best": 14.79,
+   "dotd": 0,
+   "laps": 1273,
+   "laps_led": null
+  },
+  {
+   "code": "OCO",
+   "name": "Esteban Ocon",
+   "nat": "FR",
+   "team": "Haas",
+   "starts": 24,
+   "wins": 0,
+   "podiums": 0,
+   "poles": 0,
+   "pts_fin": 9,
+   "dnf": 1,
+   "points": 38,
+   "avg_grid": 14.8,
+   "avg_finish": 12.2,
+   "gained": 54,
+   "avg_stops": 1.5,
+   "pit_avg": 23.98,
+   "pit_best": 14.395,
+   "dotd": 0,
+   "laps": 1401,
+   "laps_led": null
+  },
+  {
+   "code": "TSU",
+   "name": "Yuki Tsunoda",
+   "nat": "JP",
+   "team": "Red Bull Racing",
+   "starts": 24,
+   "wins": 0,
+   "podiums": 0,
+   "poles": 0,
+   "pts_fin": 7,
+   "dnf": 1,
+   "points": 33,
+   "avg_grid": 11.3,
+   "avg_finish": 12.3,
+   "gained": -12,
+   "avg_stops": 1.8,
+   "pit_avg": 24.13,
+   "pit_best": 13.605,
+   "dotd": 1,
+   "laps": 1386,
+   "laps_led": null
+  },
+  {
+   "code": "STR",
+   "name": "Lance Stroll",
+   "nat": "CA",
+   "team": "Aston Martin",
+   "starts": 24,
+   "wins": 0,
+   "podiums": 0,
+   "poles": 0,
+   "pts_fin": 6,
+   "dnf": 3,
+   "points": 33,
+   "avg_grid": 15.7,
+   "avg_finish": 13.5,
+   "gained": 51,
+   "avg_stops": 1.7,
+   "pit_avg": 24.25,
+   "pit_best": 14.451,
+   "dotd": 0,
+   "laps": 1316,
+   "laps_led": null
+  },
+  {
+   "code": "GAS",
+   "name": "Pierre Gasly",
+   "nat": "FR",
+   "team": "Alpine",
+   "starts": 24,
+   "wins": 0,
+   "podiums": 0,
+   "poles": 0,
+   "pts_fin": 5,
+   "dnf": 3,
+   "points": 22,
+   "avg_grid": 12.1,
+   "avg_finish": 13.8,
+   "gained": -27,
+   "avg_stops": 1.5,
+   "pit_avg": 23.75,
+   "pit_best": 14.71,
+   "dotd": 0,
+   "laps": 1313,
+   "laps_led": null
+  },
+  {
+   "code": "BOR",
+   "name": "Gabriel Bortoleto",
+   "nat": "BR",
+   "team": "Kick Sauber",
+   "starts": 24,
+   "wins": 0,
+   "podiums": 0,
+   "poles": 0,
+   "pts_fin": 5,
+   "dnf": 5,
+   "points": 19,
+   "avg_grid": 14.2,
+   "avg_finish": 13.3,
+   "gained": 8,
+   "avg_stops": 1.5,
+   "pit_avg": 24.1,
+   "pit_best": 14.206,
+   "dotd": 2,
+   "laps": 1229,
+   "laps_led": null
+  },
+  {
+   "code": "DOO",
+   "name": "Jack Doohan",
+   "nat": "AU",
+   "team": "Alpine",
+   "starts": 6,
+   "wins": 0,
+   "podiums": 0,
+   "poles": 0,
+   "pts_fin": 0,
+   "dnf": 2,
+   "points": 0,
+   "avg_grid": 15.5,
+   "avg_finish": 14.8,
+   "gained": 6,
+   "avg_stops": 1.0,
+   "pit_avg": 23.03,
+   "pit_best": 20.571,
+   "dotd": 0,
+   "laps": 215,
+   "laps_led": null
+  },
+  {
+   "code": "COL",
+   "name": "Franco Colapinto",
+   "nat": "AR",
+   "team": "Alpine",
+   "starts": 18,
+   "wins": 0,
+   "podiums": 0,
+   "poles": 0,
+   "pts_fin": 0,
+   "dnf": 1,
+   "points": 0,
+   "avg_grid": 16.0,
+   "avg_finish": 15.8,
+   "gained": 1,
+   "avg_stops": 1.6,
+   "pit_avg": 24.0,
+   "pit_best": 17.586,
+   "dotd": 0,
+   "laps": 1049,
+   "laps_led": null
   }
  ]
 }

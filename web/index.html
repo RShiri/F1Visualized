@@ -28,6 +28,7 @@
     <button type="button" data-tab="standings">Standings</button>
     <button type="button" data-tab="calendar">Calendar</button>
     <button type="button" data-tab="results">Results</button>
+    <button type="button" data-tab="stats">Stats</button>
   </nav>
 
   <main id="main">
@@ -74,6 +75,12 @@
         <select id="raceSelect" class="race-select" aria-label="Select a race"></select>
       </div>
       <div id="raceDetail"></div>
+    </section>
+
+    <section id="stats" class="tab-panel">
+      <div class="section-head"><h2>Season Stats</h2><span id="statsMeta" class="section-meta"></span></div>
+      <p class="stats-note" id="statsNote"></p>
+      <div id="statsTable"></div>
     </section>
   </main>
 

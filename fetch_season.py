@@ -62,6 +62,22 @@ def _slugify(text: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", (text or "").lower()).strip("-")
 
 
+def _parse_seconds(t) -> Optional[float]:
+    """f1db time string -> float seconds. ``'13.341'`` or ``'1:02.5'``; None if bad."""
+    if t is None:
+        return None
+    s = str(t).strip()
+    if not s:
+        return None
+    try:
+        if ":" in s:
+            mins, secs = s.split(":", 1)
+            return int(mins) * 60 + float(secs)
+        return float(s)
+    except ValueError:
+        return None
+
+
 # --------------------------------------------------------------------------- #
 # Network layer (only touches raw.githubusercontent.com)
 # --------------------------------------------------------------------------- #
@@ -161,6 +177,47 @@ def _fetch_race_results(year: int, rnd: int, candidates: list[str]):
     return None, None
 
 
+def _race_stat_maps(year: int, rnd: int, slug: str):
+    """Pull the extra per-race f1db files that feed season statistics.
+
+    Returns ``(pit_stops, pit_times, qpos, dotd_code)`` keyed by driver code:
+    stop counts, parsed stop times (s), qualifying position, and the
+    Driver-of-the-Day winner. Any missing file degrades to empty/None.
+    """
+    base = f"seasons/{year}/races/{rnd:02d}-{slug}"
+
+    pit_stops: dict[str, int] = {}
+    pit_times: dict[str, list[float]] = {}
+    pit = _get_yaml(f"{base}/pit-stops.yml")
+    has_pit = isinstance(pit, list)
+    if has_pit:
+        for p in pit:
+            code = resolve_driver(p.get("driverId", ""))["code"]
+            pit_stops[code] = pit_stops.get(code, 0) + 1
+            sec = _parse_seconds(p.get("time"))
+            if sec is not None:
+                pit_times.setdefault(code, []).append(sec)
+
+    qpos: dict[str, int] = {}
+    qual = _get_yaml(f"{base}/qualifying-results.yml")
+    if isinstance(qual, list):
+        for q in qual:
+            code = resolve_driver(q.get("driverId", ""))["code"]
+            qp = q.get("position")
+            if isinstance(qp, int) and code not in qpos:
+                qpos[code] = qp
+
+    dotd = None
+    dotd_rows = _get_yaml(f"{base}/driver-of-the-day-results.yml")
+    if isinstance(dotd_rows, list):
+        for row in dotd_rows:
+            if row.get("position") == 1:
+                dotd = resolve_driver(row.get("driverId", ""))["code"]
+                break
+
+    return pit_stops if has_pit else None, pit_times, qpos, dotd
+
+
 def build_race(year: int, ev: dict, now: datetime, wins: dict) -> dict:
     """Assemble one race dict; fetches f1db results if the race is in the past."""
     race = {
@@ -176,23 +233,32 @@ def build_race(year: int, ev: dict, now: datetime, wins: dict) -> dict:
     if not results:
         return race  # completed but not yet in f1db
 
+    pit_stops, pit_times, qpos, dotd = _race_stat_maps(year, ev["round"], slug)
+
     rows = []
     for r in results:
         drv = resolve_driver(r.get("driverId", ""))
         pos = r.get("position")
+        code = drv["code"]
+        times = pit_times.get(code) or []
         rows.append({
             "pos": int(pos) if isinstance(pos, int) else None,
-            "code": drv["code"], "name": drv["name"], "nat": drv["nat"],
+            "code": code, "name": drv["name"], "nat": drv["nat"],
             "team": team_name(r.get("constructorId")),
             "grid": r.get("gridPosition") if isinstance(r.get("gridPosition"), int) else None,
             "points": r.get("points") or 0,
             "laps": r.get("laps") if isinstance(r.get("laps"), int) else None,
             "status": "Finished" if not r.get("reasonRetired") else str(r.get("reasonRetired")),
+            "qpos": qpos.get(code),
+            "stops": (pit_stops.get(code, 0) if pit_stops is not None else None),
+            "pit_avg": round(sum(times) / len(times), 3) if times else None,
+            "pit_best": round(min(times), 3) if times else None,
         })
     rows.sort(key=lambda e: (e["pos"] is None, e["pos"] or 0))
 
     race["status"] = "completed"
     race["results"] = rows
+    race["dotd"] = dotd
     race["podium"] = [{"pos": r["pos"], "code": r["code"], "name": r["name"],
                        "nat": r["nat"], "team": r["team"]}
                       for r in rows if r["pos"] in (1, 2, 3)]
@@ -207,6 +273,133 @@ def build_race(year: int, ev: dict, now: datetime, wins: dict) -> dict:
         d = resolve_driver(fl[0].get("driverId", ""))
         race["fastest_lap"] = {"code": d["code"], "name": d["name"], "time": str(fl[0].get("time") or "")}
     return race
+
+
+# --------------------------------------------------------------------------- #
+# Season statistics (pure aggregation over completed-race results)
+# --------------------------------------------------------------------------- #
+def build_driver_stats(races: list, team_by_code: dict,
+                       points_by_code: Optional[dict] = None) -> list:
+    """Aggregate per-driver season stats from completed races.
+
+    Pure function of the race dicts (result rows + ``race['dotd']``), so it is
+    unit-testable without the network. Emits one row per driver who started at
+    least one race, sorted by championship points.
+
+    Wins / podiums / poles are Grand-Prix figures (the conventional meaning).
+    ``points`` uses the official ``points_by_code`` championship total when
+    given — that includes sprint points, which the per-GP results omit — and
+    otherwise falls back to the summed race points.
+    """
+    points_by_code = points_by_code or {}
+    acc: dict[str, dict] = {}
+
+    def slot(row) -> dict:
+        code = row["code"]
+        if code not in acc:
+            acc[code] = {
+                "code": code, "name": row["name"], "nat": row.get("nat", ""),
+                "starts": 0, "wins": 0, "podiums": 0, "poles": 0, "points": 0.0,
+                "pts_fin": 0, "dnf": 0, "laps": 0, "dotd": 0,
+                "grid": [], "fin": [], "gain": 0,
+                "stops": [], "pit_sum": 0.0, "pit_n": 0, "pit_best": None,
+                "led": 0, "led_any": False,
+            }
+        return acc[code]
+
+    for race in races:
+        if race.get("status") != "completed":
+            continue
+        for row in race.get("results", []):
+            a = slot(row)
+            pos, grid = row.get("pos"), row.get("grid")
+            a["starts"] += 1
+            a["points"] += row.get("points") or 0
+            a["laps"] += row.get("laps") or 0
+            if pos == 1:
+                a["wins"] += 1
+            if isinstance(pos, int) and pos <= 3:
+                a["podiums"] += 1
+            if isinstance(pos, int) and pos <= 10:
+                a["pts_fin"] += 1
+            if row.get("qpos") == 1:
+                a["poles"] += 1
+            if row.get("status") and row["status"] != "Finished":
+                a["dnf"] += 1
+            if isinstance(grid, int) and grid > 0:
+                a["grid"].append(grid)
+            if isinstance(pos, int):
+                a["fin"].append(pos)
+            if isinstance(grid, int) and grid > 0 and isinstance(pos, int):
+                a["gain"] += grid - pos
+            stops = row.get("stops")
+            if isinstance(stops, int):
+                a["stops"].append(stops)
+            pit_avg = row.get("pit_avg")
+            if pit_avg is not None and isinstance(stops, int) and stops > 0:
+                a["pit_sum"] += pit_avg * stops
+                a["pit_n"] += stops
+            pit_best = row.get("pit_best")
+            if pit_best is not None:
+                a["pit_best"] = pit_best if a["pit_best"] is None else min(a["pit_best"], pit_best)
+            led = row.get("led")
+            if led is not None:
+                a["led"] += led
+                a["led_any"] = True
+        winner = race.get("dotd")
+        if winner in acc:
+            acc[winner]["dotd"] += 1
+
+    def mean(xs, nd=1):
+        return round(sum(xs) / len(xs), nd) if xs else None
+
+    out = []
+    for a in acc.values():
+        pts = points_by_code.get(a["code"], a["points"])
+        out.append({
+            "code": a["code"], "name": a["name"], "nat": a["nat"],
+            "team": team_by_code.get(a["code"], ""),
+            "starts": a["starts"], "wins": a["wins"], "podiums": a["podiums"],
+            "poles": a["poles"], "pts_fin": a["pts_fin"], "dnf": a["dnf"],
+            "points": int(pts) if float(pts).is_integer() else round(pts, 1),
+            "avg_grid": mean(a["grid"]), "avg_finish": mean(a["fin"]),
+            "gained": a["gain"],
+            "avg_stops": mean(a["stops"]),
+            "pit_avg": round(a["pit_sum"] / a["pit_n"], 2) if a["pit_n"] else None,
+            "pit_best": a["pit_best"],
+            "dotd": a["dotd"], "laps": a["laps"],
+            "laps_led": a["led"] if a["led_any"] else None,
+        })
+    out.sort(key=lambda s: (-float(s["points"]),
+                            s["avg_finish"] if s["avg_finish"] is not None else 99))
+    return out
+
+
+def enrich_laps_led(year: int, races: list) -> None:
+    """Optional: fill each result row's ``led`` (laps led) via fastf1 lap timing.
+
+    Laps-led is the one requested stat the public f1db dataset does not carry, so
+    it must come from lap-by-lap timing. That needs live-timing network access,
+    which is unavailable in many environments — this degrades to a no-op per race
+    wherever the session cannot load, leaving ``led`` absent (the UI hides the
+    column). Off by default; opt in with ``--laps-led`` / ``F1_LAPS_LED=1``.
+    """
+    import fastf1
+
+    for race in races:
+        if race.get("status") != "completed":
+            continue
+        try:
+            ses = fastf1.get_session(year, race["round"], "R")
+            ses.load(laps=True, telemetry=False, weather=False, messages=False)
+            laps = ses.laps
+            leaders = laps.loc[laps["Position"] == 1]
+            led = leaders.groupby("Driver")["LapNumber"].nunique().to_dict()
+            for row in race.get("results", []):
+                if row["code"] in led:
+                    row["led"] = int(led[row["code"]])
+        except Exception as exc:  # noqa: BLE001 — timing simply unavailable here
+            log.warning("laps-led unavailable for %s R%s: %s", year, race["round"], exc)
 
 
 # --------------------------------------------------------------------------- #
@@ -230,9 +423,11 @@ def assemble_season(year, races, driver_standings, constructor_standings,
             "pos": s.get("position"), "team": tm,
             "points": s.get("points") or 0, "wins": wins["teams"].get(tm, 0),
         })
+    points_by_code = {d["code"]: d["points"] for d in drivers}
     return {
         "season": int(year), "updated": now.isoformat(), "source": "f1db + fastf1",
         "races": races, "drivers": drivers, "constructors": constructors,
+        "stats": build_driver_stats(races, team_by_code, points_by_code),
     }
 
 
@@ -251,7 +446,7 @@ def _team_by_code(year: int, races: list) -> dict:
     return out
 
 
-def fetch_season(year: int, now: Optional[datetime] = None) -> dict:
+def fetch_season(year: int, now: Optional[datetime] = None, laps_led: bool = False) -> dict:
     """Fetch one season from fastf1 (calendar) + f1db (results/standings)."""
     import fastf1
     import pandas as pd
@@ -275,6 +470,8 @@ def fetch_season(year: int, now: Optional[datetime] = None) -> dict:
 
     wins = {"drivers": {}, "teams": {}}
     races = [build_race(year, ev, now, wins) for ev in events]
+    if laps_led:
+        enrich_laps_led(year, races)
 
     driver_standings = _get_yaml(f"seasons/{year}/driver-standings.yml") or []
     constructor_standings = _get_yaml(f"seasons/{year}/constructor-standings.yml") or []
@@ -299,12 +496,17 @@ def write_season_json(season: dict, year: int, out_dir: Optional[Path] = None) -
 
 
 def main(argv=None):
+    import os
+
     p = argparse.ArgumentParser(description="Fetch real F1 season data for the dashboard.")
     p.add_argument("--year", type=int, action="append", help="Season(s); repeatable.")
+    p.add_argument("--laps-led", action="store_true",
+                   help="Also compute laps-led via fastf1 lap timing (needs live-timing access).")
     args = p.parse_args(argv)
+    laps_led = args.laps_led or os.environ.get("F1_LAPS_LED") == "1"
     for y in (args.year or [2025, 2026]):
         try:
-            write_season_json(fetch_season(y), y)
+            write_season_json(fetch_season(y, laps_led=laps_led), y)
         except Exception as exc:
             log.warning("Could not fetch %s: %s", y, exc)
 
