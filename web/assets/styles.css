@@ -260,6 +260,18 @@ table.results tr .dnf { color: var(--ink-3); }
 .replay { margin-top: 20px; }
 .replay-video { width: 100%; max-height: 70vh; border-radius: 12px; border: 1px solid var(--border); background: #000; display: block; }
 
+/* ---------- visualization context / legend ---------- */
+.viz-context { margin-top: 12px; padding: 12px 14px; background: var(--panel); border: 1px solid var(--border); border-radius: 12px; }
+.viz-lead { color: var(--ink-2); font-size: 13px; line-height: 1.55; margin: 0; }
+.viz-lead b { color: var(--ink); font-weight: 700; }
+.viz-src { color: var(--ink-3); font-size: 12px; line-height: 1.5; margin: 8px 0 0; }
+.viz-src b { color: var(--ink-2); font-weight: 700; }
+.viz-keys { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 10px; }
+.viz-item { display: inline-flex; align-items: center; gap: 6px; color: var(--ink-2); font-size: 12px; font-weight: 600; }
+.viz-item .chip { display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; padding: 0 4px; border-radius: 5px; font-size: 11px; font-weight: 800; line-height: 1; }
+.chip-vsc { background: #ffd400; color: #15151c; letter-spacing: .02em; }
+.chip-dim { min-width: 18px; background: var(--panel-2); border: 1px solid var(--border); opacity: .5; }
+
 .site-footer { max-width: 1180px; margin: 0 auto; padding: 22px 20px 40px; color: var(--ink-3); font-size: 12px; display: flex; justify-content: space-between; gap: 12px; border-top: 1px solid var(--border); }
 
 /* ---------- responsive ---------- */

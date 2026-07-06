@@ -318,6 +318,51 @@ function drawStats(box, stats, cols) {
 const SVGNS = "http://www.w3.org/2000/svg";
 let _progTimer = null;
 
+// Tyre compounds — mirrors config.py COMPOUNDS (letter + colour) so the web
+// legend reads the same as the badges baked into the rendered MP4s.
+const TYRE_KEY = [
+  { letter: "S", label: "Soft", color: "#DA291C", text: "#fff" },
+  { letter: "M", label: "Medium", color: "#F6D200", text: "#15151C" },
+  { letter: "H", label: "Hard", color: "#EDEDED", text: "#15151C" },
+  { letter: "I", label: "Inter", color: "#43B02A", text: "#fff" },
+  { letter: "W", label: "Wet", color: "#0067AD", text: "#fff" },
+];
+
+// Explains what the Race Progression bump-chart encodes. `real` mirrors the flag
+// from deriveLapPositions(): true = real lap-by-lap timing, false = the honest
+// grid → finish approximation.
+function progressionContext(real) {
+  return el("div", "viz-context",
+    `<p class="viz-lead">Each line is a driver, coloured by team. The vertical
+      axis is running order (<b>P1 at the top</b> down to last); the horizontal
+      axis is the lap. The faint trace is the full race; the bright trace fills
+      in up to the cursor as you <b>drag the slider or press&nbsp;Play</b>.</p>
+     <p class="viz-src">${real
+        ? `Positions are <b>real lap-by-lap timing</b> from the F1 feed.`
+        : `Positions are an honest <b>grid&nbsp;→&nbsp;finish approximation</b> —
+           each driver's real starting grid, finishing place and laps completed,
+           smoothed into a curve. No lap-by-lap timing is published for this
+           race yet, so the ordering mid-race is indicative, not measured.`}</p>`);
+}
+
+// Explains the encodings in the rendered Race Replay video — the car sprite,
+// tyre badges, pit/VSC/retirement markers. Mirrors config.py (THEME + COMPOUNDS)
+// and race_animator.py so the caption matches what the MP4 actually draws.
+function replayContext() {
+  const tyres = TYRE_KEY.map((t) =>
+    `<span class="viz-item"><span class="chip" style="background:${t.color};color:${t.text}">${t.letter}</span>${t.label}</span>`).join("");
+  return el("div", "viz-context",
+    `<p class="viz-lead">Every driver is a car on the current-lap line, sliding
+      between position lanes (<b>P1 top → last</b>) as the order changes while the
+      field sweeps left→right to the finish.</p>
+     <div class="viz-keys">${tyres}</div>
+     <div class="viz-keys">
+       <span class="viz-item"><span class="chip" style="background:#22C55E;color:#fff">P</span>Pit stop</span>
+       <span class="viz-item"><span class="chip chip-vsc">VSC</span>Virtual Safety Car</span>
+       <span class="viz-item"><span class="chip chip-dim"></span>Retired — car dims &amp; freezes</span>
+     </div>`);
+}
+
 function stopProgression() {
   if (_progTimer) { clearInterval(_progTimer); _progTimer = null; }
 }
@@ -468,6 +513,7 @@ function buildProgression(race) {
   });
   playBtn.addEventListener("click", () => (_progTimer ? stopPlay() : play()));
 
+  wrap.appendChild(progressionContext(real));
   setLap(total);
   return wrap;
 }
@@ -491,6 +537,7 @@ function mountReplay(race) {
   v.addEventListener("loadedmetadata", () => { wrap.style.display = ""; });
   v.addEventListener("error", () => wrap.remove());
   wrap.appendChild(v);
+  wrap.appendChild(replayContext());
   $("#raceDetail").appendChild(wrap);
 }
 
