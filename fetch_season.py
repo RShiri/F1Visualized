@@ -453,6 +453,28 @@ def _team_by_code(year: int, races: list) -> dict:
     return out
 
 
+def reconcile_postponed(races: list) -> None:
+    """Flag a past, result-less race as ``postponed`` when a later round is done.
+
+    The calendar comes from fastf1, but results come from f1db. When a scheduled
+    race never takes place (postponed or cancelled), f1db simply omits that round
+    — yet fastf1 may keep listing it with its original date. Such a race would
+    otherwise sit forever as ``upcoming`` with a past date, indistinguishable from
+    one whose results merely haven't been published yet.
+
+    The unambiguous signal that a round was *skipped* is that a higher-numbered
+    round has already been completed: races run in round order, so a later result
+    can never precede an earlier one. (A race that has only just happened has no
+    later round completed, so it correctly stays ``upcoming`` until f1db catches
+    up.) Mutates ``races`` in place.
+    """
+    latest_done = max((r["round"] for r in races
+                       if r.get("status") == "completed"), default=0)
+    for r in races:
+        if r.get("status") == "upcoming" and r.get("round", 0) < latest_done:
+            r["status"] = "postponed"
+
+
 def fetch_season(year: int, now: Optional[datetime] = None, laps_led: bool = False) -> dict:
     """Fetch one season from fastf1 (calendar) + f1db (results/standings)."""
     import fastf1
@@ -477,6 +499,7 @@ def fetch_season(year: int, now: Optional[datetime] = None, laps_led: bool = Fal
 
     wins = {"drivers": {}, "teams": {}}
     races = [build_race(year, ev, now, wins) for ev in events]
+    reconcile_postponed(races)
     if laps_led:
         enrich_laps_led(year, races)
 

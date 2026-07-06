@@ -96,6 +96,34 @@ def test_build_race_completed_parses_f1db_results():
     assert ver_row["qpos"] == 3 and ver_row["stops"] == 1 and ver_row["pit_est"] == [2.0]
 
 
+def test_reconcile_postponed_flags_skipped_round():
+    # Round 7 sits between two COMPLETED rounds but has no f1db result, and a
+    # later round (8) is already done -> it was skipped, so mark it postponed.
+    # Round 10 is a genuine future race and must stay upcoming.
+    races = [
+        {"round": 6, "status": "completed"},
+        {"round": 7, "status": "upcoming"},   # Barcelona: past date, never held
+        {"round": 8, "status": "completed"},
+        {"round": 9, "status": "completed"},
+        {"round": 10, "status": "upcoming"},  # genuinely in the future
+    ]
+    fs.reconcile_postponed(races)
+    by = {r["round"]: r["status"] for r in races}
+    assert by == {6: "completed", 7: "postponed", 8: "completed",
+                  9: "completed", 10: "upcoming"}
+
+
+def test_reconcile_postponed_keeps_just_finished_race_upcoming():
+    # The latest race has happened but f1db hasn't published it yet: no LATER
+    # round is complete, so it must remain upcoming (not be flagged postponed).
+    races = [
+        {"round": 8, "status": "completed"},
+        {"round": 9, "status": "upcoming"},   # just raced, results pending
+    ]
+    fs.reconcile_postponed(races)
+    assert [r["status"] for r in races] == ["completed", "upcoming"]
+
+
 def test_assemble_season_schema():
     now = datetime(2026, 7, 1, tzinfo=timezone.utc)
     driver_standings = [

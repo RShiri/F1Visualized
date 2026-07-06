@@ -174,22 +174,28 @@ function standRow(pos, nameHtml, team, points, max, wins) {
 
 function renderCalendar(d) {
   const done = d.races.filter((r) => r.status === "completed").length;
-  $("#calendarMeta").textContent = `${done} of ${d.races.length} rounds completed`;
+  const postponed = d.races.filter((r) => r.status === "postponed").length;
+  $("#calendarMeta").textContent = `${done} of ${d.races.length - postponed} rounds completed`
+    + (postponed ? ` · ${postponed} postponed` : "");
   const today = todayISO();
   const nextRound = (d.races.find((r) => r.status === "upcoming" && (!r.date || r.date >= today)) || {}).round;
   const grid = $("#calendarGrid");
   grid.innerHTML = "";
   d.races.forEach((r) => {
     const isNext = r.round === nextRound;
-    const isTBC = r.status === "upcoming" && r.date && r.date < today;  // scheduled, no result
+    const isPostponed = r.status === "postponed";        // scheduled, never held (skipped in f1db)
+    const isTBC = r.status === "upcoming" && r.date && r.date < today;  // scheduled, result pending
     const badge = r.status === "completed" ? `<span class="badge done">Completed</span>`
+      : isPostponed ? `<span class="badge off">Postponed</span>`
       : isNext ? `<span class="badge next">Next Up</span>`
       : isTBC ? `<span class="badge up">TBC</span>`
       : `<span class="badge up">Upcoming</span>`;
     const foot = r.status === "completed" && r.winner
       ? `<span class="rc-winner">${swatch(r.winner.team, 4, 15)} ${esc(r.winner.code)} · ${esc(r.winner.name.split(" ").slice(-1)[0])}</span>`
+      : isPostponed
+      ? `<span class="rc-sub">Not held${r.date ? " · was " + fmtDate(r.date) : ""}</span>`
       : `<span class="rc-sub">${fmtDate(r.date)}</span>`;
-    const card = el("div", "race-card" + (isNext ? " next" : ""));
+    const card = el("div", "race-card" + (isNext ? " next" : "") + (isPostponed ? " off" : ""));
     card.innerHTML = `
       <div class="rc-top"><span class="rc-round">R${r.round}</span><span class="rc-flag">${flag(r.country)}</span></div>
       <div class="rc-name">${esc(r.name)}</div>
