@@ -356,13 +356,25 @@ function deriveLapPositions(race) {
   classified.forEach((r) => (finalPos[r.code] = r.pos));
   dnf.forEach((r, i) => (finalPos[r.code] = classified.length + i + 1));
 
-  // Each driver's continuous grid→finish curve and the last lap they ran.
+  // The last lap a car appears on the chart. A CLASSIFIED finisher runs to the
+  // flag even if lapped (so it holds its finishing slot at the end); a RETIREMENT
+  // drops out at the lap it reached. Retirements with no recorded lap count are
+  // staggered through the race so they visibly retire instead of being ranked
+  // among the finishers on the final lap (which is what "laps || total" did).
+  const dnfOrder = dnf.map((r) => r.code);
+  const lastLap = (r) => {
+    if (r.pos != null) return total;                          // classified → to the flag
+    const laps = Number.isInteger(r.laps) && r.laps > 0 ? r.laps : 0;
+    if (laps) return Math.min(laps, total - 1);               // known retirement lap
+    const k = dnfOrder.indexOf(r.code), m = Math.max(1, dnfOrder.length - 1);
+    return Math.max(1, Math.min(total - 1, Math.round(total * (0.8 - 0.45 * (k / m)))));
+  };
   const curve = results.map((r) => {
     const fin = finalPos[r.code] || n;
     return {
       code: r.code, team: r.team, fin,
       grid: r.grid && r.grid > 0 ? r.grid : fin,
-      last: Math.max(1, r.laps || total),
+      last: lastLap(r),
     };
   });
 
