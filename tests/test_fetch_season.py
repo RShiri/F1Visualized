@@ -124,6 +124,49 @@ def test_reconcile_postponed_keeps_just_finished_race_upcoming():
     assert [r["status"] for r in races] == ["completed", "upcoming"]
 
 
+def test_topup_standings_folds_manual_points_and_reranks():
+    fs._driver_cache.update({
+        "kimi-antonelli": {"code": "ANT", "name": "Kimi Antonelli", "nat": "IT"},
+    })
+    # f1db order (Barcelona omitted): RUS ahead of HAM, LEC ahead of NOR.
+    ds = [
+        {"position": 1, "driverId": "kimi-antonelli", "points": 179},
+        {"position": 2, "driverId": "george-russell", "points": 154},
+        {"position": 3, "driverId": "lewis-hamilton", "points": 147},
+        {"position": 4, "driverId": "charles-leclerc", "points": 108},
+        {"position": 5, "driverId": "lando-norris", "points": 97},
+    ]
+    fs._driver_cache.update({
+        "george-russell": {"code": "RUS", "name": "George Russell", "nat": "GB"},
+        "lewis-hamilton": {"code": "HAM", "name": "Lewis Hamilton", "nat": "GB"},
+        "charles-leclerc": {"code": "LEC", "name": "Charles Leclerc", "nat": "MC"},
+        "lando-norris": {"code": "NOR", "name": "Lando Norris", "nat": "GB"},
+    })
+    cs = [{"position": 1, "constructorId": "mercedes", "points": 333},
+          {"position": 2, "constructorId": "ferrari", "points": 255}]
+    manual = [{"results": [
+        {"code": "HAM", "team": "Ferrari", "points": 25},
+        {"code": "RUS", "team": "Mercedes", "points": 18},
+        {"code": "NOR", "team": "McLaren", "points": 15},
+        {"code": "ANT", "team": "Mercedes", "points": 0},   # DNF, no points
+    ]}]
+    ds2, cs2 = fs.topup_standings(ds, cs, manual)
+
+    got = [(s["position"], fs.resolve_driver(s["driverId"])["code"], s["points"]) for s in ds2]
+    # RUS 172 and HAM 172 tie -> RUS stays ahead (stable sort keeps f1db countback
+    # order); NOR 112 leapfrogs LEC 108.
+    assert got == [(1, "ANT", 179), (2, "RUS", 172), (3, "HAM", 172),
+                   (4, "NOR", 112), (5, "LEC", 108)]
+    assert cs2[0] == {"position": 1, "constructorId": "mercedes", "points": 351}
+
+
+def test_topup_standings_noop_without_manual_races():
+    ds = [{"position": 1, "driverId": "lando-norris", "points": 100}]
+    cs = [{"position": 1, "constructorId": "mclaren", "points": 200}]
+    ds2, cs2 = fs.topup_standings(ds, cs, [])
+    assert ds2 is ds and cs2 is cs   # untouched when nothing was applied
+
+
 def test_assemble_season_schema():
     now = datetime(2026, 7, 1, tzinfo=timezone.utc)
     driver_standings = [

@@ -475,6 +475,92 @@ def reconcile_postponed(races: list) -> None:
             r["status"] = "postponed"
 
 
+# --------------------------------------------------------------------------- #
+# Manual race backfill — a stopgap for rounds f1db has not ingested yet.
+# --------------------------------------------------------------------------- #
+def load_manual_races() -> dict:
+    """Load committed manual race results, keyed by ``(year, round)``.
+
+    Each ``data/manual_races/*.json`` holds one race in the dashboard schema,
+    tagged with its ``year`` and ``round`` and a ``source``. They cover races
+    the public f1db dataset has not published yet; each is applied only while
+    f1db lacks that round (see ``apply_manual_races``).
+    """
+    out: dict = {}
+    manual_dir = config.DATA_DIR / "manual_races"
+    if not manual_dir.is_dir():
+        return out
+    for path in sorted(manual_dir.glob("*.json")):
+        try:
+            doc = json.loads(path.read_text(encoding="utf-8"))
+            out[(int(doc["year"]), int(doc["round"]))] = doc["race"]
+        except (ValueError, KeyError) as exc:  # noqa: PERF203 — tiny, tolerant loop
+            log.warning("Skipping bad manual race %s: %s", path, exc)
+    return out
+
+
+def apply_manual_races(year: int, races: list, wins: dict) -> list:
+    """Fill rounds f1db is still missing from committed manual results.
+
+    Replaces a not-yet-completed race with its manual result (when one exists)
+    and registers the win. Returns the manual races actually applied so the
+    standings can be topped up with their points. A round f1db already has is
+    left untouched, so f1db silently supersedes the stopgap once it catches up.
+    Mutates the matching race dicts in ``races`` in place.
+    """
+    manual = load_manual_races()
+    applied = []
+    for r in races:
+        m = manual.get((year, r.get("round")))
+        if m and r.get("status") != "completed":
+            r.clear()
+            r.update(m)
+            w = r.get("winner")
+            if w:
+                wins["drivers"][w["code"]] = wins["drivers"].get(w["code"], 0) + 1
+                wins["teams"][w["team"]] = wins["teams"].get(w["team"], 0) + 1
+            applied.append(r)
+    return applied
+
+
+def topup_standings(driver_standings: list, constructor_standings: list,
+                    applied_races: list) -> tuple:
+    """Fold manually-applied race points into the f1db standings and re-rank.
+
+    f1db's standings omit any round it has not ingested, so when a manual race
+    fills that gap its points must be added or the championship would trail the
+    results shown by a round. Points are matched by driver code / team name; the
+    re-sort is stable, preserving f1db's countback order on ties.
+    """
+    dpts: dict = {}
+    cpts: dict = {}
+    for race in applied_races:
+        for row in race.get("results", []):
+            pts = row.get("points") or 0
+            if not pts:
+                continue
+            dpts[row["code"]] = dpts.get(row["code"], 0) + pts
+            if row.get("team"):
+                cpts[row["team"]] = cpts.get(row["team"], 0) + pts
+    if not dpts and not cpts:
+        return driver_standings, constructor_standings
+
+    for s in driver_standings:
+        code = resolve_driver(s.get("driverId", ""))["code"]
+        s["points"] = (s.get("points") or 0) + dpts.get(code, 0)
+    driver_standings = sorted(driver_standings, key=lambda s: -(s.get("points") or 0))
+    for i, s in enumerate(driver_standings, 1):
+        s["position"] = i
+
+    for s in constructor_standings:
+        tm = team_name(s.get("constructorId"))
+        s["points"] = (s.get("points") or 0) + cpts.get(tm, 0)
+    constructor_standings = sorted(constructor_standings, key=lambda s: -(s.get("points") or 0))
+    for i, s in enumerate(constructor_standings, 1):
+        s["position"] = i
+    return driver_standings, constructor_standings
+
+
 def fetch_season(year: int, now: Optional[datetime] = None, laps_led: bool = False) -> dict:
     """Fetch one season from fastf1 (calendar) + f1db (results/standings)."""
     import fastf1
@@ -499,12 +585,15 @@ def fetch_season(year: int, now: Optional[datetime] = None, laps_led: bool = Fal
 
     wins = {"drivers": {}, "teams": {}}
     races = [build_race(year, ev, now, wins) for ev in events]
+    applied_manual = apply_manual_races(year, races, wins)
     reconcile_postponed(races)
     if laps_led:
         enrich_laps_led(year, races)
 
     driver_standings = _get_yaml(f"seasons/{year}/driver-standings.yml") or []
     constructor_standings = _get_yaml(f"seasons/{year}/constructor-standings.yml") or []
+    driver_standings, constructor_standings = topup_standings(
+        driver_standings, constructor_standings, applied_manual)
     team_by_code = _team_by_code(year, races)
 
     season = assemble_season(year, races, driver_standings, constructor_standings,
