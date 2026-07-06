@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Abu Dhabi Grand Prix — Race Progression</title>
+<meta name="description" content="Interactive lap-by-lap race progression chart for the Abu Dhabi Grand Prix.">
+<style>
+  :root{
+    --bg:#0e0e13; --panel:#1a1a22; --panel-2:#1f1f29; --border:#2a2a35;
+    --ink:#f4f4f7; --ink-2:#b7b7c2; --ink-3:#82828f; --red:#e10600; --red-2:#ff2d24;
+    --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  .f1prog-embed{
+    font-family:var(--font); color:var(--ink);
+    background:radial-gradient(900px 480px at 85% -20%,rgba(225,6,0,.10),transparent 60%),var(--bg);
+    padding:18px; border-radius:16px; max-width:1040px; margin:0 auto;
+    -webkit-font-smoothing:antialiased;
+  }
+  .f1prog-embed .prog-head{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:10px;}
+  .f1prog-embed .card-title{color:var(--ink-3); font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase;}
+  .f1prog-embed .prog-sub{color:var(--ink); font-size:15px; font-weight:800; letter-spacing:.01em;}
+  .f1prog-embed .prog-note{color:var(--ink-3); font-size:12px;}
+  .f1prog-embed .prog-svg{width:100%; height:auto; background:var(--panel); border:1px solid var(--border); border-radius:12px; display:block;}
+  .f1prog-embed .prog-grid{stroke:var(--border); stroke-width:1; opacity:.55;}
+  .f1prog-embed .prog-axis{fill:var(--ink-3); font-size:11px; font-weight:700;}
+  .f1prog-embed .prog-faint{fill:none; stroke-width:1.4; opacity:.16;}
+  .f1prog-embed .prog-line{fill:none; stroke-width:2.3; opacity:.95; stroke-linejoin:round; stroke-linecap:round;}
+  .f1prog-embed .prog-vline{stroke:var(--ink-3); stroke-width:1; stroke-dasharray:3 4; opacity:.5;}
+  .f1prog-embed .prog-dot{stroke:#0e0e13; stroke-width:.8;}
+  .f1prog-embed .prog-code{font-size:11px; font-weight:800; paint-order:stroke; stroke:#0e0e13; stroke-width:2.6px; stroke-linejoin:round;}
+  .f1prog-embed .prog-controls{display:flex; align-items:center; gap:14px; margin-top:10px;}
+  .f1prog-embed .prog-play{background:var(--red); color:#fff; border:0; border-radius:8px; padding:8px 16px; font:inherit; font-weight:800; cursor:pointer; min-width:78px;}
+  .f1prog-embed .prog-play:hover{background:var(--red-2);}
+  .f1prog-embed .prog-slider{flex:1; accent-color:var(--red); height:4px; cursor:pointer;}
+  .f1prog-embed .prog-lap{color:var(--ink-2); font-weight:800; font-variant-numeric:tabular-nums; white-space:nowrap;}
+  .f1prog-embed .prog-num{width:50px; margin:0 3px; padding:4px 5px; background:var(--panel-2); color:var(--ink); border:1px solid var(--border); border-radius:6px; font:inherit; text-align:center;}
+  .f1prog-embed .prog-num:focus{outline:none; border-color:var(--red);}
+  .f1prog-embed .viz-context{margin-top:12px; padding:12px 14px; background:var(--panel); border:1px solid var(--border); border-radius:12px;}
+  .f1prog-embed .viz-lead{color:var(--ink-2); font-size:13px; line-height:1.55; margin:0;}
+  .f1prog-embed .viz-lead b{color:var(--ink); font-weight:700;}
+  .f1prog-embed .viz-src{color:var(--ink-3); font-size:12px; line-height:1.5; margin:8px 0 0;}
+  .f1prog-embed .viz-src b{color:var(--ink-2); font-weight:700;}
+  .f1prog-embed .prog-credit{margin-top:10px; font-size:11px; color:var(--ink-3);}
+  .f1prog-embed .prog-credit a{color:var(--ink-2); text-decoration:none; border-bottom:1px solid var(--border);}
+</style>
+</head>
+<body>
+<div class="f1prog-embed" id="f1prog"></div>
+<script>
+"use strict";
+// ---- one race, inlined (last Grand Prix Max Verstappen won) ----
+const RACE = {"round": 24,"name": "Abu Dhabi Grand Prix","country": "United Arab Emirates","date": "2025-12-07","total_laps": null,"results": [{"pos": 1,"code": "VER","name": "Max Verstappen","team": "Red Bull Racing","grid": 1,"laps": 58,"status": "Finished"},{"pos": 2,"code": "PIA","name": "Oscar Piastri","team": "McLaren","grid": 3,"laps": 58,"status": "Finished"},{"pos": 3,"code": "NOR","name": "Lando Norris","team": "McLaren","grid": 2,"laps": 58,"status": "Finished"},{"pos": 4,"code": "LEC","name": "Charles Leclerc","team": "Ferrari","grid": 5,"laps": 58,"status": "Finished"},{"pos": 5,"code": "RUS","name": "George Russell","team": "Mercedes","grid": 4,"laps": 58,"status": "Finished"},{"pos": 6,"code": "ALO","name": "Fernando Alonso","team": "Aston Martin","grid": 6,"laps": 58,"status": "Finished"},{"pos": 7,"code": "OCO","name": "Esteban Ocon","team": "Haas","grid": 8,"laps": 58,"status": "Finished"},{"pos": 8,"code": "HAM","name": "Lewis Hamilton","team": "Ferrari","grid": 16,"laps": 58,"status": "Finished"},{"pos": 9,"code": "HUL","name": "Nico Hülkenberg","team": "Kick Sauber","grid": 18,"laps": 58,"status": "Finished"},{"pos": 10,"code": "STR","name": "Lance Stroll","team": "Aston Martin","grid": 15,"laps": 58,"status": "Finished"},{"pos": 11,"code": "BOR","name": "Gabriel Bortoleto","team": "Kick Sauber","grid": 7,"laps": 58,"status": "Finished"},{"pos": 12,"code": "BEA","name": "Oliver Bearman","team": "Haas","grid": 11,"laps": 58,"status": "Finished"},{"pos": 13,"code": "SAI","name": "Carlos Sainz Jr.","team": "Williams","grid": 12,"laps": 58,"status": "Finished"},{"pos": 14,"code": "TSU","name": "Yuki Tsunoda","team": "Red Bull Racing","grid": 10,"laps": 58,"status": "Finished"},{"pos": 15,"code": "ANT","name": "Kimi Antonelli","team": "Mercedes","grid": 14,"laps": 58,"status": "Finished"},{"pos": 16,"code": "ALB","name": "Alexander Albon","team": "Williams","grid": 17,"laps": 58,"status": "Finished"},{"pos": 17,"code": "HAD","name": "Isack Hadjar","team": "Racing Bulls","grid": 9,"laps": 57,"status": "Finished"},{"pos": 18,"code": "LAW","name": "Liam Lawson","team": "Racing Bulls","grid": 13,"laps": 57,"status": "Finished"},{"pos": 19,"code": "GAS","name": "Pierre Gasly","team": "Alpine","grid": 19,"laps": 57,"status": "Finished"},{"pos": 20,"code": "COL","name": "Franco Colapinto","team": "Alpine","grid": 20,"laps": 57,"status": "Finished"}]};
+
+// ---- team colours (verbatim from the F1Visualized dashboard) ----
+const TEAM_COLORS = {
+  "mclaren":"#ff8000","ferrari":"#e8002d","red bull racing":"#3671c6","red bull":"#3671c6",
+  "mercedes":"#27f4d2","aston martin":"#229971","alpine":"#0093cc","williams":"#1868db",
+  "racing bulls":"#6692ff","rb":"#6692ff","visa cash app rb":"#6692ff","alphatauri":"#2b4562",
+  "haas":"#b6babd","haas f1 team":"#b6babd","kick sauber":"#52e252","sauber":"#52e252",
+  "stake f1 team kick sauber":"#52e252","alfa romeo":"#b12039","audi":"#26c1a3","cadillac":"#c9a24b"
+};
+function teamColor(t){ if(!t) return "#8a8a95"; return TEAM_COLORS[t.trim().toLowerCase()] || "#8a8a95"; }
+
+const SVGNS = "http://www.w3.org/2000/svg";
+const el = (tag,cls,html) => { const n=document.createElement(tag); if(cls)n.className=cls; if(html!=null)n.innerHTML=html; return n; };
+const $ = (sel,e=document) => e.querySelector(sel);
+function _svg(tag,attrs){ const n=document.createElementNS(SVGNS,tag); for(const k in attrs)n.setAttribute(k,attrs[k]); return n; }
+let _progTimer=null;
+function stopProgression(){ if(_progTimer){clearInterval(_progTimer); _progTimer=null;} }
+
+// Per-driver position for every lap. Real lap-by-lap telemetry when present,
+// otherwise an honest grid -> finish approximation from real grid/finish/laps.
+function deriveLapPositions(race){
+  const results = race.results || [];
+  const n = results.length || 20;
+  if(race.laps && typeof race.laps === "object"){
+    const total = race.total_laps || Math.max(1, ...Object.values(race.laps).map(a=>a.length));
+    const teamOf={}; results.forEach(r=>teamOf[r.code]=r.team);
+    const drivers = Object.keys(race.laps).map(code=>({
+      code, team:teamOf[code]||"", positions:race.laps[code],
+      fin:race.laps[code][race.laps[code].length-1]||n,
+    }));
+    return {total,n,drivers,real:true};
+  }
+  const total = race.total_laps || Math.max(1, ...results.map(r=>r.laps||1));
+  const classified = results.filter(r=>r.pos!=null).slice().sort((a,b)=>a.pos-b.pos);
+  const dnf = results.filter(r=>r.pos==null).slice().sort((a,b)=>(b.laps||0)-(a.laps||0));
+  const finalPos={}; classified.forEach(r=>finalPos[r.code]=r.pos);
+  dnf.forEach((r,i)=>finalPos[r.code]=classified.length+i+1);
+  const curve = results.map(r=>{
+    const fin=finalPos[r.code]||n;
+    return {code:r.code, team:r.team, fin, grid:r.grid&&r.grid>0?r.grid:fin, last:Math.max(1,r.laps||total)};
+  });
+  const pos={}; curve.forEach(c=>pos[c.code]=[]);
+  for(let lap=1; lap<=total; lap++){
+    const running=[];
+    for(const c of curve){
+      if(lap>c.last){ pos[c.code].push(null); continue; }
+      const t = c.last<=1 ? 1 : (lap-1)/(c.last-1);
+      running.push({code:c.code, v:c.grid+(c.fin-c.grid)*(t*t*(3-2*t)), fin:c.fin, grid:c.grid});
+    }
+    running.sort((a,b)=>a.v-b.v || a.fin-b.fin || a.grid-b.grid || (a.code<b.code?-1:1));
+    running.forEach((d,i)=>pos[d.code].push(i+1));
+  }
+  const drivers = curve.map(c=>({code:c.code, team:c.team, positions:pos[c.code], fin:c.fin}));
+  drivers.sort((a,b)=>a.fin-b.fin);
+  return {total,n,drivers,real:false};
+}
+
+function progressionContext(real){
+  return el("div","viz-context",
+    '<p class="viz-lead">Each line is a driver, coloured by team. The vertical '+
+    'axis is running order (<b>P1 at the top</b> down to last); the horizontal '+
+    'axis is the lap. The faint trace is the full race; the bright trace fills '+
+    'in up to the cursor as you <b>drag the slider or press&nbsp;Play</b>.</p>'+
+    '<p class="viz-src">'+(real
+      ? 'Positions are <b>real lap-by-lap timing</b> from the F1 feed.'
+      : 'Positions are an honest <b>grid&nbsp;&rarr;&nbsp;finish approximation</b> &mdash; '+
+        "each driver's real starting grid, finishing place and laps completed, "+
+        'smoothed into a curve. The mid-race ordering is indicative, not measured.')+
+    '</p>');
+}
+
+function buildProgression(race){
+  const {total,n,drivers,real} = deriveLapPositions(race);
+  const W=1000,H=440,padL=44,padR=48,padT=16,padB=30;
+  const plotW=W-padL-padR, plotH=H-padT-padB;
+  const xOf=lap=>padL+(total<=1?0:((lap-1)/(total-1))*plotW);
+  const yOf=p=>padT+(n<=1?0:((p-1)/(n-1))*plotH);
+  const wrap = el("div","progression");
+  wrap.innerHTML =
+    '<div class="prog-head"><span class="prog-sub">'+race.name+'</span>'+
+    '<span class="prog-note">'+(real?"lap-by-lap":"grid → finish (approx)")+' · drag or play to scrub</span></div>';
+  const s = _svg("svg",{viewBox:"0 0 "+W+" "+H, class:"prog-svg", preserveAspectRatio:"xMidYMid meet"});
+  for(let p=1;p<=n;p++){
+    if(p===1||p%5===0){
+      s.appendChild(_svg("line",{x1:padL,y1:yOf(p),x2:W-padR,y2:yOf(p),class:"prog-grid"}));
+      const t=_svg("text",{x:padL-8,y:yOf(p)+3.5,class:"prog-axis","text-anchor":"end"}); t.textContent="P"+p; s.appendChild(t);
+    }
+  }
+  const step = total<=30?5:10;
+  for(let lap=1; lap<=total; lap+=lap===1?step-1:step){
+    const t=_svg("text",{x:xOf(lap),y:H-padB+18,class:"prog-axis","text-anchor":"middle"}); t.textContent=lap; s.appendChild(t);
+  }
+  const bright={}, marker={}, label={};
+  drivers.forEach(d=>{
+    const color=teamColor(d.team);
+    const pts=d.positions.map((p,i)=>p==null?null:xOf(i+1)+","+yOf(p)).filter(Boolean);
+    s.appendChild(_svg("polyline",{points:pts.join(" "),class:"prog-faint",stroke:color}));
+    bright[d.code]=_svg("polyline",{points:"",class:"prog-line",stroke:color}); s.appendChild(bright[d.code]);
+  });
+  const vline=_svg("line",{x1:xOf(1),y1:padT,x2:xOf(1),y2:H-padB,class:"prog-vline"}); s.appendChild(vline);
+  drivers.forEach(d=>{
+    const color=teamColor(d.team);
+    marker[d.code]=_svg("circle",{r:3.4,class:"prog-dot",fill:color,cx:-20,cy:-20}); s.appendChild(marker[d.code]);
+    const lab=_svg("text",{class:"prog-code",x:-20,y:-20,fill:color}); lab.textContent=d.code; label[d.code]=lab; s.appendChild(lab);
+  });
+  wrap.appendChild(s);
+  const ctrl=el("div","prog-controls");
+  ctrl.innerHTML =
+    '<button type="button" class="prog-play">Play</button>'+
+    '<input type="range" class="prog-slider" min="1" max="'+total+'" value="'+total+'" step="1" aria-label="Lap">'+
+    '<span class="prog-lap">Lap <input type="number" class="prog-num" min="1" max="'+total+'" value="'+total+'" aria-label="Pick lap"> / '+total+'</span>';
+  wrap.appendChild(ctrl);
+  const playBtn=$(".prog-play",ctrl), slider=$(".prog-slider",ctrl), num=$(".prog-num",ctrl);
+  function setLap(L){
+    L=Math.max(1,Math.min(total,L|0));
+    vline.setAttribute("x1",xOf(L)); vline.setAttribute("x2",xOf(L));
+    slider.value=L; if(document.activeElement!==num)num.value=L;
+    drivers.forEach(d=>{
+      const pts=[]; for(let lap=1;lap<=L;lap++){const p=d.positions[lap-1]; if(p!=null)pts.push(xOf(lap)+","+yOf(p));}
+      bright[d.code].setAttribute("points",pts.join(" "));
+      const cur=d.positions[L-1]; const on=cur!=null?"1":"0";
+      marker[d.code].style.opacity=on; label[d.code].style.opacity=on;
+      if(cur!=null){ marker[d.code].setAttribute("cx",xOf(L)); marker[d.code].setAttribute("cy",yOf(cur));
+        label[d.code].setAttribute("x",xOf(L)+6); label[d.code].setAttribute("y",yOf(cur)+3.5); }
+    });
+  }
+  function stopPlay(){ stopProgression(); playBtn.textContent="Play"; }
+  function play(){
+    stopProgression(); let L=+slider.value>=total?1:+slider.value; playBtn.textContent="Pause";
+    _progTimer=setInterval(()=>{ L+=1; if(L>total){slider.value=total; setLap(total); stopPlay(); return;} slider.value=L; setLap(L); },110);
+  }
+  slider.addEventListener("input",()=>{stopPlay(); setLap(+slider.value);});
+  num.addEventListener("change",()=>{stopPlay(); setLap(+num.value||1);});
+  num.addEventListener("keydown",e=>{ if(e.key==="Enter"){stopPlay(); setLap(+num.value||1); num.blur();} });
+  playBtn.addEventListener("click",()=>_progTimer?stopPlay():play());
+  wrap.appendChild(progressionContext(real));
+  setLap(total);
+  return wrap;
+}
+
+const root = document.getElementById("f1prog");
+root.appendChild(buildProgression(RACE));
+const credit = el("div","prog-credit",
+  'Data & chart from <a href="https://github.com/RShiri/F1Visualized" target="_blank" rel="noopener">F1&nbsp;Visualized</a> · '+RACE.name+' '+(RACE.date||"").slice(0,4));
+root.appendChild(credit);
+</script>
+</body>
+</html>
