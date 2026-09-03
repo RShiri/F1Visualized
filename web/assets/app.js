@@ -21,9 +21,85 @@ const TEAM_COLORS = {
   "audi": "#26c1a3",
   "cadillac": "#c9a24b",
 };
+
+/* ---- team-colour collision guard ----
+ * Several team colours sit close enough in perceptual colour space that,
+ * shown together (e.g. Red Bull / Racing Bulls / Williams — all blue, all in
+ * the same season), swatches and the race-progression lines become hard to
+ * tell apart. CIE76 ΔE in Lab space measures "how different two colours look"
+ * far more reliably than comparing RGB/hue numbers. Below ~28 ΔE they read as
+ * near-identical at a glance, so the later team in standings order gets
+ * nudged (hue-rotated + lightened) until it clears the threshold against
+ * every colour already placed, falling back to a neutral grey if it can't.
+ */
+function hexRgb(hex) {
+  const h = hex.replace("#", "");
+  return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
+}
+function rgbLab([r, g, b]) {
+  const lin = (c) => { c /= 255; return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4); };
+  const [R, G, B] = [lin(r), lin(g), lin(b)];
+  const X = R * 0.4124 + G * 0.3576 + B * 0.1805;
+  const Y = R * 0.2126 + G * 0.7152 + B * 0.0722;
+  const Z = R * 0.0193 + G * 0.1192 + B * 0.9505;
+  const f = (t) => (t > 0.008856 ? Math.cbrt(t) : 7.787 * t + 16 / 116);
+  const [fx, fy, fz] = [f(X / 0.95047), f(Y / 1), f(Z / 1.08883)];
+  return [116 * fy - 16, 500 * (fx - fy), 200 * (fy - fz)];
+}
+function deltaE(hexA, hexB) {
+  const [L1, a1, b1] = rgbLab(hexRgb(hexA));
+  const [L2, a2, b2] = rgbLab(hexRgb(hexB));
+  return Math.sqrt((L1 - L2) ** 2 + (a1 - a2) ** 2 + (b1 - b2) ** 2);
+}
+function rgbToHsl([r, g, b]) {
+  r /= 255; g /= 255; b /= 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  let h = 0, s = 0; const l = (max + min) / 2;
+  const d = max - min;
+  if (d) {
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    if (max === r) h = ((g - b) / d + (g < b ? 6 : 0)) * 60;
+    else if (max === g) h = ((b - r) / d + 2) * 60;
+    else h = ((r - g) / d + 4) * 60;
+  }
+  return [h, s, l];
+}
+function hslToHex(h, s, l) {
+  h = ((h % 360) + 360) % 360;
+  const c = (1 - Math.abs(2 * l - 1)) * s;
+  const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
+  const m = l - c / 2;
+  let [r, g, b] = h < 60 ? [c, x, 0] : h < 120 ? [x, c, 0] : h < 180 ? [0, c, x]
+    : h < 240 ? [0, x, c] : h < 300 ? [x, 0, c] : [c, 0, x];
+  const to255 = (v) => Math.round((v + m) * 255).toString(16).padStart(2, "0");
+  return `#${to255(r)}${to255(g)}${to255(b)}`;
+}
+function nudgeAwayFrom(hex, usedHexes, minDE = 28) {
+  let candidate = hex;
+  for (let attempt = 0; attempt < 6; attempt++) {
+    if (usedHexes.every((u) => deltaE(candidate, u) >= minDE)) return candidate;
+    const [h, s, l] = rgbToHsl(hexRgb(candidate));
+    candidate = hslToHex(h + 45, s, Math.min(0.82, l + 0.08));
+  }
+  return usedHexes.every((u) => deltaE("#8a97a6", u) >= minDE) ? "#8a97a6" : "#c7ccd4";
+}
+let seasonTeamColors = {};
+function computeSeasonColors(teamNames) {
+  const used = [];
+  const resolved = {};
+  teamNames.forEach((team) => {
+    const base = TEAM_COLORS[(team || "").trim().toLowerCase()] || "#8a8a95";
+    const safe = nudgeAwayFrom(base, used);
+    resolved[team] = safe;
+    used.push(safe);
+  });
+  seasonTeamColors = resolved;
+}
 function teamColor(team) {
   if (!team) return "#8a8a95";
-  return TEAM_COLORS[team.trim().toLowerCase()] || "#8a8a95";
+  const t = team.trim();
+  if (seasonTeamColors[t]) return seasonTeamColors[t];
+  return TEAM_COLORS[t.toLowerCase()] || "#8a8a95";
 }
 
 /* ---- country flags (inline SVG) ---- */
@@ -72,6 +148,7 @@ function data() { return SEASONS[current]; }
 function render() {
   const d = data();
   if (!d) return;
+  computeSeasonColors((d.constructors || []).map((c) => c.team));
   $("#updated").textContent = d.updated
     ? "Updated " + new Date(d.updated).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" })
     : "";
@@ -86,7 +163,7 @@ function renderOverview(d) {
   const dl = d.drivers[0], d2 = d.drivers[1];
   const cl = d.constructors[0], c2 = d.constructors[1];
 
-  $("#driverLeader").style.setProperty("--accent", teamColor(dl.team));
+  $("#driverLeader").style.setProperty("--team", teamColor(dl.team));
   $("#driverLeader").innerHTML = `
     <div class="lc-label">Drivers' Championship Leader</div>
     <div class="lc-pts"><b>${fmtPts(dl.points)}</b><span>points</span></div>
@@ -94,7 +171,7 @@ function renderOverview(d) {
     <div class="lc-team">${esc(dl.team)} · ${dl.wins} win${dl.wins === 1 ? "" : "s"}</div>
     <div class="lc-gap">Lead over ${esc(d2 ? d2.code : "—")}: <b>${d2 ? "+" + fmtPts(dl.points - d2.points) : "—"}</b></div>`;
 
-  $("#constructorLeader").style.setProperty("--accent", teamColor(cl.team));
+  $("#constructorLeader").style.setProperty("--team", teamColor(cl.team));
   $("#constructorLeader").innerHTML = `
     <div class="lc-label">Constructors' Championship Leader</div>
     <div class="lc-pts"><b>${fmtPts(cl.points)}</b><span>points</span></div>
@@ -304,7 +381,7 @@ function drawStats(box, stats, cols) {
       const cls = (c.cls ? c.cls(v) : "") + (c.primary ? " primary" : "") + (statsSort.key === c.key ? " on" : "");
       return `<td class="num ${cls.trim()}">${disp}</td>`;
     }).join("");
-    return `<tr style="--accent:${teamColor(s.team)}">
+    return `<tr style="--team:${teamColor(s.team)}">
       <td class="stx-rank">${i + 1}</td>
       <td class="stx-drv"><span class="cell-driver">${swatch(s.team)}${natFlag(s.nat)}<span>${esc(s.name)}</span><span class="code">${esc(s.code)}</span></span></td>
       <td class="stx-team">${esc(s.team)}</td>${cells}</tr>`;
@@ -519,7 +596,7 @@ function renderRaceDetail(d, round) {
   if (!r || !r.results.length) { box.innerHTML = `<div class="empty-note">No results available.</div>`; return; }
   const medals = ["🥇", "🥈", "🥉"];
   const podium = r.podium.map((p, i) => `
-    <div class="pod" style="--accent:${teamColor(p.team)}">
+    <div class="pod" style="--team:${teamColor(p.team)}">
       <div class="medal">${medals[i]}</div>
       <div class="pn">${natFlag(p.nat)}${esc(p.name)}</div>
       <div class="pt">${esc(p.team)}</div>
@@ -579,6 +656,28 @@ function wire() {
   document.querySelectorAll("#seasonToggle button").forEach((b) => b.addEventListener("click", () => setSeason(b.dataset.season)));
 }
 
+// `cache: "no-store"` used to sit here — it doesn't just skip a cache-buster,
+// it forbids the browser from caching or even conditionally revalidating the
+// response, so every single page load re-downloaded all ~700KB of season
+// JSON from scratch. `"no-cache"` is the fix: it still always checks back
+// with the server before use (so a real update is never missed), but lets
+// the browser send a conditional request and reuse the cached body on a 304
+// — normal caching stays on, staleness just isn't possible. The `?v=` tag
+// (the season's own `updated` timestamp, remembered from the last successful
+// load) additionally pins each version to its own cache entry, so a stale
+// intermediary that mishandles conditional requests still can't serve an old
+// body under a new version's URL.
+async function loadSeasonJSON(y) {
+  let v = "";
+  try { v = localStorage.getItem(`f1viz_v_${y}`) || ""; } catch (e) { /* private mode */ }
+  const url = `data/${y}.json${v ? `?v=${encodeURIComponent(v)}` : ""}`;
+  const res = await fetch(url, { cache: "no-cache" });
+  if (!res.ok) return null;
+  const json = await res.json();
+  try { if (json.updated) localStorage.setItem(`f1viz_v_${y}`, json.updated); } catch (e) { /* private mode */ }
+  return json;
+}
+
 async function boot() {
   wire();
   const years = ["2022", "2023", "2024", "2025", "2026"];
@@ -588,8 +687,8 @@ async function boot() {
   } else {
     await Promise.all(years.map(async (y) => {
       try {
-        const res = await fetch(`data/${y}.json`, { cache: "no-store" });
-        if (res.ok) SEASONS[y] = await res.json();
+        const json = await loadSeasonJSON(y);
+        if (json) SEASONS[y] = json;
       } catch (e) { /* offline / file:// */ }
     }));
   }
