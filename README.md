@@ -54,6 +54,26 @@ The replay video is optional: the video workflow publishes each rendered race to
 `web/media/<year>-<round>.mp4`, and the Results tab embeds it if present (hidden
 gracefully otherwise).
 
+**"Broadcast Kinetic" design.** The dashboard is themed like a live-sport
+broadcast graphic: a carbon ground, chamfered plates instead of rounded
+cards, slanted tabs/buttons, condensed italic Barlow display type, and
+hatched comparison bars. The whole site uses exactly **one** signal colour —
+`#9d4dff`, F1 broadcasting's own convention for "fastest lap / the best time
+set" — for anything active/leading (the current tab, the points leader, a
+race's fastest-lap tag). Team colours (`TEAM_COLORS` in `app.js`) are
+unrelated and keep decorating driver/constructor rows the way they always
+did. A few team colours sit close enough in perceptual colour space to be
+hard to tell apart at a glance when shown together (Red Bull Racing /
+Racing Bulls / Williams are all blue in the same 2024+ standings) — `app.js`
+runs a small CIE76 ΔE check per season and nudges a colliding colour apart
+from the ones already placed, in standings order.
+
+**Download image.** The Results tab has a "Download image" button that
+renders a shareable race-card PNG straight to a `<canvas>` — header, flag,
+podium, fastest lap, top-10 classification — and saves it client-side via
+`canvas.toBlob()`. No server round-trip, so it works on the static,
+deployed GitHub Pages site for any race already on the page.
+
 ```
 web/                     The dashboard (static HTML/CSS/JS — no framework)
   index.html
@@ -214,3 +234,8 @@ The modular design leaves clean seams for future work:
   fast.
 * Rich lap/telemetry data is available from the **2018** season onward, which is
   how far back the "latest completed race" search will look.
+* `web/assets/app.js` fetches each season's JSON with `cache: "no-cache"` (always
+  revalidates with the server, so an update is never missed) plus a `?v=<updated>`
+  query tag remembered from the previous load — not `"no-store"`, which would
+  disable caching outright and force a full re-download of all five seasons'
+  JSON on every page load.

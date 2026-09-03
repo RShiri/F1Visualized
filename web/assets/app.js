@@ -21,9 +21,85 @@ const TEAM_COLORS = {
   "audi": "#26c1a3",
   "cadillac": "#c9a24b",
 };
+
+/* ---- team-colour collision guard ----
+ * Several team colours sit close enough in perceptual colour space that,
+ * shown together (e.g. Red Bull / Racing Bulls / Williams — all blue, all in
+ * the same season), swatches and the race-progression lines become hard to
+ * tell apart. CIE76 ΔE in Lab space measures "how different two colours look"
+ * far more reliably than comparing RGB/hue numbers. Below ~28 ΔE they read as
+ * near-identical at a glance, so the later team in standings order gets
+ * nudged (hue-rotated + lightened) until it clears the threshold against
+ * every colour already placed, falling back to a neutral grey if it can't.
+ */
+function hexRgb(hex) {
+  const h = hex.replace("#", "");
+  return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
+}
+function rgbLab([r, g, b]) {
+  const lin = (c) => { c /= 255; return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4); };
+  const [R, G, B] = [lin(r), lin(g), lin(b)];
+  const X = R * 0.4124 + G * 0.3576 + B * 0.1805;
+  const Y = R * 0.2126 + G * 0.7152 + B * 0.0722;
+  const Z = R * 0.0193 + G * 0.1192 + B * 0.9505;
+  const f = (t) => (t > 0.008856 ? Math.cbrt(t) : 7.787 * t + 16 / 116);
+  const [fx, fy, fz] = [f(X / 0.95047), f(Y / 1), f(Z / 1.08883)];
+  return [116 * fy - 16, 500 * (fx - fy), 200 * (fy - fz)];
+}
+function deltaE(hexA, hexB) {
+  const [L1, a1, b1] = rgbLab(hexRgb(hexA));
+  const [L2, a2, b2] = rgbLab(hexRgb(hexB));
+  return Math.sqrt((L1 - L2) ** 2 + (a1 - a2) ** 2 + (b1 - b2) ** 2);
+}
+function rgbToHsl([r, g, b]) {
+  r /= 255; g /= 255; b /= 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  let h = 0, s = 0; const l = (max + min) / 2;
+  const d = max - min;
+  if (d) {
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    if (max === r) h = ((g - b) / d + (g < b ? 6 : 0)) * 60;
+    else if (max === g) h = ((b - r) / d + 2) * 60;
+    else h = ((r - g) / d + 4) * 60;
+  }
+  return [h, s, l];
+}
+function hslToHex(h, s, l) {
+  h = ((h % 360) + 360) % 360;
+  const c = (1 - Math.abs(2 * l - 1)) * s;
+  const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
+  const m = l - c / 2;
+  let [r, g, b] = h < 60 ? [c, x, 0] : h < 120 ? [x, c, 0] : h < 180 ? [0, c, x]
+    : h < 240 ? [0, x, c] : h < 300 ? [x, 0, c] : [c, 0, x];
+  const to255 = (v) => Math.round((v + m) * 255).toString(16).padStart(2, "0");
+  return `#${to255(r)}${to255(g)}${to255(b)}`;
+}
+function nudgeAwayFrom(hex, usedHexes, minDE = 28) {
+  let candidate = hex;
+  for (let attempt = 0; attempt < 6; attempt++) {
+    if (usedHexes.every((u) => deltaE(candidate, u) >= minDE)) return candidate;
+    const [h, s, l] = rgbToHsl(hexRgb(candidate));
+    candidate = hslToHex(h + 45, s, Math.min(0.82, l + 0.08));
+  }
+  return usedHexes.every((u) => deltaE("#8a97a6", u) >= minDE) ? "#8a97a6" : "#c7ccd4";
+}
+let seasonTeamColors = {};
+function computeSeasonColors(teamNames) {
+  const used = [];
+  const resolved = {};
+  teamNames.forEach((team) => {
+    const base = TEAM_COLORS[(team || "").trim().toLowerCase()] || "#8a8a95";
+    const safe = nudgeAwayFrom(base, used);
+    resolved[team] = safe;
+    used.push(safe);
+  });
+  seasonTeamColors = resolved;
+}
 function teamColor(team) {
   if (!team) return "#8a8a95";
-  return TEAM_COLORS[team.trim().toLowerCase()] || "#8a8a95";
+  const t = team.trim();
+  if (seasonTeamColors[t]) return seasonTeamColors[t];
+  return TEAM_COLORS[t.toLowerCase()] || "#8a8a95";
 }
 
 /* ---- country flags (inline SVG) ---- */
@@ -72,6 +148,7 @@ function data() { return SEASONS[current]; }
 function render() {
   const d = data();
   if (!d) return;
+  computeSeasonColors((d.constructors || []).map((c) => c.team));
   $("#updated").textContent = d.updated
     ? "Updated " + new Date(d.updated).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" })
     : "";
@@ -86,21 +163,23 @@ function renderOverview(d) {
   const dl = d.drivers[0], d2 = d.drivers[1];
   const cl = d.constructors[0], c2 = d.constructors[1];
 
-  $("#driverLeader").style.setProperty("--accent", teamColor(dl.team));
+  $("#driverLeader").style.setProperty("--team", teamColor(dl.team));
   $("#driverLeader").innerHTML = `
     <div class="lc-label">Drivers' Championship Leader</div>
     <div class="lc-pts"><b>${fmtPts(dl.points)}</b><span>points</span></div>
     <div class="lc-name">${natFlag(dl.nat)}${esc(dl.name)}</div>
     <div class="lc-team">${esc(dl.team)} · ${dl.wins} win${dl.wins === 1 ? "" : "s"}</div>
-    <div class="lc-gap">Lead over ${esc(d2 ? d2.code : "—")}: <b>${d2 ? "+" + fmtPts(dl.points - d2.points) : "—"}</b></div>`;
+    <div class="lc-gap">Lead over ${esc(d2 ? d2.code : "—")}: <b>${d2 ? "+" + fmtPts(dl.points - d2.points) : "—"}</b></div>
+    ${gapBar(dl.points, d2 && d2.points)}`;
 
-  $("#constructorLeader").style.setProperty("--accent", teamColor(cl.team));
+  $("#constructorLeader").style.setProperty("--team", teamColor(cl.team));
   $("#constructorLeader").innerHTML = `
     <div class="lc-label">Constructors' Championship Leader</div>
     <div class="lc-pts"><b>${fmtPts(cl.points)}</b><span>points</span></div>
     <div class="lc-name">${esc(cl.team)}</div>
     <div class="lc-team">${cl.wins} win${cl.wins === 1 ? "" : "s"}</div>
-    <div class="lc-gap">Lead over ${esc(c2 ? c2.team : "—")}: <b>${c2 ? "+" + fmtPts(cl.points - c2.points) : "—"}</b></div>`;
+    <div class="lc-gap">Lead over ${esc(c2 ? c2.team : "—")}: <b>${c2 ? "+" + fmtPts(cl.points - c2.points) : "—"}</b></div>
+    ${gapBar(cl.points, c2 && c2.points)}`;
 
   const next = d.races.find((r) => r.status === "upcoming" && (!r.date || r.date >= todayISO()));
   const nc = $("#nextRace");
@@ -139,6 +218,16 @@ function renderOverview(d) {
   $("#miniConstructors").innerHTML = miniRows(d.constructors.slice(0, 5), (x) => x.team, (x) => `${x.wins} win${x.wins === 1 ? "" : "s"}`, (x) => x.team);
 }
 
+// A two-part hatched bar showing the leader's share of leader+runner-up
+// points — the signal-coloured hatch marks the leader, a neutral hatch fills
+// the rest, same "leading side gets the accent" language as any comparison
+// bar in this skin.
+function gapBar(leadPts, secondPts) {
+  if (secondPts == null || leadPts + secondPts <= 0) return "";
+  const pct = Math.max(8, Math.min(92, (leadPts / (leadPts + secondPts)) * 100));
+  return `<div class="gap-bar"><span class="lead" style="width:${pct}%"></span><span class="rest"></span></div>`;
+}
+
 function miniRows(rows, name, sub, team, natFn) {
   return rows.map((x) => `
     <div class="row">
@@ -158,15 +247,24 @@ function renderStandings(d) {
     x.pos, esc(x.team), x.team, x.points, maxC, x.wins)).join("");
 }
 
+// Darken a hex colour for the second stripe of a per-team hatched bar.
+function darken(hex, amt) {
+  const [h, s, l] = rgbToHsl(hexRgb(hex));
+  return hslToHex(h, s, Math.max(0, l - amt));
+}
+
 function standRow(pos, nameHtml, team, points, max, wins) {
   const w = Math.max(2, (points / max) * 100);
+  const isLeader = pos === 1;
+  const fill = isLeader ? "var(--hatch-accent)"
+    : `repeating-linear-gradient(-55deg, ${teamColor(team)} 0 5px, ${darken(teamColor(team), .22)} 5px 9px)`;
   return `
-    <div class="st-row">
+    <div class="st-row${isLeader ? " leader" : ""}">
       <div class="st-pos">${pos}</div>
       <div class="st-main">
         <div class="st-name">${swatch(team)}<span>${nameHtml}</span></div>
         <div class="st-team">${esc(team)}</div>
-        <div class="bar"><span style="width:${w}%;background:${teamColor(team)}"></span></div>
+        <div class="bar"><span style="width:${w}%;background-image:${fill}"></span></div>
       </div>
       <div class="st-pts">${fmtPts(points)}<small>${wins} win${wins === 1 ? "" : "s"}</small></div>
     </div>`;
@@ -219,7 +317,11 @@ function renderResultsSelect(d) {
   sel.onchange = () => renderRaceDetail(d, +sel.value);
   const last = completed[completed.length - 1];
   if (last) { sel.value = last.round; renderRaceDetail(d, last.round); }
-  else $("#raceDetail").innerHTML = `<div class="empty-note">No completed races in this season yet.</div>`;
+  else {
+    $("#raceDetail").innerHTML = `<div class="empty-note">No completed races in this season yet.</div>`;
+    lastRace = null;
+    if ($("#exportRaceImg")) $("#exportRaceImg").disabled = true;
+  }
 }
 
 function selectRace(round) {
@@ -304,7 +406,7 @@ function drawStats(box, stats, cols) {
       const cls = (c.cls ? c.cls(v) : "") + (c.primary ? " primary" : "") + (statsSort.key === c.key ? " on" : "");
       return `<td class="num ${cls.trim()}">${disp}</td>`;
     }).join("");
-    return `<tr style="--accent:${teamColor(s.team)}">
+    return `<tr style="--team:${teamColor(s.team)}">
       <td class="stx-rank">${i + 1}</td>
       <td class="stx-drv"><span class="cell-driver">${swatch(s.team)}${natFlag(s.nat)}<span>${esc(s.name)}</span><span class="code">${esc(s.code)}</span></span></td>
       <td class="stx-team">${esc(s.team)}</td>${cells}</tr>`;
@@ -512,17 +614,29 @@ function mountReplay(race) {
   $("#raceDetail").appendChild(wrap);
 }
 
+let lastRace = null;
+
 function renderRaceDetail(d, round) {
   stopProgression();
   const r = d.races.find((x) => x.round === round);
   const box = $("#raceDetail");
-  if (!r || !r.results.length) { box.innerHTML = `<div class="empty-note">No results available.</div>`; return; }
+  const exportBtn = $("#exportRaceImg");
+  if (!r || !r.results.length) {
+    box.innerHTML = `<div class="empty-note">No results available.</div>`;
+    lastRace = null;
+    if (exportBtn) exportBtn.disabled = true;
+    return;
+  }
+  lastRace = r;
+  if (exportBtn) exportBtn.disabled = false;
   const medals = ["🥇", "🥈", "🥉"];
+  const flCode = r.fastest_lap && (r.fastest_lap.code || "");
   const podium = r.podium.map((p, i) => `
-    <div class="pod" style="--accent:${teamColor(p.team)}">
+    <div class="pod" style="--team:${teamColor(p.team)}">
       <div class="medal">${medals[i]}</div>
       <div class="pn">${natFlag(p.nat)}${esc(p.name)}</div>
       <div class="pt">${esc(p.team)}</div>
+      ${flCode && p.code === flCode ? `<div class="fl-tag">⏱ Fastest Lap</div>` : ""}
     </div>`).join("");
   const rows = r.results.map((x) => `
     <tr>
@@ -538,7 +652,7 @@ function renderRaceDetail(d, round) {
       <div class="card" style="flex:1 1 100%">
         <div class="card-title">${flag(r.country)} ${esc(r.name)} · Round ${r.round} · ${fmtDate(r.date)}</div>
         <div class="podium-cards">${podium}</div>
-        ${r.fastest_lap ? `<div style="margin-top:14px;color:var(--ink-2);font-size:13px">⏱ Fastest lap — <b style="color:var(--ink)">${esc(r.fastest_lap.name || r.fastest_lap.code)}</b> ${esc(r.fastest_lap.time || "")}</div>` : ""}
+        ${r.fastest_lap && !r.podium.some((p) => p.code === flCode) ? `<div class="fl-line">⏱ Fastest lap — <b>${esc(r.fastest_lap.name || r.fastest_lap.code)}</b> ${esc(r.fastest_lap.time || "")}</div>` : ""}
       </div>
     </div>
     <table class="results">
@@ -547,6 +661,157 @@ function renderRaceDetail(d, round) {
     </table>`;
   box.insertBefore(buildProgression(r), box.querySelector("table.results"));
   mountReplay(r);
+}
+
+/* ---------------- shareable race-card image export (canvas, no server) ---------------- */
+function chamferPath(ctx, x, y, w, h, c) {
+  ctx.beginPath();
+  ctx.moveTo(x, y);
+  ctx.lineTo(x + w - c, y);
+  ctx.lineTo(x + w, y + c);
+  ctx.lineTo(x + w, y + h);
+  ctx.lineTo(x + c, y + h);
+  ctx.lineTo(x, y + h - c);
+  ctx.closePath();
+}
+
+function loadImg(src) {
+  return new Promise((resolve) => {
+    if (!src) return resolve(null);
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = () => resolve(null);
+    img.src = src;
+  });
+}
+
+async function renderRaceCard(season, race) {
+  const specs = [
+    'italic 800 30px "Barlow Condensed"', 'italic 800 22px "Barlow Condensed"',
+    'italic 800 18px "Barlow Condensed"', '800 13px "Barlow Condensed"',
+    '600 15px "Barlow"', '700 15px "Barlow"', '600 13px "Barlow"',
+  ];
+  try { await Promise.all(specs.map((s) => document.fonts.load(s))); await document.fonts.ready; } catch (e) { /* best effort */ }
+
+  const W = 1200, H = 675;
+  const canvas = document.createElement("canvas");
+  canvas.width = W; canvas.height = H;
+  const ctx = canvas.getContext("2d");
+
+  const bg = "#0c0d10", plate = "#15171c", plate2 = "#1c1f26", text = "#f5f7fa", muted = "#b9bfc9", muted2 = "#737b88", accent = "#9d4dff";
+
+  ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+  ctx.save();
+  ctx.strokeStyle = "rgba(255,255,255,0.035)"; ctx.lineWidth = 2;
+  for (let x = -H; x < W; x += 14) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x + H, H); ctx.stroke(); }
+  ctx.restore();
+
+  // Header plate
+  chamferPath(ctx, 24, 24, W - 48, 92, 14); ctx.fillStyle = plate2; ctx.fill();
+  ctx.fillStyle = accent;
+  ctx.font = 'italic 800 18px "Barlow Condensed"';
+  ctx.fillText(`ROUND ${race.round}`, 48, 58);
+  ctx.fillStyle = text;
+  ctx.font = 'italic 800 30px "Barlow Condensed"';
+  ctx.fillText(race.name.toUpperCase(), 48, 92);
+  ctx.fillStyle = muted;
+  ctx.font = '600 15px "Barlow"';
+  ctx.fillText(`${season} SEASON · ${fmtDate(race.date)}`, 48, 108);
+
+  const cc = COUNTRY_CODE[(race.country || "").trim().toLowerCase()];
+  const flagImg = await loadImg(cc ? flagSrc(cc) : null);
+  if (flagImg) {
+    const fw = 56, fh = 56 * (flagImg.naturalHeight / flagImg.naturalWidth || 0.75);
+    ctx.drawImage(flagImg, W - 24 - 16 - fw, 24 + (92 - fh) / 2, fw, fh);
+  }
+
+  // Podium plates
+  const podX = 24, podY = 136, podGap = 12, podW = (W - 48 - 2 * podGap) / 3, podH = 168;
+  race.podium.slice(0, 3).forEach((p, i) => {
+    const x = podX + i * (podW + podGap);
+    chamferPath(ctx, x, podY, podW, podH, 12); ctx.fillStyle = plate; ctx.fill();
+    ctx.fillStyle = teamColor(p.team); ctx.fillRect(x, podY, 5, podH);
+    ctx.fillStyle = muted2;
+    ctx.font = '800 13px "Barlow Condensed"';
+    ctx.fillText(["P1", "P2", "P3"][i], x + 22, podY + 28);
+    ctx.fillStyle = text;
+    ctx.font = 'italic 800 22px "Barlow Condensed"';
+    ctx.fillText(p.name, x + 22, podY + 62, podW - 36);
+    ctx.fillStyle = muted;
+    ctx.font = '600 14px "Barlow"';
+    ctx.fillText(p.team, x + 22, podY + 84, podW - 36);
+    if (race.fastest_lap && race.fastest_lap.code === p.code) {
+      ctx.fillStyle = accent;
+      ctx.font = '700 13px "Barlow"';
+      ctx.fillText("⏱ Fastest Lap", x + 22, podY + 112);
+    }
+  });
+
+  // Top-10 results table
+  const tableY = podY + podH + 30;
+  ctx.fillStyle = muted2;
+  ctx.font = '800 12px "Barlow Condensed"';
+  ["POS", "DRIVER", "TEAM", "PTS"].forEach((label, i) => {
+    ctx.fillText(label, [48, 110, 640, W - 90][i], tableY);
+  });
+  ctx.strokeStyle = "rgba(255,255,255,0.1)"; ctx.beginPath();
+  ctx.moveTo(24, tableY + 10); ctx.lineTo(W - 24, tableY + 10); ctx.stroke();
+
+  const rowH = 27;
+  race.results.slice(0, 10).forEach((row, i) => {
+    const y = tableY + 34 + i * rowH;
+    ctx.fillStyle = text;
+    ctx.font = '700 15px "Barlow"';
+    ctx.fillText(String(row.pos ?? "—"), 48, y);
+    ctx.fillStyle = teamColor(row.team); ctx.fillRect(96, y - 13, 4, 16);
+    ctx.fillStyle = text;
+    ctx.fillText(row.name, 110, y, 500);
+    ctx.fillStyle = muted;
+    ctx.font = '600 14px "Barlow"';
+    ctx.fillText(row.team, 640, y, 300);
+    ctx.fillStyle = row.points ? accent : muted2;
+    ctx.font = '700 15px "Barlow"';
+    ctx.textAlign = "right";
+    ctx.fillText(row.points ? fmtPts(row.points) : "—", W - 48, y);
+    ctx.textAlign = "left";
+  });
+
+  // Footer
+  ctx.fillStyle = muted2;
+  ctx.font = '800 12px "Barlow Condensed"';
+  ctx.fillText("F1 VISUALIZED", 24, H - 18);
+  ctx.textAlign = "right";
+  ctx.font = '600 12px "Barlow"';
+  ctx.fillText(new Date().toLocaleDateString(), W - 24, H - 18);
+  ctx.textAlign = "left";
+
+  return canvas;
+}
+
+function downloadCanvas(canvas, filename) {
+  canvas.toBlob((blob) => {
+    if (!blob) return;
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }, "image/png");
+}
+
+async function exportRaceCard() {
+  if (!lastRace) return;
+  const btn = $("#exportRaceImg");
+  const label = btn.textContent;
+  btn.disabled = true; btn.textContent = "Rendering…";
+  try {
+    const canvas = await renderRaceCard(current, lastRace);
+    downloadCanvas(canvas, `f1-visualized-${current}-round${lastRace.round}.png`);
+  } finally {
+    btn.disabled = false; btn.textContent = label;
+  }
 }
 
 /* ---------------- helpers & wiring ---------------- */
@@ -577,6 +842,30 @@ function setSeason(year) {
 function wire() {
   document.querySelectorAll("#tabs button").forEach((b) => b.addEventListener("click", () => showTab(b.dataset.tab)));
   document.querySelectorAll("#seasonToggle button").forEach((b) => b.addEventListener("click", () => setSeason(b.dataset.season)));
+  const exportBtn = $("#exportRaceImg");
+  if (exportBtn) { exportBtn.disabled = true; exportBtn.addEventListener("click", exportRaceCard); }
+}
+
+// `cache: "no-store"` used to sit here — it doesn't just skip a cache-buster,
+// it forbids the browser from caching or even conditionally revalidating the
+// response, so every single page load re-downloaded all ~700KB of season
+// JSON from scratch. `"no-cache"` is the fix: it still always checks back
+// with the server before use (so a real update is never missed), but lets
+// the browser send a conditional request and reuse the cached body on a 304
+// — normal caching stays on, staleness just isn't possible. The `?v=` tag
+// (the season's own `updated` timestamp, remembered from the last successful
+// load) additionally pins each version to its own cache entry, so a stale
+// intermediary that mishandles conditional requests still can't serve an old
+// body under a new version's URL.
+async function loadSeasonJSON(y) {
+  let v = "";
+  try { v = localStorage.getItem(`f1viz_v_${y}`) || ""; } catch (e) { /* private mode */ }
+  const url = `data/${y}.json${v ? `?v=${encodeURIComponent(v)}` : ""}`;
+  const res = await fetch(url, { cache: "no-cache" });
+  if (!res.ok) return null;
+  const json = await res.json();
+  try { if (json.updated) localStorage.setItem(`f1viz_v_${y}`, json.updated); } catch (e) { /* private mode */ }
+  return json;
 }
 
 async function boot() {
@@ -588,8 +877,8 @@ async function boot() {
   } else {
     await Promise.all(years.map(async (y) => {
       try {
-        const res = await fetch(`data/${y}.json`, { cache: "no-store" });
-        if (res.ok) SEASONS[y] = await res.json();
+        const json = await loadSeasonJSON(y);
+        if (json) SEASONS[y] = json;
       } catch (e) { /* offline / file:// */ }
     }));
   }
