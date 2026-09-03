@@ -169,7 +169,8 @@ function renderOverview(d) {
     <div class="lc-pts"><b>${fmtPts(dl.points)}</b><span>points</span></div>
     <div class="lc-name">${natFlag(dl.nat)}${esc(dl.name)}</div>
     <div class="lc-team">${esc(dl.team)} · ${dl.wins} win${dl.wins === 1 ? "" : "s"}</div>
-    <div class="lc-gap">Lead over ${esc(d2 ? d2.code : "—")}: <b>${d2 ? "+" + fmtPts(dl.points - d2.points) : "—"}</b></div>`;
+    <div class="lc-gap">Lead over ${esc(d2 ? d2.code : "—")}: <b>${d2 ? "+" + fmtPts(dl.points - d2.points) : "—"}</b></div>
+    ${gapBar(dl.points, d2 && d2.points)}`;
 
   $("#constructorLeader").style.setProperty("--team", teamColor(cl.team));
   $("#constructorLeader").innerHTML = `
@@ -177,7 +178,8 @@ function renderOverview(d) {
     <div class="lc-pts"><b>${fmtPts(cl.points)}</b><span>points</span></div>
     <div class="lc-name">${esc(cl.team)}</div>
     <div class="lc-team">${cl.wins} win${cl.wins === 1 ? "" : "s"}</div>
-    <div class="lc-gap">Lead over ${esc(c2 ? c2.team : "—")}: <b>${c2 ? "+" + fmtPts(cl.points - c2.points) : "—"}</b></div>`;
+    <div class="lc-gap">Lead over ${esc(c2 ? c2.team : "—")}: <b>${c2 ? "+" + fmtPts(cl.points - c2.points) : "—"}</b></div>
+    ${gapBar(cl.points, c2 && c2.points)}`;
 
   const next = d.races.find((r) => r.status === "upcoming" && (!r.date || r.date >= todayISO()));
   const nc = $("#nextRace");
@@ -216,6 +218,16 @@ function renderOverview(d) {
   $("#miniConstructors").innerHTML = miniRows(d.constructors.slice(0, 5), (x) => x.team, (x) => `${x.wins} win${x.wins === 1 ? "" : "s"}`, (x) => x.team);
 }
 
+// A two-part hatched bar showing the leader's share of leader+runner-up
+// points — the signal-coloured hatch marks the leader, a neutral hatch fills
+// the rest, same "leading side gets the accent" language as any comparison
+// bar in this skin.
+function gapBar(leadPts, secondPts) {
+  if (secondPts == null || leadPts + secondPts <= 0) return "";
+  const pct = Math.max(8, Math.min(92, (leadPts / (leadPts + secondPts)) * 100));
+  return `<div class="gap-bar"><span class="lead" style="width:${pct}%"></span><span class="rest"></span></div>`;
+}
+
 function miniRows(rows, name, sub, team, natFn) {
   return rows.map((x) => `
     <div class="row">
@@ -235,15 +247,24 @@ function renderStandings(d) {
     x.pos, esc(x.team), x.team, x.points, maxC, x.wins)).join("");
 }
 
+// Darken a hex colour for the second stripe of a per-team hatched bar.
+function darken(hex, amt) {
+  const [h, s, l] = rgbToHsl(hexRgb(hex));
+  return hslToHex(h, s, Math.max(0, l - amt));
+}
+
 function standRow(pos, nameHtml, team, points, max, wins) {
   const w = Math.max(2, (points / max) * 100);
+  const isLeader = pos === 1;
+  const fill = isLeader ? "var(--hatch-accent)"
+    : `repeating-linear-gradient(-55deg, ${teamColor(team)} 0 5px, ${darken(teamColor(team), .22)} 5px 9px)`;
   return `
-    <div class="st-row">
+    <div class="st-row${isLeader ? " leader" : ""}">
       <div class="st-pos">${pos}</div>
       <div class="st-main">
         <div class="st-name">${swatch(team)}<span>${nameHtml}</span></div>
         <div class="st-team">${esc(team)}</div>
-        <div class="bar"><span style="width:${w}%;background:${teamColor(team)}"></span></div>
+        <div class="bar"><span style="width:${w}%;background-image:${fill}"></span></div>
       </div>
       <div class="st-pts">${fmtPts(points)}<small>${wins} win${wins === 1 ? "" : "s"}</small></div>
     </div>`;
@@ -595,11 +616,13 @@ function renderRaceDetail(d, round) {
   const box = $("#raceDetail");
   if (!r || !r.results.length) { box.innerHTML = `<div class="empty-note">No results available.</div>`; return; }
   const medals = ["🥇", "🥈", "🥉"];
+  const flCode = r.fastest_lap && (r.fastest_lap.code || "");
   const podium = r.podium.map((p, i) => `
     <div class="pod" style="--team:${teamColor(p.team)}">
       <div class="medal">${medals[i]}</div>
       <div class="pn">${natFlag(p.nat)}${esc(p.name)}</div>
       <div class="pt">${esc(p.team)}</div>
+      ${flCode && p.code === flCode ? `<div class="fl-tag">⏱ Fastest Lap</div>` : ""}
     </div>`).join("");
   const rows = r.results.map((x) => `
     <tr>
@@ -615,7 +638,7 @@ function renderRaceDetail(d, round) {
       <div class="card" style="flex:1 1 100%">
         <div class="card-title">${flag(r.country)} ${esc(r.name)} · Round ${r.round} · ${fmtDate(r.date)}</div>
         <div class="podium-cards">${podium}</div>
-        ${r.fastest_lap ? `<div style="margin-top:14px;color:var(--ink-2);font-size:13px">⏱ Fastest lap — <b style="color:var(--ink)">${esc(r.fastest_lap.name || r.fastest_lap.code)}</b> ${esc(r.fastest_lap.time || "")}</div>` : ""}
+        ${r.fastest_lap && !r.podium.some((p) => p.code === flCode) ? `<div class="fl-line">⏱ Fastest lap — <b>${esc(r.fastest_lap.name || r.fastest_lap.code)}</b> ${esc(r.fastest_lap.time || "")}</div>` : ""}
       </div>
     </div>
     <table class="results">

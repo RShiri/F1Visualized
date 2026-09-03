@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>F1 Visualized — 2025 / 2026 Dashboard</title>
   <meta name="description" content="Formula 1 2025 & 2026 season dashboard — standings, calendar and results.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,700;1,800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
@@ -72,7 +75,11 @@
     <section id="results" class="tab-panel">
       <div class="section-head">
         <h2>Race Results</h2>
-        <select id="raceSelect" class="race-select" aria-label="Select a race"></select>
+        <div class="race-controls">
+          <label for="raceSelect">Race</label>
+          <select id="raceSelect" class="race-select"></select>
+          <button type="button" id="exportRaceImg" class="btn-export">Download image</button>
+        </div>
       </div>
       <div id="raceDetail"></div>
     </section>
