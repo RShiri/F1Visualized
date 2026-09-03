@@ -317,7 +317,11 @@ function renderResultsSelect(d) {
   sel.onchange = () => renderRaceDetail(d, +sel.value);
   const last = completed[completed.length - 1];
   if (last) { sel.value = last.round; renderRaceDetail(d, last.round); }
-  else $("#raceDetail").innerHTML = `<div class="empty-note">No completed races in this season yet.</div>`;
+  else {
+    $("#raceDetail").innerHTML = `<div class="empty-note">No completed races in this season yet.</div>`;
+    lastRace = null;
+    if ($("#exportRaceImg")) $("#exportRaceImg").disabled = true;
+  }
 }
 
 function selectRace(round) {
@@ -610,11 +614,21 @@ function mountReplay(race) {
   $("#raceDetail").appendChild(wrap);
 }
 
+let lastRace = null;
+
 function renderRaceDetail(d, round) {
   stopProgression();
   const r = d.races.find((x) => x.round === round);
   const box = $("#raceDetail");
-  if (!r || !r.results.length) { box.innerHTML = `<div class="empty-note">No results available.</div>`; return; }
+  const exportBtn = $("#exportRaceImg");
+  if (!r || !r.results.length) {
+    box.innerHTML = `<div class="empty-note">No results available.</div>`;
+    lastRace = null;
+    if (exportBtn) exportBtn.disabled = true;
+    return;
+  }
+  lastRace = r;
+  if (exportBtn) exportBtn.disabled = false;
   const medals = ["🥇", "🥈", "🥉"];
   const flCode = r.fastest_lap && (r.fastest_lap.code || "");
   const podium = r.podium.map((p, i) => `
@@ -649,6 +663,157 @@ function renderRaceDetail(d, round) {
   mountReplay(r);
 }
 
+/* ---------------- shareable race-card image export (canvas, no server) ---------------- */
+function chamferPath(ctx, x, y, w, h, c) {
+  ctx.beginPath();
+  ctx.moveTo(x, y);
+  ctx.lineTo(x + w - c, y);
+  ctx.lineTo(x + w, y + c);
+  ctx.lineTo(x + w, y + h);
+  ctx.lineTo(x + c, y + h);
+  ctx.lineTo(x, y + h - c);
+  ctx.closePath();
+}
+
+function loadImg(src) {
+  return new Promise((resolve) => {
+    if (!src) return resolve(null);
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = () => resolve(null);
+    img.src = src;
+  });
+}
+
+async function renderRaceCard(season, race) {
+  const specs = [
+    'italic 800 30px "Barlow Condensed"', 'italic 800 22px "Barlow Condensed"',
+    'italic 800 18px "Barlow Condensed"', '800 13px "Barlow Condensed"',
+    '600 15px "Barlow"', '700 15px "Barlow"', '600 13px "Barlow"',
+  ];
+  try { await Promise.all(specs.map((s) => document.fonts.load(s))); await document.fonts.ready; } catch (e) { /* best effort */ }
+
+  const W = 1200, H = 675;
+  const canvas = document.createElement("canvas");
+  canvas.width = W; canvas.height = H;
+  const ctx = canvas.getContext("2d");
+
+  const bg = "#0c0d10", plate = "#15171c", plate2 = "#1c1f26", text = "#f5f7fa", muted = "#b9bfc9", muted2 = "#737b88", accent = "#9d4dff";
+
+  ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+  ctx.save();
+  ctx.strokeStyle = "rgba(255,255,255,0.035)"; ctx.lineWidth = 2;
+  for (let x = -H; x < W; x += 14) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x + H, H); ctx.stroke(); }
+  ctx.restore();
+
+  // Header plate
+  chamferPath(ctx, 24, 24, W - 48, 92, 14); ctx.fillStyle = plate2; ctx.fill();
+  ctx.fillStyle = accent;
+  ctx.font = 'italic 800 18px "Barlow Condensed"';
+  ctx.fillText(`ROUND ${race.round}`, 48, 58);
+  ctx.fillStyle = text;
+  ctx.font = 'italic 800 30px "Barlow Condensed"';
+  ctx.fillText(race.name.toUpperCase(), 48, 92);
+  ctx.fillStyle = muted;
+  ctx.font = '600 15px "Barlow"';
+  ctx.fillText(`${season} SEASON · ${fmtDate(race.date)}`, 48, 108);
+
+  const cc = COUNTRY_CODE[(race.country || "").trim().toLowerCase()];
+  const flagImg = await loadImg(cc ? flagSrc(cc) : null);
+  if (flagImg) {
+    const fw = 56, fh = 56 * (flagImg.naturalHeight / flagImg.naturalWidth || 0.75);
+    ctx.drawImage(flagImg, W - 24 - 16 - fw, 24 + (92 - fh) / 2, fw, fh);
+  }
+
+  // Podium plates
+  const podX = 24, podY = 136, podGap = 12, podW = (W - 48 - 2 * podGap) / 3, podH = 168;
+  race.podium.slice(0, 3).forEach((p, i) => {
+    const x = podX + i * (podW + podGap);
+    chamferPath(ctx, x, podY, podW, podH, 12); ctx.fillStyle = plate; ctx.fill();
+    ctx.fillStyle = teamColor(p.team); ctx.fillRect(x, podY, 5, podH);
+    ctx.fillStyle = muted2;
+    ctx.font = '800 13px "Barlow Condensed"';
+    ctx.fillText(["P1", "P2", "P3"][i], x + 22, podY + 28);
+    ctx.fillStyle = text;
+    ctx.font = 'italic 800 22px "Barlow Condensed"';
+    ctx.fillText(p.name, x + 22, podY + 62, podW - 36);
+    ctx.fillStyle = muted;
+    ctx.font = '600 14px "Barlow"';
+    ctx.fillText(p.team, x + 22, podY + 84, podW - 36);
+    if (race.fastest_lap && race.fastest_lap.code === p.code) {
+      ctx.fillStyle = accent;
+      ctx.font = '700 13px "Barlow"';
+      ctx.fillText("⏱ Fastest Lap", x + 22, podY + 112);
+    }
+  });
+
+  // Top-10 results table
+  const tableY = podY + podH + 30;
+  ctx.fillStyle = muted2;
+  ctx.font = '800 12px "Barlow Condensed"';
+  ["POS", "DRIVER", "TEAM", "PTS"].forEach((label, i) => {
+    ctx.fillText(label, [48, 110, 640, W - 90][i], tableY);
+  });
+  ctx.strokeStyle = "rgba(255,255,255,0.1)"; ctx.beginPath();
+  ctx.moveTo(24, tableY + 10); ctx.lineTo(W - 24, tableY + 10); ctx.stroke();
+
+  const rowH = 27;
+  race.results.slice(0, 10).forEach((row, i) => {
+    const y = tableY + 34 + i * rowH;
+    ctx.fillStyle = text;
+    ctx.font = '700 15px "Barlow"';
+    ctx.fillText(String(row.pos ?? "—"), 48, y);
+    ctx.fillStyle = teamColor(row.team); ctx.fillRect(96, y - 13, 4, 16);
+    ctx.fillStyle = text;
+    ctx.fillText(row.name, 110, y, 500);
+    ctx.fillStyle = muted;
+    ctx.font = '600 14px "Barlow"';
+    ctx.fillText(row.team, 640, y, 300);
+    ctx.fillStyle = row.points ? accent : muted2;
+    ctx.font = '700 15px "Barlow"';
+    ctx.textAlign = "right";
+    ctx.fillText(row.points ? fmtPts(row.points) : "—", W - 48, y);
+    ctx.textAlign = "left";
+  });
+
+  // Footer
+  ctx.fillStyle = muted2;
+  ctx.font = '800 12px "Barlow Condensed"';
+  ctx.fillText("F1 VISUALIZED", 24, H - 18);
+  ctx.textAlign = "right";
+  ctx.font = '600 12px "Barlow"';
+  ctx.fillText(new Date().toLocaleDateString(), W - 24, H - 18);
+  ctx.textAlign = "left";
+
+  return canvas;
+}
+
+function downloadCanvas(canvas, filename) {
+  canvas.toBlob((blob) => {
+    if (!blob) return;
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }, "image/png");
+}
+
+async function exportRaceCard() {
+  if (!lastRace) return;
+  const btn = $("#exportRaceImg");
+  const label = btn.textContent;
+  btn.disabled = true; btn.textContent = "Rendering…";
+  try {
+    const canvas = await renderRaceCard(current, lastRace);
+    downloadCanvas(canvas, `f1-visualized-${current}-round${lastRace.round}.png`);
+  } finally {
+    btn.disabled = false; btn.textContent = label;
+  }
+}
+
 /* ---------------- helpers & wiring ---------------- */
 function todayISO() {
   return new Date().toISOString().slice(0, 10);
@@ -677,6 +842,8 @@ function setSeason(year) {
 function wire() {
   document.querySelectorAll("#tabs button").forEach((b) => b.addEventListener("click", () => showTab(b.dataset.tab)));
   document.querySelectorAll("#seasonToggle button").forEach((b) => b.addEventListener("click", () => setSeason(b.dataset.season)));
+  const exportBtn = $("#exportRaceImg");
+  if (exportBtn) { exportBtn.disabled = true; exportBtn.addEventListener("click", exportRaceCard); }
 }
 
 // `cache: "no-store"` used to sit here — it doesn't just skip a cache-buster,
