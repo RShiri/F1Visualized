@@ -157,6 +157,7 @@ function render() {
   renderCalendar(d);
   renderResultsSelect(d);
   renderStats(d);
+  renderOvertakes(d);
 }
 
 function renderOverview(d) {
@@ -421,6 +422,154 @@ function drawStats(box, stats, cols) {
       drawStats(box, stats, cols);
     }));
 }
+
+/* ---------------- overtakes by race ---------------- */
+function renderOvertakes(d) {
+  const box = $("#overtakesSection");
+  const rows = d.overtakes;
+  if (!rows || !rows.length) { box.innerHTML = ""; return; }
+
+  const byRound = {};
+  d.races.forEach((r) => (byRound[r.round] = r));
+  const merged = rows
+    .map((o) => {
+      const race = byRound[o.round];
+      if (!race) return null;
+      return { round: o.round, name: race.name.replace(" Grand Prix", ""), country: race.country,
+        overtakes: o.overtakes, estimated: !!o.estimated };
+    })
+    .filter(Boolean);
+  if (merged.length < 2) { box.innerHTML = ""; return; }
+
+  const avg = merged.reduce((s, r) => s + r.overtakes, 0) / merged.length;
+  merged.forEach((r) => (r.delta = r.overtakes - avg));
+  const lowest = merged.reduce((a, b) => (b.overtakes < a.overtakes ? b : a));
+  const highest = merged.reduce((a, b) => (b.overtakes > a.overtakes ? b : a));
+
+  box.innerHTML = `
+    <div class="overtakes">
+      <div class="ot-head">
+        <span class="card-title">Overtakes By Race</span>
+        <span class="section-meta">${merged.length} rounds · avg ${Math.round(avg)}/race</span>
+      </div>
+      <p class="stats-note">${esc(d.overtakes_note || "")}
+        <b>${esc(highest.name)}</b> had the most overtaking (${highest.overtakes}); <b>${esc(lowest.name)}</b> the least (${lowest.overtakes}).</p>
+      <div class="ot-legend">
+        <span><i class="sw-a"></i> Overtakes</span>
+        <span><i class="sw-d"></i> Season-low race</span>
+        <span><i class="sw-l"></i> Season average</span>
+      </div>
+      <div class="ot-scroll"><svg class="ot-svg" id="otChart" viewBox="0 0 900 300" preserveAspectRatio="xMinYMin meet"></svg></div>
+      <div class="ot-table-wrap"><div class="stats-scroll"><table class="stats-table" id="otTable">
+        <thead><tr>
+          <th class="num">Rd</th><th>Grand Prix</th>
+          <th class="num sortable sorted desc" data-key="overtakes">Overtakes</th>
+          <th class="num sortable" data-key="delta">vs. Avg</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table></div></div>
+    </div>`;
+
+  drawOvertakesChart(merged, avg, lowest);
+  let otSort = { key: "overtakes", dir: "desc" };
+  const tbody = $("#otTable tbody");
+  function drawOtTable() {
+    const sorted = sortStats(merged, otSort);
+    tbody.innerHTML = sorted.map((r) => {
+      const cls = r.delta >= 0 ? "pos" : "neg";
+      const sign = r.delta >= 0 ? "+" : "";
+      return `<tr class="${r === lowest ? "ot-low" : ""}">
+        <td class="num">${r.round}</td>
+        <td>${esc(r.name)}<br><span class="stx-team">${esc(r.country)}</span></td>
+        <td class="num ot-count">${r.overtakes}${r.estimated ? '<span class="est-tag">EST</span>' : ""}</td>
+        <td class="num delta ${cls}">${sign}${Math.round(r.delta)}</td>
+      </tr>`;
+    }).join("");
+  }
+  $("#otTable thead").addEventListener("click", (ev) => {
+    const th = ev.target.closest("th.sortable");
+    if (!th) return;
+    const key = th.dataset.key;
+    if (otSort.key === key) otSort.dir = otSort.dir === "desc" ? "asc" : "desc";
+    else otSort = { key, dir: "desc" };
+    $("#otTable thead").querySelectorAll("th").forEach((h) => h.classList.remove("sorted", "asc", "desc"));
+    th.classList.add("sorted", otSort.dir);
+    drawOtTable();
+  });
+  drawOtTable();
+}
+
+let _otTip = null;
+function drawOvertakesChart(merged, avg, lowest) {
+  const svg = $("#otChart");
+  svg.innerHTML = "";
+  if (!_otTip) {
+    _otTip = el("div", "ot-tooltip");
+    document.body.appendChild(_otTip);
+  }
+  const W = 900, H = 300, padL = 34, padR = 10, padT = 22, padB = 40;
+  const plotW = W - padL - padR, plotH = H - padT - padB;
+  const maxV = Math.max(...merged.map((r) => r.overtakes), avg) * 1.12;
+  const n = merged.length, gap = 8;
+  const bw = (plotW - gap * (n - 1)) / n;
+  const y = (v) => padT + plotH - (v / maxV) * plotH;
+
+  const step = maxV > 60 ? 25 : 10;
+  for (let t = 0; t <= maxV; t += step) {
+    svg.appendChild(_svg("line", { x1: padL, x2: W - padR, y1: y(t), y2: y(t), stroke: "var(--line)", "stroke-width": 1 }));
+    const lbl = _svg("text", { x: padL - 8, y: y(t) + 4, class: "ot-tick", "text-anchor": "end" });
+    lbl.textContent = Math.round(t);
+    svg.appendChild(lbl);
+  }
+  const avgY = y(avg);
+  svg.appendChild(_svg("line", { x1: padL, x2: W - padR, y1: avgY, y2: avgY, class: "ot-avg-line" }));
+  const avgLbl = _svg("text", { x: W - padR, y: avgY - 6, class: "ot-avg-lbl", "text-anchor": "end" });
+  avgLbl.textContent = "AVG " + Math.round(avg);
+  svg.appendChild(avgLbl);
+
+  merged.forEach((r, i) => {
+    const x = padL + i * (bw + gap);
+    const barY = y(r.overtakes);
+    const barH = padT + plotH - barY;
+    const isLow = r === lowest;
+    const rect = _svg("rect", {
+      x, y: barY, width: bw, height: Math.max(barH, 2), rx: 3,
+      fill: isLow ? "var(--danger)" : "var(--accent)", class: "ot-bar",
+    });
+    rect.addEventListener("mouseenter", (ev) => { showOtTip(ev, r, avg); rect.classList.add("hovered"); });
+    rect.addEventListener("mousemove", positionOtTip);
+    rect.addEventListener("mouseleave", () => { hideOtTip(); rect.classList.remove("hovered"); });
+    svg.appendChild(rect);
+
+    const vlbl = _svg("text", { x: x + bw / 2, y: barY - 7, class: "ot-val" + (isLow ? " on-danger" : ""), "text-anchor": "middle" });
+    vlbl.textContent = r.overtakes + (r.estimated ? "*" : "");
+    svg.appendChild(vlbl);
+
+    const alabel = _svg("text", { x: x + bw / 2, y: padT + plotH + 16, class: "ot-axis", "text-anchor": "middle" });
+    alabel.textContent = "R" + r.round;
+    svg.appendChild(alabel);
+  });
+}
+function showOtTip(ev, r, avg) {
+  const sign = r.delta >= 0 ? "+" : "";
+  _otTip.innerHTML =
+    `<div class="tt-title">${esc(r.name)} · R${r.round}</div>` +
+    `<div class="tt-row"><span>${esc(r.country)}</span><b>${r.overtakes}${r.estimated ? "*" : ""} passes</b></div>` +
+    `<div class="tt-row"><span>Vs. avg (${Math.round(avg)})</span><b>${sign}${Math.round(r.delta)}</b></div>` +
+    (r.estimated ? `<div class="tt-flag" style="color:var(--muted-2)">*Estimated figure</div>` : "");
+  _otTip.classList.add("show");
+  positionOtTip(ev);
+}
+function positionOtTip(ev) {
+  const pad = 14;
+  let x = ev.clientX + pad, ytt = ev.clientY + pad;
+  const tw = _otTip.offsetWidth || 200, th = _otTip.offsetHeight || 60;
+  if (x + tw > window.innerWidth - 8) x = ev.clientX - tw - pad;
+  if (ytt + th > window.innerHeight - 8) ytt = ev.clientY - th - pad;
+  _otTip.style.left = x + "px";
+  _otTip.style.top = ytt + "px";
+}
+function hideOtTip() { if (_otTip) _otTip.classList.remove("show"); }
 
 /* ---------------- race progression (interactive lap scrubber) ---------------- */
 const SVGNS = "http://www.w3.org/2000/svg";

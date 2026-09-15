@@ -2,6 +2,66 @@
  "season": 2026,
  "updated": "2026-07-06T15:50:21.644031+00:00",
  "source": "f1db + fastf1",
+ "overtakes": [
+  {
+   "round": 1,
+   "overtakes": 58
+  },
+  {
+   "round": 2,
+   "overtakes": 101
+  },
+  {
+   "round": 3,
+   "overtakes": 85
+  },
+  {
+   "round": 4,
+   "overtakes": 88
+  },
+  {
+   "round": 5,
+   "overtakes": 72
+  },
+  {
+   "round": 6,
+   "overtakes": 10
+  },
+  {
+   "round": 7,
+   "overtakes": 50
+  },
+  {
+   "round": 8,
+   "overtakes": 51
+  },
+  {
+   "round": 9,
+   "overtakes": 49
+  },
+  {
+   "round": 10,
+   "overtakes": 59
+  },
+  {
+   "round": 11,
+   "overtakes": 47
+  },
+  {
+   "round": 12,
+   "overtakes": 48,
+   "estimated": true
+  },
+  {
+   "round": 13,
+   "overtakes": 78
+  },
+  {
+   "round": 14,
+   "overtakes": 4
+  }
+ ],
+ "overtakes_note": "On-track passes per Grand Prix (sprints excluded), compiled from public race reports — not derived from this project's own lap data. Netherlands is estimated pending an exact total.",
  "races": [
   {
    "round": 1,

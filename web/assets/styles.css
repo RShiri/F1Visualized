@@ -310,6 +310,45 @@ table.results tr .dnf { color: var(--danger); font-weight: 700; }
 .stats-table .stx-drv { left: 40px; }
 .stats-table tbody tr:hover td.stx-rank, .stats-table tbody tr:hover td.stx-drv { background: var(--plate-2); }
 
+/* ---------- overtakes by race ---------- */
+.overtakes { margin-top: 22px; }
+.ot-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
+.ot-legend { display: flex; gap: 16px; flex-wrap: wrap; margin: 8px 0 12px; }
+.ot-legend span { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 12px; font-weight: 600; }
+.ot-legend i { width: 10px; height: 10px; display: inline-block; }
+.ot-legend .sw-a { background: var(--accent); }
+.ot-legend .sw-d { background: var(--danger); }
+.ot-legend .sw-l { width: 14px; height: 2px; background-image: linear-gradient(to right, var(--muted) 0 4px, transparent 4px 7px); background-size: 7px 2px; }
+.ot-scroll { overflow-x: auto; }
+svg.ot-svg { display: block; min-width: 720px; width: 100%; height: 300px; overflow: visible; }
+.ot-bar { cursor: pointer; }
+.ot-bar:hover, .ot-bar.hovered { filter: brightness(1.18); }
+.ot-val { font-family: var(--font-body); font-weight: 800; font-size: 12.5px; fill: var(--text); font-variant-numeric: tabular-nums; }
+.ot-val.on-danger { fill: var(--danger); }
+.ot-axis { font-family: var(--font-display); font-weight: 700; font-size: 10.5px; fill: var(--muted-2); text-transform: uppercase; }
+.ot-tick { font-family: var(--font-body); font-weight: 600; font-size: 11px; fill: var(--muted-2); }
+.ot-avg-line { stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 2 4; }
+.ot-avg-lbl { font-family: var(--font-display); font-weight: 700; font-size: 11px; fill: var(--muted); letter-spacing: .04em; }
+.ot-table-wrap { margin-top: 16px; }
+.ot-tooltip {
+  position: fixed; pointer-events: none; z-index: 30;
+  background: var(--plate-2); border: 1px solid var(--line-strong); clip-path: var(--plate-cut-sm);
+  padding: 9px 12px; font-size: 12px; font-weight: 600; color: var(--text);
+  box-shadow: var(--shadow); opacity: 0; transition: opacity .1s; max-width: 220px;
+}
+.ot-tooltip.show { opacity: 1; }
+.ot-tooltip .tt-title { font-family: var(--font-display); font-weight: 800; font-style: italic; font-size: 13px; margin-bottom: 3px; }
+.ot-tooltip .tt-row { color: var(--muted); display: flex; justify-content: space-between; gap: 10px; }
+.ot-tooltip .tt-row b { color: var(--text); font-variant-numeric: tabular-nums; }
+.ot-tooltip .tt-flag { color: var(--danger); font-weight: 700; margin-top: 4px; }
+.stats-table td.delta.pos { color: var(--good); }
+.stats-table td.delta.neg { color: var(--danger); }
+.stats-table .est-tag {
+  display: inline-block; margin-left: 6px; color: var(--muted-2); font-size: 10px;
+  border: 1px solid var(--line-strong); padding: 0 4px; font-weight: 700;
+}
+.stats-table tr.ot-low td.num.ot-count { color: var(--danger); font-weight: 800; }
+
 /* ---------- race progression (lap scrubber) ---------- */
 .progression { margin-bottom: 18px; }
 .prog-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px; }
