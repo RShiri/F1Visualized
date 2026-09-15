@@ -22,6 +22,16 @@ const TEAM_COLORS = {
   "cadillac": "#c9a24b",
 };
 
+// Short team labels for chart end-labels — most team names are already one
+// word; only the multi-word ones need trimming.
+const TEAM_SHORT = {
+  "red bull racing": "Red Bull", "haas f1 team": "Haas", "stake f1 team kick sauber": "Kick Sauber",
+  "visa cash app rb": "RB",
+};
+function teamShort(team) {
+  return TEAM_SHORT[(team || "").trim().toLowerCase()] || team;
+}
+
 /* ---- team-colour collision guard ----
  * Several team colours sit close enough in perceptual colour space that,
  * shown together (e.g. Red Bull / Racing Bulls / Williams — all blue, all in
@@ -153,6 +163,7 @@ function render() {
     ? "Updated " + new Date(d.updated).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" })
     : "";
   renderOverview(d);
+  renderChampionship(d);
   renderStandings(d);
   renderCalendar(d);
   renderResultsSelect(d);
@@ -269,6 +280,166 @@ function standRow(pos, nameHtml, team, points, max, wins) {
       </div>
       <div class="st-pts">${fmtPts(points)}<small>${wins} win${wins === 1 ? "" : "s"}</small></div>
     </div>`;
+}
+
+/* ---------------- championship race (points-by-round line chart) ---------------- */
+let champMode = "drivers";
+let champHighlight = null; // Set<code|team>, lazily seeded per season the first time it's drawn
+let champSeason = null;
+
+// Per-round cumulative totals from race results. Deliberately excludes sprint
+// points (the per-GP results don't carry them — see build_driver_stats in
+// fetch_season.py) so a line's final value can sit a little below the
+// driver's official total in the standings above; that's noted under the chart.
+function championshipSeries(d, mode) {
+  const done = d.races.filter((r) => r.status === "completed").sort((a, b) => a.round - b.round);
+  if (!done.length) return { rounds: [], series: [] };
+  const key = mode === "constructors" ? "team" : "code";
+  const meta = {}; // key -> { name, team, nat }
+  const running = {};
+  const series = {}; // key -> [{round, total}]
+  done.forEach((race) => {
+    race.results.forEach((row) => {
+      const k = row[key];
+      if (!k) return;
+      if (!meta[k]) meta[k] = { name: mode === "constructors" ? row.team : row.name, team: row.team, nat: row.nat, code: mode === "constructors" ? null : row.code };
+      running[k] = (running[k] || 0) + (row.points || 0);
+    });
+    Object.keys(running).forEach((k) => {
+      (series[k] = series[k] || []).push({ round: race.round, name: race.name, total: running[k] });
+    });
+  });
+  return { rounds: done.map((r) => r.round), series, meta };
+}
+
+function renderChampionship(d) {
+  const box = $("#champRace");
+  if (champSeason !== d.season) { champSeason = d.season; champHighlight = null; }
+  const { rounds, series, meta } = championshipSeries(d, champMode);
+  if (rounds.length < 2) { box.innerHTML = ""; return; }
+
+  const standings = champMode === "constructors" ? d.constructors : d.drivers;
+  const idOf = (x) => (champMode === "constructors" ? x.team : x.code);
+  if (!champHighlight) champHighlight = new Set(standings.slice(0, 5).map(idOf));
+
+  box.innerHTML = `
+    <div class="card champ-card">
+      <div class="champ-head">
+        <span class="card-title">Championship Race</span>
+        <div class="champ-toggle" id="champToggle">
+          <button type="button" data-mode="drivers" class="${champMode === "drivers" ? "active" : ""}">Drivers</button>
+          <button type="button" data-mode="constructors" class="${champMode === "constructors" ? "active" : ""}">Constructors</button>
+        </div>
+      </div>
+      <p class="champ-hint">Cumulative Grand Prix points by round (sprint points excluded — see the official totals below).
+        Showing the top 5; click any faded line to add or remove it. <button type="button" class="champ-reset">Reset</button></p>
+      <div class="champ-scroll"><svg class="champ-svg" id="champSvg" viewBox="0 0 900 380" preserveAspectRatio="xMinYMin meet"></svg></div>
+    </div>`;
+
+  drawChampionship(rounds, series, meta, standings, idOf);
+
+  $("#champToggle").addEventListener("click", (ev) => {
+    const btn = ev.target.closest("button[data-mode]");
+    if (!btn || btn.dataset.mode === champMode) return;
+    champMode = btn.dataset.mode;
+    champHighlight = null;
+    renderChampionship(d);
+  });
+  $("#champRace .champ-reset").addEventListener("click", () => {
+    champHighlight = new Set(standings.slice(0, 5).map(idOf));
+    drawChampionship(rounds, series, meta, standings, idOf);
+  });
+}
+
+function drawChampionship(rounds, series, meta, standings, idOf) {
+  const svg = $("#champSvg");
+  svg.innerHTML = "";
+  const W = 900, H = 380, padL = 34, padR = 46, padT = 14, padB = 30;
+  const plotW = W - padL - padR, plotH = H - padT - padB;
+  const maxRound = Math.max(...rounds), minRound = Math.min(...rounds);
+  const maxV = Math.max(1, ...Object.values(series).map((pts) => pts[pts.length - 1].total)) * 1.06;
+  const x = (r) => padL + (maxRound === minRound ? 0 : ((r - minRound) / (maxRound - minRound)) * plotW);
+  const y = (v) => padT + plotH - (v / maxV) * plotH;
+
+  const step = maxV > 300 ? 100 : maxV > 120 ? 50 : 25;
+  for (let t = 0; t <= maxV; t += step) {
+    svg.appendChild(_svg("line", { x1: padL, x2: W - padR, y1: y(t), y2: y(t), class: "champ-grid" }));
+    const lbl = _svg("text", { x: padL - 8, y: y(t) + 4, class: "champ-axis", "text-anchor": "end" });
+    lbl.textContent = Math.round(t); svg.appendChild(lbl);
+  }
+  const roundStep = maxRound - minRound > 16 ? 2 : 1;
+  for (let r = minRound; r <= maxRound; r += roundStep) {
+    const lbl = _svg("text", { x: x(r), y: H - padB + 18, class: "champ-axis", "text-anchor": "middle" });
+    lbl.textContent = "R" + r; svg.appendChild(lbl);
+  }
+
+  // Highlighted teammates share a team colour (e.g. two Mercedes drivers), which
+  // would make one line invisibly overlap the other — nudge each highlighted
+  // line's colour away from the others actually on screen, in standings order
+  // so the assignment stays stable as lines are added/removed.
+  const usedHi = [];
+  const hiColor = {};
+  standings.forEach((s) => {
+    const k = idOf(s);
+    if (champHighlight.has(k) && series[k]) {
+      const c = nudgeAwayFrom(teamColor(meta[k].team), usedHi, 20);
+      hiColor[k] = c; usedHi.push(c);
+    }
+  });
+
+  // order back-to-front so highlighted lines paint (and hit-test) above faint ones
+  const keys = Object.keys(series).sort((a, b) => (champHighlight.has(a) ? 1 : 0) - (champHighlight.has(b) ? 1 : 0));
+  const labels = [];
+  keys.forEach((k) => {
+    const pts = series[k];
+    const m = meta[k];
+    const on = champHighlight.has(k);
+    const color = on ? hiColor[k] : teamColor(m.team);
+    const pathPts = pts.map((p) => `${x(p.round)},${y(p.total)}`).join(" ");
+
+    const line = _svg("polyline", { points: pathPts, class: on ? "champ-line" : "champ-faint", stroke: color });
+    svg.appendChild(line);
+    const hit = _svg("polyline", { points: pathPts, class: "champ-hit" });
+    hit.addEventListener("click", () => {
+      if (champHighlight.has(k)) { if (champHighlight.size > 1) champHighlight.delete(k); }
+      else champHighlight.add(k);
+      drawChampionship(rounds, series, meta, standings, idOf);
+    });
+    svg.appendChild(hit);
+
+    if (on) {
+      pts.forEach((p) => {
+        const dot = _svg("circle", { cx: x(p.round), cy: y(p.total), r: 3.2, class: "champ-dot", fill: color });
+        dot.addEventListener("mouseenter", (ev) => showChampTip(ev, m, p));
+        dot.addEventListener("mousemove", positionFloatTip);
+        dot.addEventListener("mouseleave", hideFloatTip);
+        svg.appendChild(dot);
+      });
+      const last = pts[pts.length - 1];
+      labels.push({ x: x(last.round) + 6, y: y(last.total), color, text: m.code || teamShort(m.name) });
+    }
+  });
+
+  // De-collide end-of-line labels for drivers/teams that finish close together —
+  // otherwise a tight battle (e.g. two title contenders within a few points)
+  // renders one label directly on top of the other.
+  const MIN_GAP = 14;
+  labels.sort((a, b) => a.y - b.y);
+  for (let i = 1; i < labels.length; i++) {
+    if (labels[i].y - labels[i - 1].y < MIN_GAP) labels[i].y = labels[i - 1].y + MIN_GAP;
+  }
+  labels.forEach((lb) => {
+    const lbl = _svg("text", { x: lb.x, y: lb.y + 3.5, class: "champ-label", fill: lb.color });
+    lbl.textContent = lb.text;
+    svg.appendChild(lbl);
+  });
+}
+
+function showChampTip(ev, m, p) {
+  showFloatTip(ev,
+    `<div class="tt-title">${esc(m.name)} · R${p.round}</div>` +
+    `<div class="tt-row"><span>${esc(p.name)}</span></div>` +
+    `<div class="tt-row"><span>Cumulative points</span><b>${fmtPts(p.total)}</b></div>`);
 }
 
 function renderCalendar(d) {
@@ -499,14 +670,9 @@ function renderOvertakes(d) {
   drawOtTable();
 }
 
-let _otTip = null;
 function drawOvertakesChart(merged, avg, lowest) {
   const svg = $("#otChart");
   svg.innerHTML = "";
-  if (!_otTip) {
-    _otTip = el("div", "ot-tooltip");
-    document.body.appendChild(_otTip);
-  }
   const W = 900, H = 300, padL = 34, padR = 10, padT = 22, padB = 40;
   const plotW = W - padL - padR, plotH = H - padT - padB;
   const maxV = Math.max(...merged.map((r) => r.overtakes), avg) * 1.12;
@@ -537,8 +703,8 @@ function drawOvertakesChart(merged, avg, lowest) {
       fill: isLow ? "var(--danger)" : "var(--accent)", class: "ot-bar",
     });
     rect.addEventListener("mouseenter", (ev) => { showOtTip(ev, r, avg); rect.classList.add("hovered"); });
-    rect.addEventListener("mousemove", positionOtTip);
-    rect.addEventListener("mouseleave", () => { hideOtTip(); rect.classList.remove("hovered"); });
+    rect.addEventListener("mousemove", positionFloatTip);
+    rect.addEventListener("mouseleave", () => { hideFloatTip(); rect.classList.remove("hovered"); });
     svg.appendChild(rect);
 
     const vlbl = _svg("text", { x: x + bw / 2, y: barY - 7, class: "ot-val" + (isLow ? " on-danger" : ""), "text-anchor": "middle" });
@@ -552,24 +718,32 @@ function drawOvertakesChart(merged, avg, lowest) {
 }
 function showOtTip(ev, r, avg) {
   const sign = r.delta >= 0 ? "+" : "";
-  _otTip.innerHTML =
+  showFloatTip(ev,
     `<div class="tt-title">${esc(r.name)} · R${r.round}</div>` +
     `<div class="tt-row"><span>${esc(r.country)}</span><b>${r.overtakes}${r.estimated ? "*" : ""} passes</b></div>` +
     `<div class="tt-row"><span>Vs. avg (${Math.round(avg)})</span><b>${sign}${Math.round(r.delta)}</b></div>` +
-    (r.estimated ? `<div class="tt-flag" style="color:var(--muted-2)">*Estimated figure</div>` : "");
-  _otTip.classList.add("show");
-  positionOtTip(ev);
+    (r.estimated ? `<div class="tt-flag" style="color:var(--muted-2)">*Estimated figure</div>` : ""));
 }
-function positionOtTip(ev) {
+
+/* ---------------- shared floating tooltip ---------------- */
+let _floatTip = null;
+function showFloatTip(ev, html) {
+  if (!_floatTip) { _floatTip = el("div", "float-tooltip"); document.body.appendChild(_floatTip); }
+  _floatTip.innerHTML = html;
+  _floatTip.classList.add("show");
+  positionFloatTip(ev);
+}
+function positionFloatTip(ev) {
+  if (!_floatTip) return;
   const pad = 14;
-  let x = ev.clientX + pad, ytt = ev.clientY + pad;
-  const tw = _otTip.offsetWidth || 200, th = _otTip.offsetHeight || 60;
+  let x = ev.clientX + pad, y = ev.clientY + pad;
+  const tw = _floatTip.offsetWidth || 200, th = _floatTip.offsetHeight || 60;
   if (x + tw > window.innerWidth - 8) x = ev.clientX - tw - pad;
-  if (ytt + th > window.innerHeight - 8) ytt = ev.clientY - th - pad;
-  _otTip.style.left = x + "px";
-  _otTip.style.top = ytt + "px";
+  if (y + th > window.innerHeight - 8) y = ev.clientY - th - pad;
+  _floatTip.style.left = x + "px";
+  _floatTip.style.top = y + "px";
 }
-function hideOtTip() { if (_otTip) _otTip.classList.remove("show"); }
+function hideFloatTip() { if (_floatTip) _floatTip.classList.remove("show"); }
 
 /* ---------------- race progression (interactive lap scrubber) ---------------- */
 const SVGNS = "http://www.w3.org/2000/svg";

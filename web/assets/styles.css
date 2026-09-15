@@ -330,17 +330,6 @@ svg.ot-svg { display: block; min-width: 720px; width: 100%; height: 300px; overf
 .ot-avg-line { stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 2 4; }
 .ot-avg-lbl { font-family: var(--font-display); font-weight: 700; font-size: 11px; fill: var(--muted); letter-spacing: .04em; }
 .ot-table-wrap { margin-top: 16px; }
-.ot-tooltip {
-  position: fixed; pointer-events: none; z-index: 30;
-  background: var(--plate-2); border: 1px solid var(--line-strong); clip-path: var(--plate-cut-sm);
-  padding: 9px 12px; font-size: 12px; font-weight: 600; color: var(--text);
-  box-shadow: var(--shadow); opacity: 0; transition: opacity .1s; max-width: 220px;
-}
-.ot-tooltip.show { opacity: 1; }
-.ot-tooltip .tt-title { font-family: var(--font-display); font-weight: 800; font-style: italic; font-size: 13px; margin-bottom: 3px; }
-.ot-tooltip .tt-row { color: var(--muted); display: flex; justify-content: space-between; gap: 10px; }
-.ot-tooltip .tt-row b { color: var(--text); font-variant-numeric: tabular-nums; }
-.ot-tooltip .tt-flag { color: var(--danger); font-weight: 700; margin-top: 4px; }
 .stats-table td.delta.pos { color: var(--good); }
 .stats-table td.delta.neg { color: var(--danger); }
 .stats-table .est-tag {
@@ -348,6 +337,49 @@ svg.ot-svg { display: block; min-width: 720px; width: 100%; height: 300px; overf
   border: 1px solid var(--line-strong); padding: 0 4px; font-weight: 700;
 }
 .stats-table tr.ot-low td.num.ot-count { color: var(--danger); font-weight: 800; }
+
+/* ---------- floating tooltip (shared: overtakes + championship charts) ---------- */
+.float-tooltip {
+  position: fixed; pointer-events: none; z-index: 30;
+  background: var(--plate-2); border: 1px solid var(--line-strong); clip-path: var(--plate-cut-sm);
+  padding: 9px 12px; font-size: 12px; font-weight: 600; color: var(--text);
+  box-shadow: var(--shadow); opacity: 0; transition: opacity .1s; max-width: 230px;
+}
+.float-tooltip.show { opacity: 1; }
+.float-tooltip .tt-title { font-family: var(--font-display); font-weight: 800; font-style: italic; font-size: 13px; margin-bottom: 3px; }
+.float-tooltip .tt-row { color: var(--muted); display: flex; justify-content: space-between; gap: 10px; }
+.float-tooltip .tt-row b { color: var(--text); font-variant-numeric: tabular-nums; }
+.float-tooltip .tt-flag { color: var(--danger); font-weight: 700; margin-top: 4px; }
+
+/* ---------- championship race (season points-by-round line chart) ---------- */
+.champ-card { margin-bottom: 22px; }
+.champ-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
+.champ-toggle { display: inline-flex; gap: 3px; }
+.champ-toggle button {
+  border: 0; background: var(--well); color: var(--muted);
+  font: inherit; font-family: var(--font-display); font-weight: 700; font-size: 12px;
+  padding: 6px 12px; clip-path: var(--slant-sm); cursor: pointer;
+}
+.champ-toggle button.active { background: var(--accent); color: var(--accent-ink); font-style: italic; }
+.champ-toggle button:not(.active):hover { color: var(--text); background: var(--plate-2); }
+.champ-hint { color: var(--muted-2); font-size: 12px; font-weight: 600; margin: 6px 0 12px; }
+.champ-hint button.champ-reset {
+  border: 0; background: none; color: var(--accent); font: inherit; font-weight: 700;
+  cursor: pointer; padding: 0; text-decoration: underline; text-underline-offset: 2px;
+}
+.champ-scroll { overflow-x: auto; }
+svg.champ-svg { display: block; min-width: 640px; width: 100%; height: 380px; overflow: visible; }
+.champ-grid { stroke: var(--line); stroke-width: 1; }
+.champ-axis { fill: var(--muted-2); font-size: 11px; font-weight: 700; font-family: var(--font-display); }
+.champ-faint { fill: none; stroke-width: 1.4; opacity: .18; }
+.champ-line { fill: none; stroke-width: 2.4; opacity: .95; stroke-linejoin: round; stroke-linecap: round; }
+.champ-hit { fill: none; stroke: transparent; stroke-width: 12; cursor: pointer; }
+.champ-dot { stroke: var(--bg); stroke-width: .8; cursor: pointer; }
+.champ-dot:hover { r: 5; }
+.champ-label {
+  font-size: 11px; font-weight: 800; paint-order: stroke; stroke: var(--bg); stroke-width: 2.6px;
+  stroke-linejoin: round; font-family: var(--font-body);
+}
 
 /* ---------- race progression (lap scrubber) ---------- */
 .progression { margin-bottom: 18px; }
