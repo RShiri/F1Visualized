@@ -1,0 +1,184 @@
+/* Portfolio theme: aligns F1 Visualized with rshiri.github.io.
+   Loaded after styles.css. brand.js sets html[data-site-style="c"|"a"]:
+     C "HUD"      navy ground, cyan hairlines, square corners + corner brackets,
+                  Chakra Petch uppercase display over IBM Plex Sans.
+     A "Matchday" the dashboard's own carbon / chamfer / condensed-italic language,
+                  with the F1 "fastest lap" purple kept as its signal colour.
+   Team colours, DNF red, gained-places green and postponed amber are data colours
+   and are not touched here. */
+
+/* ---------- shared: tokens from the brand kit ---------- */
+html[data-site-style] {
+  --bg: var(--rs-bg);
+  --plate: var(--rs-panel);
+  --plate-2: var(--rs-panel-2);
+  --text: var(--rs-ink);
+  --font-display: var(--rs-display);
+  --font-body: var(--rs-text);
+  --radius: var(--rs-radius);
+}
+html[data-site-style] body { background-color: var(--bg); }
+
+/* ======================================================================
+   C: HUD
+   ====================================================================== */
+html[data-site-style="c"] {
+  --well: #030810;
+  --line: var(--rs-line);
+  --line-strong: var(--rs-line-strong);
+  --muted: var(--rs-body);
+  --muted-2: var(--rs-muted);
+  --accent: var(--rs-accent);
+  --accent-ink: var(--rs-accent-ink);
+  --accent-soft: var(--rs-accent-soft);
+  --shadow: none;
+  --plate-cut: none;
+  --plate-cut-sm: none;
+  --slant: none;
+  --slant-sm: none;
+  --hatch: repeating-linear-gradient(90deg, rgba(127, 159, 176, .38) 0 3px, rgba(127, 159, 176, .14) 3px 5px);
+  --hatch-accent: repeating-linear-gradient(90deg, var(--rs-accent) 0 3px, rgba(77, 240, 255, .55) 3px 5px);
+  scrollbar-color: var(--rs-line-strong) var(--rs-bg);
+  accent-color: var(--rs-accent);
+}
+html[data-site-style="c"] body {
+  color: var(--rs-body);
+  font-weight: 400;
+  background: radial-gradient(80% 50% at 75% 0%, rgba(77, 240, 255, .07), transparent 70%) no-repeat, var(--rs-bg);
+}
+html[data-site-style="c"] ::selection { background: var(--rs-accent); color: var(--rs-accent-ink); }
+
+/* type: Chakra Petch, upright, uppercase */
+html[data-site-style="c"] h1,
+html[data-site-style="c"] h2,
+html[data-site-style="c"] h3 { color: var(--rs-ink); font-weight: 700; font-style: normal; text-transform: uppercase; letter-spacing: .02em; }
+html[data-site-style="c"] .section-head h2 { font-style: normal; font-size: 20px; letter-spacing: .06em; }
+html[data-site-style="c"] .section-head h2::before { content: "// "; color: var(--rs-accent); }
+html[data-site-style="c"] .card-title { letter-spacing: .16em; font-weight: 600; color: var(--rs-muted); }
+html[data-site-style="c"] .brand-text,
+html[data-site-style="c"] .leader-card .lc-name,
+html[data-site-style="c"] .leader-card .lc-pts b,
+html[data-site-style="c"] .next-card .nc-name,
+html[data-site-style="c"] .next-card .nc-countdown b,
+html[data-site-style="c"] .podium-cards .pod .pn,
+html[data-site-style="c"] .race-card .rc-name { font-style: normal; font-weight: 700; text-transform: uppercase; letter-spacing: .02em; }
+html[data-site-style="c"] .brand-text { letter-spacing: .22em; font-size: 15px; color: var(--rs-ink); }
+html[data-site-style="c"] .leader-card .lc-name { font-size: 24px; }
+html[data-site-style="c"] .next-card .nc-name { font-size: 19px; }
+html[data-site-style="c"] .race-card .rc-name { font-size: 15px; }
+html[data-site-style="c"] .podium-cards .pod .pn { font-size: 15px; }
+
+/* top bar + tabs: navy glass, cyan hairline, outline-style active state */
+html[data-site-style="c"] .topbar,
+html[data-site-style="c"] .tabs { background: rgba(5, 11, 20, .86); border-bottom-color: var(--rs-line); }
+html[data-site-style="c"] .brand-mark { clip-path: none; font-style: normal; font-weight: 700; padding: 3px 7px; }
+html[data-site-style="c"] .updated { color: var(--rs-muted); font-weight: 500; }
+html[data-site-style="c"] .season-toggle { gap: 0; border: 1px solid var(--rs-line); }
+html[data-site-style="c"] .season-toggle button {
+  background: transparent; color: var(--rs-muted); font-family: var(--rs-display); font-weight: 600; letter-spacing: .08em;
+}
+html[data-site-style="c"] .season-toggle button + button { border-left: 1px solid var(--rs-line); }
+html[data-site-style="c"] .season-toggle button.active { background: var(--rs-accent); color: var(--rs-accent-ink); font-style: normal; }
+html[data-site-style="c"] .season-toggle button:not(.active):hover { background: var(--rs-accent-soft); color: var(--rs-ink); }
+html[data-site-style="c"] .tabs button {
+  font-weight: 600; font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: var(--rs-muted);
+  border-bottom: 2px solid transparent;
+}
+html[data-site-style="c"] .tabs button.active { background: transparent; color: var(--rs-accent); font-style: normal; border-bottom-color: var(--rs-accent); }
+html[data-site-style="c"] .tabs button:not(.active):hover { background: var(--rs-accent-soft); color: var(--rs-ink); }
+
+/* panels: square, hairline, cyan corner brackets */
+html[data-site-style="c"] .card,
+html[data-site-style="c"] .race-card,
+html[data-site-style="c"] .podium-cards .pod { background: var(--rs-panel); border-color: var(--rs-line); }
+html[data-site-style="c"] .card,
+html[data-site-style="c"] .race-card { position: relative; }
+html[data-site-style="c"] .card::before,
+html[data-site-style="c"] .card::after,
+html[data-site-style="c"] .race-card::before,
+html[data-site-style="c"] .race-card::after {
+  content: ""; position: absolute; z-index: 2; width: 14px; height: 14px; border: 2px solid var(--rs-accent); pointer-events: none;
+}
+html[data-site-style="c"] .card::before,
+html[data-site-style="c"] .race-card::before { left: -1px; top: -1px; border-right: 0; border-bottom: 0; }
+html[data-site-style="c"] .card::after,
+html[data-site-style="c"] .race-card::after { right: -1px; bottom: -1px; border-left: 0; border-top: 0; }
+html[data-site-style="c"] .race-card:hover { border-color: var(--rs-line-strong); background: var(--rs-panel-2); }
+html[data-site-style="c"] .race-card.next { box-shadow: 0 0 0 1px var(--rs-accent) inset, 0 0 24px rgba(77, 240, 255, .12); }
+html[data-site-style="c"] .lc-label { font-style: normal; font-weight: 700; letter-spacing: .16em; padding: 7px 14px; margin-left: -20px; }
+
+/* badges: outlined chips */
+html[data-site-style="c"] .badge { font-weight: 600; letter-spacing: .12em; border: 1px solid currentColor; padding: 3px 9px; }
+html[data-site-style="c"] .badge.up { background: transparent; color: var(--rs-muted); border-color: var(--rs-line-strong); }
+html[data-site-style="c"] .badge.next { font-style: normal; border-color: var(--rs-accent); }
+
+/* tables + standings */
+html[data-site-style="c"] .standings-table .st-row:nth-child(odd) { background: rgba(77, 240, 255, .025); }
+html[data-site-style="c"] .standings-table .st-row.leader { background: var(--rs-accent-soft); box-shadow: inset 2px 0 0 var(--rs-accent); }
+html[data-site-style="c"] table.results th,
+html[data-site-style="c"] .stats-table th { font-weight: 600; letter-spacing: .14em; color: var(--rs-muted); }
+html[data-site-style="c"] table.results td,
+html[data-site-style="c"] .stats-table td { color: var(--rs-ink); font-weight: 500; }
+html[data-site-style="c"] .stats-table .stx-team { color: var(--rs-body); }
+html[data-site-style="c"] .stats-table .stx-rank { color: var(--rs-muted); }
+html[data-site-style="c"] .stats-table td.pos { color: var(--good); }
+html[data-site-style="c"] .stats-table td.neg { color: var(--danger); }
+html[data-site-style="c"] .stats-table td.on { color: var(--rs-ink); }
+html[data-site-style="c"] .stats-scroll { border-color: var(--rs-line); }
+html[data-site-style="c"] .empty-note { border-color: var(--rs-line-strong); }
+
+/* controls: hairline inputs, chamfered solid / outline buttons as on the portfolio */
+html[data-site-style="c"] .race-select,
+html[data-site-style="c"] .prog-num { background: var(--rs-bg-soft); border-color: var(--rs-line-strong); color: var(--rs-ink); }
+html[data-site-style="c"] .btn-export {
+  background: transparent; color: var(--rs-accent); border-color: var(--rs-accent);
+  font-weight: 600; font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+}
+html[data-site-style="c"] .btn-export:hover { background: var(--rs-accent-soft); color: var(--rs-accent); font-style: normal; }
+html[data-site-style="c"] .prog-play {
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+  font-style: normal; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; font-size: 12px;
+}
+html[data-site-style="c"] .prog-play:hover { background: #8ff6ff; }
+html[data-site-style="c"] .prog-svg { background: var(--rs-panel); }
+html[data-site-style="c"] .prog-axis { font-family: var(--rs-display); font-weight: 600; }
+html[data-site-style="c"] .podium-cards .pod .fl-tag { font-weight: 700; letter-spacing: .1em; }
+html[data-site-style="c"] .site-footer { border-top-color: var(--rs-line); color: var(--rs-muted); font-weight: 500; }
+
+/* ======================================================================
+   A: Matchday (the dashboard's native language; purple signal kept)
+   ====================================================================== */
+html[data-site-style="a"] {
+  --line: var(--rs-line);
+  --line-strong: var(--rs-line-strong);
+  --muted: var(--rs-body);
+  --muted-2: var(--rs-muted);
+}
+html[data-site-style="a"] .section-head h2 { font-size: 24px; letter-spacing: .01em; }
+html[data-site-style="a"] .card-title { letter-spacing: .1em; }
+html[data-site-style="a"] .topbar,
+html[data-site-style="a"] .tabs { background: rgba(12, 13, 16, .9); }
+html[data-site-style="a"] .tabs button { text-transform: uppercase; letter-spacing: .03em; }
+html[data-site-style="a"] .badge.up { color: var(--rs-body); }
+html[data-site-style="a"] .race-select { background: var(--rs-panel-2); border-color: var(--rs-line-strong); }
+
+/* ---------- phone: the topbar wraps, so the sticky tabs must not sit under it ---------- */
+@media (max-width: 720px) {
+  html[data-site-style] .topbar { position: relative; }
+  html[data-site-style] .tabs { top: 0; }
+}
+/* phone: the six-column results table scrolls inside its own box instead of widening the page */
+@media (max-width: 720px) {
+  html[data-site-style] table.results { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  html[data-site-style] table.results th, html[data-site-style] table.results td { white-space: nowrap; padding: 9px 8px; font-size: 13px; }
+}
+
+/* ---------- Hebrew (?lang=he): swapped strings get dir="auto" from brand.js ---------- */
+html[data-site-lang="he"] [dir="auto"][dir] {
+  font-family: "IBM Plex Sans Hebrew", var(--rs-text), sans-serif;
+  font-style: normal; letter-spacing: 0; text-transform: none;
+}
+/* inside the LTR cards, short Hebrew labels keep the card's left alignment */
+html[data-site-lang="he"] :is(.card, .race-card) [dir="auto"] { text-align: left; }
+/* the lap scrubber's slider may shrink so a longer lap label never widens the page */
+.prog-slider { min-width: 0; }
